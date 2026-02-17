@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BillMaster Pro - Customers Management" />
+    <title>Customers | BillMaster Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <div class="mobile-overlay"></div>
+
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">
+            <i
+              data-lucide="layout-dashboard"
+              style="color: white; width: 20px; height: 20px"
+            ></i>
+          </div>
+          <div class="sidebar-brand">
+            <h1>BillMaster</h1>
+            <span>Pro Edition</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Menu</div>
+            <a href="dashboard.html" class="nav-item">
+              <span class="nav-item-icon"
+                ><i data-lucide="bar-chart-3"></i
+              ></span>
+              <span class="nav-item-text">Overview</span>
+            </a>
+            <a href="billing.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="receipt"></i></span>
+              <span class="nav-item-text">Create Invoice</span>
+            </a>
+            <a href="invoices.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="file-text"></i></span>
+              <span class="nav-item-text">Invoices</span>
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Manage</div>
+            <a href="products.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="package"></i></span>
+              <span class="nav-item-text">Inventory</span>
+            </a>
+            <a href="customers.html" class="nav-item active">
+              <span class="nav-item-icon"><i data-lucide="users"></i></span>
+              <span class="nav-item-text">Customers</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="tag"></i></span>
+              <span class="nav-item-text">Categories</span>
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <a href="settings.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="settings"></i></span>
+              <span class="nav-item-text">Configuration</span>
+            </a>
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="user-avatar">AD</div>
+            <div class="user-info">
+              <div class="user-name">Admin</div>
+              <div class="user-role">admin</div>
+            </div>
+          </div>
+          <button class="logout-btn" onclick="BillMaster.auth.logout()">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-left">
+            <button class="sidebar-toggle"><i data-lucide="menu"></i></button>
+            <h2 class="page-title">Customer Relations</h2>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-primary" onclick="openModal()">
+              <i data-lucide="user-plus"></i><span>Add New Client</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <div
+            class="glass-card"
+            style="padding: var(--space-lg); margin-bottom: var(--space-lg)"
+          >
+            <input
+              type="text"
+              id="searchInput"
+              class="form-input"
+              placeholder="Search customers..."
+              style="max-width: 300px"
+            />
+          </div>
+
+          <div class="glass-card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Customer ID</th>
+                    <th>Customer</th>
+                    <th>Contact</th>
+                    <th>Status</th>
+                    <th>Total Orders</th>
+                    <th>Total Spent</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="customersTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Customer Modal -->
+    <div class="modal-overlay" id="customerModal">
+      <div class="modal" style="max-width: 500px">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Customer Profile</h3>
+          <button
+            class="modal-close"
+            onclick="BillMaster.modal.close('customerModal')"
+          >
+            <i data-lucide="x" style="width: 20px"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="customerId" />
+          <div class="form-group">
+            <label class="form-label">Customer Name *</label>
+            <input
+              type="text"
+              id="customerName"
+              class="form-input"
+              placeholder="Enter name"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select id="customerStatus" class="form-select">
+              <option value="new">New Customer</option>
+              <option value="regular">Regular Customer (10% Off)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input
+              type="tel"
+              id="customerPhone"
+              class="form-input"
+              placeholder="Enter phone number"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              id="customerEmail"
+              class="form-input"
+              placeholder="Enter email"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <textarea
+              id="customerAddress"
+              class="form-textarea"
+              placeholder="Enter address"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="BillMaster.modal.close('customerModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="saveCustomer()">
+            Save Customer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      let customers = [];
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        lucide.createIcons();
+        await BillMaster.auth.requireAuth();
+        await initUserInfo();
+        await loadCustomers();
+        document
+          .getElementById("searchInput")
+          .addEventListener(
+            "input",
+            BillMaster.utils.debounce(renderCustomers, 200),
+          );
+      });
+
+      async function loadCustomers() {
+        const result = await BillMaster.api.get("customers.php?action=list");
+        if (result.success) {
+          customers = result.data;
+          renderCustomers();
+        }
+      }
+
+      function renderCustomers() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const filtered = customers.filter(
+          (c) =>
+            c.name.toLowerCase().includes(search) ||
+            (c.phone && c.phone.includes(search)) ||
+            (c.email && c.email.toLowerCase().includes(search)) ||
+            (c.customer_number &&
+              c.customer_number.toLowerCase().includes(search)),
+        );
+
+        const tbody = document.getElementById("customersTable");
+        if (!filtered.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="7" class="empty-state">No customers found</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = filtered
+          .map(
+            (c) => `
+                <tr>
+                    <td style="font-family: monospace; font-weight: 600; color: var(--primary);">${c.customer_number || "CUST-" + c.id.toString().padStart(5, "0")}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: var(--space-md);">
+                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: 600;">
+                                ${BillMaster.utils.getInitials(c.name)}
+                            </div>
+                            <div style="font-weight: 500;">${BillMaster.utils.escapeHtml(c.name)}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-size: 0.8125rem;"><i data-lucide="phone" style="width: 12px; height: 12px; margin-right: 4px;"></i>${c.phone || "—"}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);"><i data-lucide="mail" style="width: 12px; height: 12px; margin-right: 4px;"></i>${c.email || ""}</div>
+                    </td>
+                    <td>
+                        <span class="badge ${c.status === "regular" ? "badge-success" : "badge-info"}">
+                            ${c.status === "regular" ? "Regular" : "New"}
+                        </span>
+                    </td>
+                    <td><span class="badge badge-info">${c.total_orders || 0}</span></td>
+                    <td style="font-weight: 600; color: var(--success);">${BillMaster.utils.formatCurrency(c.total_spent || 0)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-ghost" onclick="editCustomer(${c.id})" title="Edit Profile">
+                            <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="btn btn-sm btn-ghost" onclick="deleteCustomer(${c.id})" title="Delete Client">
+                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </td>
+                </tr>
+            `,
+          )
+          .join("");
+        lucide.createIcons();
+      }
+
+      function openModal(customer = null) {
+        document.getElementById("modalTitle").textContent = customer
+          ? "Edit Customer"
+          : "Add Customer";
+        document.getElementById("customerId").value = customer?.id || "";
+        document.getElementById("customerName").value = customer?.name || "";
+        document.getElementById("customerStatus").value =
+          customer?.status || "new";
+        document.getElementById("customerPhone").value = customer?.phone || "";
+        document.getElementById("customerEmail").value = customer?.email || "";
+        document.getElementById("customerAddress").value =
+          customer?.address || "";
+        BillMaster.modal.open("customerModal");
+      }
+
+      function editCustomer(id) {
+        const customer = customers.find((c) => c.id == id);
+        if (customer) openModal(customer);
+      }
+
+      async function saveCustomer() {
+        const id = document.getElementById("customerId").value;
+        const data = {
+          name: document.getElementById("customerName").value.trim(),
+          status: document.getElementById("customerStatus").value,
+          phone: document.getElementById("customerPhone").value.trim(),
+          email: document.getElementById("customerEmail").value.trim(),
+          address: document.getElementById("customerAddress").value.trim(),
+        };
+
+        if (!data.name) {
+          BillMaster.toast.error("Customer name is required");
+          return;
+        }
+
+        const action = id ? "update" : "create";
+        if (id) data.id = id;
+
+        const result = await BillMaster.api.post(
+          `customers.php?action=${action}`,
+          data,
+        );
+        if (result.success) {
+          BillMaster.toast.success(
+            id ? "Customer updated!" : "Customer created!",
+          );
+          BillMaster.modal.close("customerModal");
+          loadCustomers();
+        } else {
+          BillMaster.toast.error(result.message || "Failed to save customer");
+        }
+      }
+
+      async function deleteCustomer(id) {
+        if (!confirm("Are you sure you want to delete this customer?")) return;
+
+        const result = await BillMaster.api.get(
+          `customers.php?action=delete&id=${id}`,
+        );
+        if (result.success) {
+          BillMaster.toast.success("Customer deleted!");
+          loadCustomers();
+        } else {
+          BillMaster.toast.error(result.message || "Failed to delete customer");
+        }
+      }
+    </script>
+  </body>
+</html>

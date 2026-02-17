@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BillMaster Pro - Invoices" />
+    <title>Invoices | BillMaster Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        #printArea,
+        #printArea * {
+          visibility: visible;
+        }
+        #printArea {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          background: white;
+          color: black;
+          padding: 20px;
+        }
+        .no-print {
+          display: none !important;
+        }
+      }
+      .receipt {
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      .receipt-header {
+        text-align: center;
+        border-bottom: 1px dashed #333;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+      }
+      .receipt-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0;
+      }
+      .receipt-items {
+        border-bottom: 1px dashed #333;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+      }
+      .receipt-total {
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .receipt-footer {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout no-print">
+      <div class="mobile-overlay"></div>
+
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">
+            <i
+              data-lucide="layout-dashboard"
+              style="color: white; width: 20px; height: 20px"
+            ></i>
+          </div>
+          <div class="sidebar-brand">
+            <h1>BillMaster</h1>
+            <span>Pro Edition</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Menu</div>
+            <a href="dashboard.html" class="nav-item">
+              <span class="nav-item-icon"
+                ><i data-lucide="bar-chart-3"></i
+              ></span>
+              <span class="nav-item-text">Overview</span>
+            </a>
+            <a href="billing.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="receipt"></i></span>
+              <span class="nav-item-text">Create Invoice</span>
+            </a>
+            <a href="invoices.html" class="nav-item active">
+              <span class="nav-item-icon"><i data-lucide="file-text"></i></span>
+              <span class="nav-item-text">Invoices</span>
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Manage</div>
+            <a href="products.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="package"></i></span>
+              <span class="nav-item-text">Inventory</span>
+            </a>
+            <a href="customers.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="users"></i></span>
+              <span class="nav-item-text">Customers</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="tag"></i></span>
+              <span class="nav-item-text">Categories</span>
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <a href="settings.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="settings"></i></span>
+              <span class="nav-item-text">Configuration</span>
+            </a>
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="user-avatar">AD</div>
+            <div class="user-info">
+              <div class="user-name">Admin</div>
+              <div class="user-role">admin</div>
+            </div>
+          </div>
+          <button class="logout-btn" onclick="BillMaster.auth.logout()">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-left">
+            <button class="sidebar-toggle"><i data-lucide="menu"></i></button>
+            <h2 class="page-title">Invoice Management</h2>
+          </div>
+          <div class="header-right">
+            <a href="billing.html" class="btn btn-primary">
+              <i data-lucide="plus"></i><span>Create Invoice</span>
+            </a>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <div
+            class="glass-card"
+            style="padding: var(--space-lg); margin-bottom: var(--space-lg)"
+          >
+            <div style="display: flex; gap: var(--space-md); flex-wrap: wrap">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-input"
+                placeholder="Search invoices..."
+                style="max-width: 250px"
+              />
+              <select
+                id="statusFilter"
+                class="form-select"
+                style="max-width: 150px"
+              >
+                <option value="">All Status</option>
+                <option value="paid">Paid</option>
+                <option value="pending">Pending</option>
+              </select>
+              <input
+                type="date"
+                id="dateFrom"
+                class="form-input"
+                style="max-width: 160px"
+              />
+              <input
+                type="date"
+                id="dateTo"
+                class="form-input"
+                style="max-width: 160px"
+              />
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Invoice #</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="invoicesTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Invoice View Modal -->
+    <div class="modal-overlay no-print" id="viewModal">
+      <div class="modal" style="max-width: 600px">
+        <div class="modal-header">
+          <h3 class="modal-title">Invoice Details</h3>
+          <button
+            class="modal-close"
+            onclick="BillMaster.modal.close('viewModal')"
+          >
+            <i data-lucide="x" style="width: 20px"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="invoiceDetails"></div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="BillMaster.modal.close('viewModal')"
+          >
+            Close
+          </button>
+          <button class="btn btn-primary" onclick="printInvoice()">
+            🖨️ Print
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Area -->
+    <div id="printArea" style="display: none"></div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      let invoices = [],
+        currentInvoice = null;
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        lucide.createIcons();
+        await BillMaster.auth.requireAuth();
+        await initUserInfo();
+        await loadInvoices();
+        initFilters();
+
+        // Check for print parameter
+        const params = new URLSearchParams(window.location.search);
+        const printId = params.get("print");
+        if (printId) {
+          setTimeout(() => viewInvoice(printId), 500);
+        }
+      });
+
+      async function loadInvoices() {
+        const result = await BillMaster.api.get("invoices.php?action=list");
+        if (result.success) {
+          invoices = result.data;
+          renderInvoices();
+        }
+      }
+
+      function initFilters() {
+        document
+          .getElementById("searchInput")
+          .addEventListener(
+            "input",
+            BillMaster.utils.debounce(renderInvoices, 200),
+          );
+        document
+          .getElementById("statusFilter")
+          .addEventListener("change", renderInvoices);
+        document
+          .getElementById("dateFrom")
+          .addEventListener("change", renderInvoices);
+        document
+          .getElementById("dateTo")
+          .addEventListener("change", renderInvoices);
+      }
+
+      function renderInvoices() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const status = document.getElementById("statusFilter").value;
+        const dateFrom = document.getElementById("dateFrom").value;
+        const dateTo = document.getElementById("dateTo").value;
+
+        const filtered = invoices.filter((inv) => {
+          if (
+            search &&
+            !inv.invoice_number.toLowerCase().includes(search) &&
+            !(inv.customer_name || "").toLowerCase().includes(search)
+          )
+            return false;
+          if (status && inv.payment_status !== status) return false;
+          if (dateFrom && inv.created_at < dateFrom) return false;
+          if (dateTo && inv.created_at > dateTo + "T23:59:59") return false;
+          return true;
+        });
+
+        const tbody = document.getElementById("invoicesTable");
+        if (!filtered.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="7" class="empty-state">No invoices found</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = filtered
+          .map(
+            (inv) => `
+                <tr>
+                    <td><code style="background: var(--bg-tertiary); padding: 0.125rem 0.5rem; border-radius: var(--radius-sm);">${inv.invoice_number}</code></td>
+                    <td>${inv.customer_name ? BillMaster.utils.escapeHtml(inv.customer_name) : '<span style="color: var(--text-muted);">Guest / Walk-in</span>'}</td>
+                    <td>${BillMaster.utils.formatDateTime(inv.created_at)}</td>
+                    <td style="font-weight: 600; color: var(--success);">${BillMaster.utils.formatCurrency(inv.total_amount)}</td>
+                    <td><span class="badge badge-info">${(inv.payment_method || "cash").toUpperCase()}</span></td>
+                    <td><span class="badge ${inv.payment_status === "paid" ? "badge-success" : "badge-warning"}">${inv.payment_status === "paid" ? "Paid" : "Pending"}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-ghost" onclick="viewInvoice(${inv.id})" title="View Details">
+                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button class="btn btn-sm btn-ghost" onclick="viewInvoice(${inv.id}, true)" title="Print Invoice">
+                            <i data-lucide="printer" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </td>
+                </tr>
+            `,
+          )
+          .join("");
+        lucide.createIcons();
+      }
+
+      async function viewInvoice(id, autoPrint = false) {
+        const result = await BillMaster.api.get(
+          `invoices.php?action=get&id=${id}`,
+        );
+        if (!result.success) {
+          BillMaster.toast.error("Failed to load invoice");
+          return;
+        }
+
+        currentInvoice = result.data;
+        const inv = currentInvoice;
+
+        document.getElementById("invoiceDetails").innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-lg);">
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Invoice</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">${inv.invoice_number}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Date</div>
+                        <div>${BillMaster.utils.formatDateTime(inv.created_at)}</div>
+                    </div>
+                </div>
+                <div style="background: var(--bg-tertiary); border-radius: var(--radius-md); padding: var(--space-md); margin-bottom: var(--space-lg);">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: var(--space-xs);">Customer</div>
+                    <div style="font-weight: 500;">${inv.customer_name || "Walk-in Customer"}</div>
+                </div>
+                <div style="margin-bottom: var(--space-lg);">
+                    <table style="width: 100%; font-size: 0.875rem;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <th style="text-align: left; padding: var(--space-sm) 0; color: var(--text-muted);">Item</th>
+                                <th style="text-align: center; padding: var(--space-sm); color: var(--text-muted);">Qty</th>
+                                <th style="text-align: right; padding: var(--space-sm) 0; color: var(--text-muted);">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(inv.items || [])
+                              .map(
+                                (item) => `
+                                <tr style="border-bottom: 1px solid var(--border-color);">
+                                    <td style="padding: var(--space-sm) 0;">${BillMaster.utils.escapeHtml(item.product_name)}<br><span style="font-size: 0.75rem; color: var(--text-muted);">@ ${BillMaster.utils.formatCurrency(item.unit_price)}</span></td>
+                                    <td style="text-align: center; padding: var(--space-sm);">${item.quantity}</td>
+                                    <td style="text-align: right; padding: var(--space-sm) 0; font-weight: 500;">${BillMaster.utils.formatCurrency(item.total_price)}</td>
+                                </tr>
+                            `,
+                              )
+                              .join("")}
+                        </tbody>
+                    </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; padding-top: var(--space-md); border-top: 2px solid var(--primary);">
+                    <span>Total</span>
+                    <span style="color: var(--success);">${BillMaster.utils.formatCurrency(inv.total_amount)}</span>
+                </div>
+                <div style="display: flex; gap: var(--space-md); margin-top: var(--space-md);">
+                    <span class="badge badge-info">${(inv.payment_method || "cash").toUpperCase()}</span>
+                    <span class="badge ${inv.payment_status === "paid" ? "badge-success" : "badge-warning"}">${inv.payment_status === "paid" ? "PAID" : "PENDING"}</span>
+                </div>
+            `;
+
+        BillMaster.modal.open("viewModal");
+
+        if (autoPrint) setTimeout(printInvoice, 300);
+      }
+
+      function printInvoice() {
+        if (!currentInvoice) return;
+        const inv = currentInvoice;
+
+        const printArea = document.getElementById("printArea");
+        printArea.style.display = "block";
+        printArea.innerHTML = `
+                <div class="receipt">
+                    <div class="receipt-header">
+                        <div style="font-size: 16px; font-weight: bold;">BILLMASTER PRO</div>
+                        <div>Invoice: ${inv.invoice_number}</div>
+                        <div>${new Date(inv.created_at).toLocaleString()}</div>
+                    </div>
+                    <div style="margin-bottom: 10px;">Customer: ${inv.customer_name || "Walk-in"}</div>
+                    <div class="receipt-items">
+                        ${(inv.items || [])
+                          .map(
+                            (item) => `
+                            <div class="receipt-row">
+                                <span>${item.product_name}</span>
+                            </div>
+                            <div class="receipt-row">
+                                <span>${item.quantity} x ₹${parseFloat(item.unit_price).toFixed(2)}</span>
+                                <span>₹${parseFloat(item.total_price).toFixed(2)}</span>
+                            </div>
+                        `,
+                          )
+                          .join("")}
+                    </div>
+                    <div class="receipt-row receipt-total">
+                        <span>TOTAL</span>
+                        <span>₹${parseFloat(inv.total_amount).toFixed(2)}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Payment</span>
+                        <span>${(inv.payment_method || "cash").toUpperCase()}</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Status</span>
+                        <span>${inv.payment_status === "paid" ? "PAID" : "PENDING"}</span>
+                    </div>
+                    <div class="receipt-footer">
+                        <div>Thank you for your business!</div>
+                        <div>BillMaster Pro</div>
+                    </div>
+                </div>
+            `;
+
+        window.print();
+        setTimeout(() => {
+          printArea.style.display = "none";
+        }, 500);
+      }
+    </script>
+  </body>
+</html>

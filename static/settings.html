@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BillMaster Pro - Settings" />
+    <title>Settings | BillMaster Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <div class="mobile-overlay"></div>
+
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">
+            <i
+              data-lucide="layout-dashboard"
+              style="color: white; width: 20px; height: 20px"
+            ></i>
+          </div>
+          <div class="sidebar-brand">
+            <h1>BillMaster</h1>
+            <span>Pro Edition</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Menu</div>
+            <a href="dashboard.html" class="nav-item">
+              <span class="nav-item-icon"
+                ><i data-lucide="bar-chart-3"></i
+              ></span>
+              <span class="nav-item-text">Overview</span>
+            </a>
+            <a href="billing.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="receipt"></i></span>
+              <span class="nav-item-text">Create Invoice</span>
+            </a>
+            <a href="invoices.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="file-text"></i></span>
+              <span class="nav-item-text">Invoices</span>
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Manage</div>
+            <a href="products.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="package"></i></span>
+              <span class="nav-item-text">Inventory</span>
+            </a>
+            <a href="customers.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="users"></i></span>
+              <span class="nav-item-text">Customers</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+              <span class="nav-item-icon"><i data-lucide="tag"></i></span>
+              <span class="nav-item-text">Categories</span>
+            </a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <a href="settings.html" class="nav-item active">
+              <span class="nav-item-icon"><i data-lucide="settings"></i></span>
+              <span class="nav-item-text">Configuration</span>
+            </a>
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-profile">
+            <div class="user-avatar">AD</div>
+            <div class="user-info">
+              <div class="user-name">Admin</div>
+              <div class="user-role">admin</div>
+            </div>
+          </div>
+          <button class="logout-btn" onclick="BillMaster.auth.logout()">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-left">
+            <button class="sidebar-toggle"><i data-lucide="menu"></i></button>
+            <h2 class="page-title">System Configuration</h2>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+              gap: var(--space-xl);
+            "
+          >
+            <!-- Business Info -->
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <h3
+                style="
+                  margin-bottom: var(--space-lg);
+                  display: flex;
+                  align-items: center;
+                  gap: var(--space-sm);
+                "
+              >
+                <i
+                  data-lucide="building-2"
+                  style="width: 20px; color: var(--primary)"
+                ></i>
+                <span>Business Information</span>
+              </h3>
+              <form id="businessForm">
+                <div class="form-group">
+                  <label class="form-label">Business Name</label>
+                  <input
+                    type="text"
+                    id="businessName"
+                    class="form-input"
+                    placeholder="Your business name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Address</label>
+                  <textarea
+                    id="businessAddress"
+                    class="form-textarea"
+                    placeholder="Business address"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phone</label>
+                  <input
+                    type="tel"
+                    id="businessPhone"
+                    class="form-input"
+                    placeholder="Contact phone"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input
+                    type="email"
+                    id="businessEmail"
+                    class="form-input"
+                    placeholder="Business email"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="save"></i><span>Update Business Profile</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Billing Settings -->
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <h3
+                style="
+                  margin-bottom: var(--space-lg);
+                  display: flex;
+                  align-items: center;
+                  gap: var(--space-sm);
+                "
+              >
+                <i
+                  data-lucide="receipt"
+                  style="width: 20px; color: var(--primary)"
+                ></i>
+                <span>Billing Settings</span>
+              </h3>
+              <form id="billingForm">
+                <div class="form-group">
+                  <label class="form-label">Currency Symbol</label>
+                  <select id="currencySymbol" class="form-select">
+                    <option value="₹">₹ - Indian Rupee</option>
+                    <option value="$">$ - US Dollar</option>
+                    <option value="€">€ - Euro</option>
+                    <option value="£">£ - British Pound</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tax Rate (%)</label>
+                  <input
+                    type="number"
+                    id="taxRate"
+                    class="form-input"
+                    placeholder="0"
+                    min="0"
+                    max="100"
+                    step="0.1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Invoice Prefix</label>
+                  <input
+                    type="text"
+                    id="invoicePrefix"
+                    class="form-input"
+                    placeholder="INV"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="save"></i><span>Save Preferences</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- System Maintenance -->
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <h3
+                style="
+                  margin-bottom: var(--space-lg);
+                  display: flex;
+                  align-items: center;
+                  gap: var(--space-sm);
+                "
+              >
+                <i
+                  data-lucide="shield-check"
+                  style="width: 20px; color: var(--primary)"
+                ></i>
+                <span>Database & Maintenance</span>
+              </h3>
+              <div
+                style="
+                  padding: var(--space-md);
+                  background: var(--bg-tertiary);
+                  border-radius: var(--radius-md);
+                  margin-bottom: var(--space-md);
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: var(--space-sm);
+                  "
+                >
+                  <span style="font-size: 0.875rem; color: var(--text-muted)"
+                    >Database Size:</span
+                  >
+                  <span id="dbSize" style="font-weight: 600">Loading...</span>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: var(--space-sm);
+                  "
+                >
+                  <span style="font-size: 0.875rem; color: var(--text-muted)"
+                    >Total Products:</span
+                  >
+                  <span id="statProducts" style="font-weight: 600">-</span>
+                </div>
+                <div style="display: flex; justify-content: space-between">
+                  <span style="font-size: 0.875rem; color: var(--text-muted)"
+                    >Total Invoices:</span
+                  >
+                  <span id="statInvoices" style="font-weight: 600">-</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: var(--space-md)">
+                <button
+                  class="btn btn-secondary"
+                  style="flex: 1"
+                  onclick="downloadBackup()"
+                >
+                  <i data-lucide="download"></i><span>Full Backup</span>
+                </button>
+                <button
+                  class="btn btn-ghost"
+                  style="flex: 1"
+                  onclick="loadLogsModal()"
+                >
+                  <i data-lucide="scroll"></i><span>Activity Logs</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Management -->
+          <div
+            class="glass-card"
+            style="padding: var(--space-lg); margin-top: var(--space-xl)"
+            id="userSection"
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: var(--space-lg);
+              "
+            >
+              <h3
+                style="display: flex; align-items: center; gap: var(--space-sm)"
+              >
+                <i
+                  data-lucide="shield-check"
+                  style="width: 20px; color: var(--primary)"
+                ></i>
+                <span>User Access Control</span>
+              </h3>
+              <button class="btn btn-primary btn-sm" onclick="openUserModal()">
+                <i data-lucide="user-plus"></i><span>Create Account</span>
+              </button>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal-overlay" id="userModal">
+      <div class="modal" style="max-width: 450px">
+        <div class="modal-header">
+          <h3 class="modal-title">Account Details</h3>
+          <button
+            class="modal-close"
+            onclick="BillMaster.modal.close('userModal')"
+          >
+            <i data-lucide="x" style="width: 20px"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input
+              type="text"
+              id="userFullName"
+              class="form-input"
+              placeholder="Enter full name"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username *</label>
+            <input
+              type="text"
+              id="userUsername"
+              class="form-input"
+              placeholder="Enter username"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <input
+              type="password"
+              id="userPassword"
+              class="form-input"
+              placeholder="Min 6 characters"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <select id="userRole" class="form-select">
+              <option value="staff">Staff</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="BillMaster.modal.close('userModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="saveUser()">
+            Create User
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Logs Modal -->
+    <div class="modal-overlay" id="logsModal">
+      <div class="modal" style="max-width: 800px">
+        <div class="modal-header">
+          <h3 class="modal-title">System Activity Logs</h3>
+          <button
+            class="modal-close"
+            onclick="BillMaster.modal.close('logsModal')"
+          >
+            <i data-lucide="x" style="width: 20px"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div
+            class="table-container"
+            style="max-height: 400px; overflow-y: auto"
+          >
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="logsTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="BillMaster.modal.close('logsModal')"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        lucide.createIcons();
+        await BillMaster.auth.requireAuth();
+        await initUserInfo();
+        await loadSettings();
+        await loadUsers();
+        await loadSystemStats();
+      });
+
+      async function loadSystemStats() {
+        const result = await BillMaster.api.get("system.php?action=db_stats");
+        if (result.success) {
+          document.getElementById("dbSize").textContent =
+            result.data.db_size_mb + " MB";
+          document.getElementById("statProducts").textContent =
+            result.data.counts.products;
+          document.getElementById("statInvoices").textContent =
+            result.data.counts.invoices;
+        }
+      }
+
+      function downloadBackup() {
+        window.location.href = "api/system.php?action=backup";
+      }
+
+      function loadLogsModal() {
+        BillMaster.modal.open("logsModal");
+        fetchLogs();
+      }
+
+      async function fetchLogs() {
+        const result = await BillMaster.api.get(
+          "system.php?action=logs&limit=50",
+        );
+        const tbody = document.getElementById("logsTable");
+        if (result.success) {
+          tbody.innerHTML = result.data
+            .map(
+              (log) => `
+            <tr>
+              <td><span style="font-size: 0.75rem; font-family: monospace;">${BillMaster.utils.formatDate(log.created_at)}</span></td>
+              <td><span class="badge badge-info">${log.username || "System"}</span></td>
+              <td><span style="font-weight: 600; font-size: 0.75rem;">${log.action}</span></td>
+              <td style="font-size: 0.75rem;">${log.details}</td>
+            </tr>
+          `,
+            )
+            .join("");
+        }
+      }
+
+      async function loadSettings() {
+        const result = await BillMaster.api.get("settings.php?action=get");
+        if (result.success && result.data) {
+          document.getElementById("businessName").value =
+            result.data.business_name || "";
+          document.getElementById("businessAddress").value =
+            result.data.business_address || "";
+          document.getElementById("businessPhone").value =
+            result.data.business_phone || "";
+          document.getElementById("businessEmail").value =
+            result.data.business_email || "";
+          document.getElementById("currencySymbol").value =
+            result.data.currency_symbol || "₹";
+          document.getElementById("taxRate").value =
+            result.data.tax_rate || "0";
+          document.getElementById("invoicePrefix").value =
+            result.data.invoice_prefix || "INV";
+        }
+      }
+
+      document
+        .getElementById("businessForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const data = {
+            business_name: document.getElementById("businessName").value.trim(),
+            business_address: document
+              .getElementById("businessAddress")
+              .value.trim(),
+            business_phone: document
+              .getElementById("businessPhone")
+              .value.trim(),
+            business_email: document
+              .getElementById("businessEmail")
+              .value.trim(),
+          };
+
+          const result = await BillMaster.api.post(
+            "settings.php?action=update",
+            data,
+          );
+          if (result.success) BillMaster.toast.success("Business info saved!");
+          else BillMaster.toast.error(result.message || "Failed to save");
+        });
+
+      document
+        .getElementById("billingForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const data = {
+            currency_symbol: document.getElementById("currencySymbol").value,
+            tax_rate: document.getElementById("taxRate").value,
+            invoice_prefix: document
+              .getElementById("invoicePrefix")
+              .value.trim(),
+          };
+
+          const result = await BillMaster.api.post(
+            "settings.php?action=update",
+            data,
+          );
+          if (result.success)
+            BillMaster.toast.success("Billing settings saved!");
+          else BillMaster.toast.error(result.message || "Failed to save");
+        });
+
+      async function loadUsers() {
+        const result = await BillMaster.api.get("settings.php?action=users");
+        if (!result.success) {
+          document.getElementById("userSection").style.display = "none";
+          return;
+        }
+
+        const tbody = document.getElementById("usersTable");
+        tbody.innerHTML = result.data
+          .map(
+            (user) => `
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: var(--space-md);">
+                            <div style="width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.75rem;">
+                                ${BillMaster.utils.getInitials(user.full_name)}
+                            </div>
+                            <span style="font-weight: 500;">${BillMaster.utils.escapeHtml(user.full_name)}</span>
+                        </div>
+                    </td>
+                    <td><code style="background: var(--bg-tertiary); padding: 0.125rem 0.5rem; border-radius: var(--radius-sm);">${user.username}</code></td>
+                    <td><span class="badge ${user.role === "admin" ? "badge-primary" : "badge-info"}">${user.role.toUpperCase()}</span></td>
+                    <td style="font-size: 0.875rem; color: var(--text-muted);">${BillMaster.utils.formatDate(user.created_at)}</td>
+                    <td>${user.id > 1 ? `<button class="btn btn-sm btn-ghost" onclick="deleteUser(${user.id})" title="Remove Account"><i data-lucide="user-minus" style="width: 14px; height: 14px;"></i></button>` : "—"}</td>
+                </tr>
+            `,
+          )
+          .join("");
+        lucide.createIcons();
+      }
+
+      function openUserModal() {
+        document.getElementById("userFullName").value = "";
+        document.getElementById("userUsername").value = "";
+        document.getElementById("userPassword").value = "";
+        document.getElementById("userRole").value = "staff";
+        BillMaster.modal.open("userModal");
+      }
+
+      async function saveUser() {
+        const data = {
+          full_name: document.getElementById("userFullName").value.trim(),
+          username: document.getElementById("userUsername").value.trim(),
+          password: document.getElementById("userPassword").value,
+          role: document.getElementById("userRole").value,
+        };
+
+        if (!data.full_name || !data.username || !data.password) {
+          BillMaster.toast.error("Please fill all required fields");
+          return;
+        }
+        if (data.password.length < 6) {
+          BillMaster.toast.error("Password must be at least 6 characters");
+          return;
+        }
+
+        const result = await BillMaster.api.post(
+          "auth.php?action=register",
+          data,
+        );
+        if (result.success) {
+          BillMaster.toast.success("User created!");
+          BillMaster.modal.close("userModal");
+          loadUsers();
+        } else {
+          BillMaster.toast.error(result.message || "Failed to create user");
+        }
+      }
+
+      async function deleteUser(id) {
+        if (!confirm("Delete this user?")) return;
+
+        const result = await BillMaster.api.get(
+          `settings.php?action=delete_user&id=${id}`,
+        );
+        if (result.success) {
+          BillMaster.toast.success("User deleted!");
+          loadUsers();
+        } else {
+          BillMaster.toast.error(result.message || "Failed to delete");
+        }
+      }
+    </script>
+  </body>
+</html>
