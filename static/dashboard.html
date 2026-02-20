@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BillMaster Pro - Dashboard Analytics" />
+    <title>Dashboard | BillMaster Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .stat-card .growth {
+        font-size: 0.75rem;
+        margin-top: var(--space-xs);
+      }
+      .stat-card .growth.positive {
+        color: var(--success);
+      }
+      .stat-card .growth.negative {
+        color: var(--danger);
+      }
+      .chart-container {
+        height: 280px;
+        position: relative;
+      }
+      .recent-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+        padding: var(--space-sm) 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .recent-item:last-child {
+        border-bottom: none;
+      }
+      .period-tabs {
+        display: flex;
+        gap: var(--space-sm);
+        margin-bottom: var(--space-lg);
+      }
+      .period-tab {
+        padding: var(--space-sm) var(--space-md);
+        background: var(--bg-tertiary);
+        border: none;
+        border-radius: var(--radius-md);
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 0.8125rem;
+        transition: all var(--transition-fast);
+      }
+      .period-tab:hover {
+        color: var(--text-primary);
+      }
+      .period-tab.active {
+        background: var(--primary);
+        color: white;
+      }
+      .live-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        color: var(--success);
+      }
+      .live-indicator::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--success);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout">
+      <div class="mobile-overlay"></div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">💼</div>
+          <div class="sidebar-brand">
+            <h1>BillMaster</h1>
+            <span>Pro Billing</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Menu</div>
+            <a href="dashboard.html" class="nav-item active"
+              ><span class="nav-item-icon">📊</span
+              ><span class="nav-item-text">Dashboard</span></a
+            >
+            <a href="billing.html" class="nav-item"
+              ><span class="nav-item-icon">🧾</span
+              ><span class="nav-item-text">New Bill</span></a
+            >
+            <a href="invoices.html" class="nav-item"
+              ><span class="nav-item-icon">📋</span
+              ><span class="nav-item-text">Invoices</span></a
+            >
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Manage</div>
+            <a href="products.html" class="nav-item"
+              ><span class="nav-item-icon">📦</span
+              ><span class="nav-item-text">Products</span></a
+            >
+            <a href="customers.html" class="nav-item"
+              ><span class="nav-item-icon">👥</span
+              ><span class="nav-item-text">Customers</span></a
+            >
+            <a href="categories.html" class="nav-item"
+              ><span class="nav-item-icon">🏷️</span
+              ><span class="nav-item-text">Categories</span></a
+            >
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <a href="settings.html" class="nav-item"
+              ><span class="nav-item-icon">⚙️</span
+              ><span class="nav-item-text">Settings</span></a
+            >
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-profile" onclick="BillMaster.auth.logout()">
+            <div class="user-avatar">AD</div>
+            <div class="user-info">
+              <div class="user-name">Admin</div>
+              <div class="user-role">Logout</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-left">
+            <button class="sidebar-toggle">☰</button>
+            <h2 class="page-title">📊 Analytics Dashboard</h2>
+          </div>
+          <div class="header-right">
+            <span class="live-indicator">Live Tracking</span>
+            <a href="billing.html" class="btn btn-primary"
+              ><span>➕</span><span>New Bill</span></a
+            >
+          </div>
+        </header>
+
+        <div class="page-content">
+          <!-- Stats Grid -->
+          <div class="card-grid" style="margin-bottom: var(--space-xl)">
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon primary">💰</div>
+              </div>
+              <div class="stat-card-value" id="todayRevenue">₹0</div>
+              <div class="stat-card-label">Today's Revenue</div>
+              <div class="growth" id="revenueGrowth"></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon success">📄</div>
+              </div>
+              <div class="stat-card-value" id="todayInvoices">0</div>
+              <div class="stat-card-label">Today's Invoices</div>
+              <div class="growth" id="invoiceGrowth"></div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon warning">🛒</div>
+              </div>
+              <div class="stat-card-value" id="itemsSold">0</div>
+              <div class="stat-card-label">Items Sold Today</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon danger">📈</div>
+              </div>
+              <div class="stat-card-value" id="monthRevenue">₹0</div>
+              <div class="stat-card-label">This Month</div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 2fr 1fr;
+              gap: var(--space-xl);
+              margin-bottom: var(--space-xl);
+            "
+          >
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: var(--space-lg);
+                "
+              >
+                <h3 style="font-size: 1rem; color: var(--text-primary)">
+                  📈 Sales Trend
+                </h3>
+                <div class="period-tabs">
+                  <button class="period-tab" data-days="7">7 Days</button>
+                  <button class="period-tab active" data-days="14">
+                    14 Days
+                  </button>
+                  <button class="period-tab" data-days="30">30 Days</button>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+              </div>
+            </div>
+
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <h3
+                style="
+                  font-size: 1rem;
+                  margin-bottom: var(--space-lg);
+                  color: var(--text-primary);
+                "
+              >
+                💳 Payment Methods
+              </h3>
+              <div class="chart-container">
+                <canvas id="paymentChart"></canvas>
+              </div>
+              <div id="paymentLegend" style="margin-top: var(--space-md)"></div>
+            </div>
+          </div>
+
+          <!-- Second Row -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              gap: var(--space-xl);
+              margin-bottom: var(--space-xl);
+            "
+          >
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <h3
+                style="
+                  font-size: 1rem;
+                  margin-bottom: var(--space-lg);
+                  color: var(--text-primary);
+                "
+              >
+                🏆 Top Selling Products
+              </h3>
+              <div id="topProducts"></div>
+            </div>
+
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <h3
+                style="
+                  font-size: 1rem;
+                  margin-bottom: var(--space-lg);
+                  color: var(--text-primary);
+                "
+              >
+                ⚠️ Low Stock Alert
+              </h3>
+              <div id="lowStock"></div>
+            </div>
+
+            <div class="glass-card" style="padding: var(--space-lg)">
+              <h3
+                style="
+                  font-size: 1rem;
+                  margin-bottom: var(--space-lg);
+                  color: var(--text-primary);
+                "
+              >
+                🕐 Recent Sales
+              </h3>
+              <div id="recentInvoices"></div>
+            </div>
+          </div>
+
+          <!-- Hourly Sales -->
+          <div class="glass-card" style="padding: var(--space-lg)">
+            <h3
+              style="
+                font-size: 1rem;
+                margin-bottom: var(--space-lg);
+                color: var(--text-primary);
+              "
+            >
+              ⏰ Today's Hourly Sales
+            </h3>
+            <div class="chart-container">
+              <canvas id="hourlyChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      let salesChart, paymentChart, hourlyChart;
+      let refreshInterval;
+
+      // Add loading overlay
+      document.body.insertAdjacentHTML(
+        "afterbegin",
+        `
+        <div id="pageLoader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;z-index:9999;">
+          <div style="text-align:center;">
+            <div style="width:50px;height:50px;border:3px solid var(--border-color);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1rem;"></div>
+            <p style="color:var(--text-muted);font-size:0.875rem;">Loading Dashboard...</p>
+          </div>
+        </div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+      `,
+      );
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          const user = await BillMaster.auth.requireAuth();
+          if (!user) return; // Will be redirected to login
+
+          await initUserInfo();
+          await loadDashboard();
+
+          // Remove loader
+          const loader = document.getElementById("pageLoader");
+          if (loader) {
+            loader.style.opacity = "0";
+            loader.style.transition = "opacity 0.3s";
+            setTimeout(() => loader.remove(), 300);
+          }
+        } catch (error) {
+          console.error("Dashboard init error:", error);
+          window.location.replace("login.html");
+        }
+
+        // Period tabs
+        document.querySelectorAll(".period-tab").forEach((tab) => {
+          tab.addEventListener("click", () => {
+            document
+              .querySelectorAll(".period-tab")
+              .forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+            loadSalesChart(parseInt(tab.dataset.days));
+          });
+        });
+
+        // Auto-refresh every 30 seconds for live tracking
+        refreshInterval = setInterval(loadDashboard, 30000);
+      });
+
+      async function loadDashboard() {
+        await Promise.all([
+          loadStats(),
+          loadSalesChart(14),
+          loadPaymentMethods(),
+          loadTopProducts(),
+          loadLowStock(),
+          loadRecentInvoices(),
+          loadHourlySales(),
+        ]);
+      }
+
+      async function loadStats() {
+        const stats = await BillMaster.api.get(
+          "analytics.php?action=dashboard",
+        );
+        if (stats.success) {
+          const d = stats.data;
+          document.getElementById("todayRevenue").textContent =
+            BillMaster.utils.formatCurrency(d.today.revenue);
+          document.getElementById("todayInvoices").textContent =
+            d.today.invoices;
+          document.getElementById("itemsSold").textContent = d.today.items_sold;
+          document.getElementById("monthRevenue").textContent =
+            BillMaster.utils.formatCurrency(d.month.revenue);
+
+          // Growth indicator
+          const growthEl = document.getElementById("revenueGrowth");
+          if (d.revenue_growth !== 0) {
+            const isPositive = d.revenue_growth > 0;
+            growthEl.className =
+              "growth " + (isPositive ? "positive" : "negative");
+            growthEl.textContent = `${isPositive ? "↑" : "↓"} ${Math.abs(d.revenue_growth)}% vs yesterday`;
+          } else {
+            growthEl.textContent = "";
+          }
+
+          // Invoice growth
+          const invGrowth = document.getElementById("invoiceGrowth");
+          if (d.yesterday.invoices > 0) {
+            const diff = d.today.invoices - d.yesterday.invoices;
+            if (diff !== 0) {
+              invGrowth.className =
+                "growth " + (diff > 0 ? "positive" : "negative");
+              invGrowth.textContent = `${diff > 0 ? "+" : ""}${diff} vs yesterday`;
+            } else {
+              invGrowth.textContent = "";
+            }
+          }
+        }
+      }
+
+      async function loadSalesChart(days) {
+        const sales = await BillMaster.api.get(
+          `analytics.php?action=sales_chart&days=${days}`,
+        );
+        if (!sales.success) return;
+
+        const ctx = document.getElementById("salesChart").getContext("2d");
+        if (salesChart) salesChart.destroy();
+
+        salesChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: sales.data.map((d) =>
+              new Date(d.date).toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+              }),
+            ),
+            datasets: [
+              {
+                label: "Revenue",
+                data: sales.data.map((d) => d.total),
+                borderColor: "#4f46e5",
+                backgroundColor: "rgba(79, 70, 229, 0.1)",
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: "#4f46e5",
+                pointBorderColor: "#fff",
+                pointBorderWidth: 2,
+                pointRadius: 4,
+              },
+              {
+                label: "Paid",
+                data: sales.data.map((d) => d.paid),
+                borderColor: "#10b981",
+                backgroundColor: "rgba(16, 185, 129, 0.1)",
+                fill: true,
+                tension: 0.4,
+                pointRadius: 3,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                labels: { color: "#64748b", usePointStyle: true },
+              },
+            },
+            scales: {
+              x: {
+                grid: { color: "rgba(148, 163, 184, 0.1)" },
+                ticks: { color: "#64748b" },
+              },
+              y: {
+                grid: { color: "rgba(148, 163, 184, 0.1)" },
+                ticks: { color: "#64748b", callback: (v) => "₹" + v },
+              },
+            },
+            interaction: { intersect: false, mode: "index" },
+          },
+        });
+      }
+
+      async function loadPaymentMethods() {
+        const payments = await BillMaster.api.get(
+          "analytics.php?action=payment_methods",
+        );
+        if (!payments.success) return;
+
+        const ctx = document.getElementById("paymentChart").getContext("2d");
+        if (paymentChart) paymentChart.destroy();
+
+        const colors = {
+          cash: "#10b981",
+          card: "#3b82f6",
+          upi: "#8b5cf6",
+          bank_transfer: "#f59e0b",
+          credit: "#ef4444 ",
+        };
+        const labels = {
+          cash: "💵 Cash",
+          card: "💳 Card",
+          upi: "📱 UPI",
+          bank_transfer: "🏦 Bank",
+          credit: "📝 Credit",
+        };
+
+        paymentChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: payments.data.map(
+              (d) => labels[d.payment_method] || d.payment_method,
+            ),
+            datasets: [
+              {
+                data: payments.data.map((d) => d.total),
+                backgroundColor: payments.data.map(
+                  (d) => colors[d.payment_method] || "#4f46e5",
+                ),
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            cutout: "65%",
+          },
+        });
+
+        // Custom legend with percentages
+        document.getElementById("paymentLegend").innerHTML = payments.data
+          .map(
+            (d) => `
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8125rem; margin-bottom: var(--space-xs);">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; background: ${colors[d.payment_method] || "#4f46e5"};"></span>
+                        <span>${d.payment_method.toUpperCase()}</span>
+                    </div>
+                    <span style="font-weight: 600;">${d.percentage || 0}%</span>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      async function loadHourlySales() {
+        const hourly = await BillMaster.api.get(
+          "analytics.php?action=hourly_sales",
+        );
+        if (!hourly.success) return;
+
+        const ctx = document.getElementById("hourlyChart").getContext("2d");
+        if (hourlyChart) hourlyChart.destroy();
+
+        // Only show hours with data or business hours (8am-10pm)
+        const filteredData = hourly.data.filter(
+          (h) => h.hour >= 8 && h.hour <= 22,
+        );
+
+        hourlyChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: filteredData.map((d) => `${d.hour}:00`),
+            datasets: [
+              {
+                label: "Revenue",
+                data: filteredData.map((d) => d.revenue),
+                backgroundColor: "rgba(79, 70, 229, 0.7)",
+                borderRadius: 4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: "#64748b" } },
+              y: {
+                grid: { color: "rgba(148, 163, 184, 0.1)" },
+                ticks: { color: "#64748b", callback: (v) => "₹" + v },
+              },
+            },
+          },
+        });
+      }
+
+      async function loadTopProducts() {
+        const top = await BillMaster.api.get(
+          "analytics.php?action=top_products&limit=5",
+        );
+        const el = document.getElementById("topProducts");
+
+        if (!top.success || !top.data.length) {
+          el.innerHTML =
+            '<p style="color: var(--text-muted); text-align: center; padding: var(--space-lg);">No sales data yet</p>';
+          return;
+        }
+
+        el.innerHTML = top.data
+          .map(
+            (p, i) => `
+                <div class="recent-item">
+                    <div style="width: 28px; height: 28px; background: ${i < 3 ? "var(--primary)" : "var(--bg-tertiary)"}; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: ${i < 3 ? "white" : "var(--text-muted)"};">${i + 1}</div>
+                    <div style="flex: 1;">
+                        <div style="font-size: 0.875rem; font-weight: 500;">${BillMaster.utils.escapeHtml(p.name)}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">${p.sold} sold @ ${BillMaster.utils.formatCurrency(p.avg_price)}</div>
+                    </div>
+                    <div style="font-weight: 600; color: var(--success); font-size: 0.875rem;">${BillMaster.utils.formatCurrency(p.revenue)}</div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      async function loadLowStock() {
+        const low = await BillMaster.api.get("analytics.php?action=low_stock");
+        const el = document.getElementById("lowStock");
+
+        if (!low.success || !low.data.length) {
+          el.innerHTML =
+            '<p style="color: var(--success); text-align: center; padding: var(--space-lg);">✓ All stock levels OK</p>';
+          return;
+        }
+
+        el.innerHTML = low.data
+          .map(
+            (p) => `
+                <div class="recent-item">
+                    <span style="font-size: 1rem;">${p.stock_quantity <= 0 ? "❌" : "⚠️"}</span>
+                    <div style="flex: 1; font-size: 0.875rem; font-weight: 500;">${BillMaster.utils.escapeHtml(p.name)}</div>
+                    <span class="badge ${p.stock_quantity <= 0 ? "badge-danger" : "badge-warning"}">${p.stock_quantity} ${p.unit}</span>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      async function loadRecentInvoices() {
+        const recent = await BillMaster.api.get(
+          "analytics.php?action=recent_invoices&limit=5",
+        );
+        const el = document.getElementById("recentInvoices");
+
+        if (!recent.success || !recent.data.length) {
+          el.innerHTML =
+            '<p style="color: var(--text-muted); text-align: center; padding: var(--space-lg);">No invoices yet</p>';
+          return;
+        }
+
+        el.innerHTML = recent.data
+          .map(
+            (inv) => `
+                <div class="recent-item">
+                    <div style="flex: 1;">
+                        <div style="font-size: 0.875rem; font-weight: 500;">${inv.customer_name || "Walk-in"}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">${inv.invoice_number}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 600; color: var(--success); font-size: 0.875rem;">${BillMaster.utils.formatCurrency(inv.total_amount)}</div>
+                        <span class="badge ${inv.payment_status === "paid" ? "badge-success" : "badge-warning"}" style="font-size: 0.625rem;">${inv.payment_status}</span>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+    </script>
+  </body>
+</html>

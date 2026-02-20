@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BillMaster Pro - Categories Management" />
+    <title>Categories | BillMaster Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <div class="mobile-overlay"></div>
+
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">💼</div>
+          <div class="sidebar-brand">
+            <h1>BillMaster</h1>
+            <span>Pro Billing</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Menu</div>
+            <a href="dashboard.html" class="nav-item"
+              ><span class="nav-item-icon">📊</span><span>Dashboard</span></a
+            >
+            <a href="billing.html" class="nav-item"
+              ><span class="nav-item-icon">🧾</span><span>New Bill</span></a
+            >
+            <a href="invoices.html" class="nav-item"
+              ><span class="nav-item-icon">📋</span><span>Invoices</span></a
+            >
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">Manage</div>
+            <a href="products.html" class="nav-item"
+              ><span class="nav-item-icon">📦</span><span>Products</span></a
+            >
+            <a href="customers.html" class="nav-item"
+              ><span class="nav-item-icon">👥</span><span>Customers</span></a
+            >
+            <a href="categories.html" class="nav-item active"
+              ><span class="nav-item-icon">🏷️</span><span>Categories</span></a
+            >
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <a href="settings.html" class="nav-item"
+              ><span class="nav-item-icon">⚙️</span><span>Settings</span></a
+            >
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-profile" onclick="BillMaster.auth.logout()">
+            <div class="user-avatar">AD</div>
+            <div class="user-info">
+              <div class="user-name">Admin</div>
+              <div class="user-role">Logout</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-left">
+            <button class="sidebar-toggle">☰</button>
+            <h2 class="page-title">🏷️ Categories</h2>
+          </div>
+          <div class="header-right">
+            <button class="btn btn-primary" onclick="openModal()">
+              <span>➕</span><span>Add Category</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <div class="card-grid" id="categoriesGrid"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal-overlay" id="categoryModal">
+      <div class="modal" style="max-width: 450px">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Add Category</h3>
+          <button
+            class="modal-close"
+            onclick="BillMaster.modal.close('categoryModal')"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="categoryId" />
+          <div class="form-group">
+            <label class="form-label">Category Name *</label>
+            <input
+              type="text"
+              id="categoryName"
+              class="form-input"
+              placeholder="Enter category name"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">GST Percentage (%)</label>
+            <input
+              type="number"
+              id="categoryGst"
+              class="form-input"
+              placeholder="e.g. 5, 12, 18"
+              step="0.01"
+              min="0"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea
+              id="categoryDescription"
+              class="form-textarea"
+              placeholder="Category description (optional)"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="BillMaster.modal.close('categoryModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="saveCategory()">
+            Save Category
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      let categories = [];
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await BillMaster.auth.requireAuth();
+        await initUserInfo();
+        await loadCategories();
+      });
+
+      async function loadCategories() {
+        const result = await BillMaster.api.get("categories.php?action=list");
+        if (result.success) {
+          categories = result.data;
+          renderCategories();
+        }
+      }
+
+      function renderCategories() {
+        const container = document.getElementById("categoriesGrid");
+        if (!categories.length) {
+          container.innerHTML =
+            '<div class="empty-state glass-card" style="grid-column: 1/-1; padding: var(--space-2xl);"><div class="empty-state-icon">🏷️</div><p>No categories yet. Add your first category!</p></div>';
+          return;
+        }
+
+        container.innerHTML = categories
+          .map(
+            (c) => `
+                <div class="glass-card" style="padding: var(--space-lg);">
+                    <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: var(--space-md);">
+                        <div style="width: 48px; height: 48px; background: var(--primary-pale); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🏷️</div>
+                        <div style="display: flex; gap: var(--space-xs);">
+                            <button class="btn btn-sm btn-ghost" onclick="editCategory(${c.id})">✏️</button>
+                            <button class="btn btn-sm btn-ghost" onclick="deleteCategory(${c.id})">🗑️</button>
+                        </div>
+                    </div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-xs);">${BillMaster.utils.escapeHtml(c.name)}</h3>
+                    <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: var(--space-md);">${c.description ? BillMaster.utils.escapeHtml(c.description) : "No description"}</p>
+                    <div style="display: flex; gap: var(--space-xs); flex-wrap: wrap;">
+                        <div class="badge badge-info">${c.product_count || 0} products</div>
+                        <div class="badge badge-warning">GST: ${c.gst_percentage || 0}%</div>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function openModal(category = null) {
+        document.getElementById("modalTitle").textContent = category
+          ? "Edit Category"
+          : "Add Category";
+        document.getElementById("categoryId").value = category?.id || "";
+        document.getElementById("categoryName").value = category?.name || "";
+        document.getElementById("categoryDescription").value =
+          category?.description || "";
+        document.getElementById("categoryGst").value =
+          category?.gst_percentage || "0";
+        BillMaster.modal.open("categoryModal");
+      }
+
+      function editCategory(id) {
+        const category = categories.find((c) => c.id == id);
+        if (category) openModal(category);
+      }
+
+      async function saveCategory() {
+        const id = document.getElementById("categoryId").value;
+        const data = {
+          name: document.getElementById("categoryName").value.trim(),
+          description: document
+            .getElementById("categoryDescription")
+            .value.trim(),
+          gst_percentage: document.getElementById("categoryGst").value || 0,
+        };
+
+        if (!data.name) {
+          BillMaster.toast.error("Category name is required");
+          return;
+        }
+
+        const action = id ? "update" : "create";
+        if (id) data.id = id;
+
+        const result = await BillMaster.api.post(
+          `categories.php?action=${action}`,
+          data,
+        );
+        if (result.success) {
+          BillMaster.toast.success(
+            id ? "Category updated!" : "Category created!",
+          );
+          BillMaster.modal.close("categoryModal");
+          loadCategories();
+        } else {
+          BillMaster.toast.error(result.message || "Failed to save category");
+        }
+      }
+
+      async function deleteCategory(id) {
+        if (!confirm("Are you sure you want to delete this category?")) return;
+
+        const result = await BillMaster.api.get(
+          `categories.php?action=delete&id=${id}`,
+        );
+        if (result.success) {
+          BillMaster.toast.success("Category deleted!");
+          loadCategories();
+        } else {
+          BillMaster.toast.error(
+            result.message || "Cannot delete: category has products",
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

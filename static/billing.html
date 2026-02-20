@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BillMaster Pro - Create New Bill" />
+    <title>New Bill | BillMaster Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/billing.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <div class="mobile-overlay"></div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        <div class="sidebar-header">
+          <div class="sidebar-logo">💼</div>
+          <div class="sidebar-brand">
+            <h1>BillMaster</h1>
+            <span>Pro Billing</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Menu</div>
+            <a href="dashboard.html" class="nav-item">
+              <span class="nav-item-icon">📊</span>
+              <span class="nav-item-text">Dashboard</span>
+            </a>
+            <a href="billing.html" class="nav-item active">
+              <span class="nav-item-icon">🧾</span>
+              <span class="nav-item-text">New Bill</span>
+            </a>
+            <a href="invoices.html" class="nav-item">
+              <span class="nav-item-icon">📋</span>
+              <span class="nav-item-text">Invoices</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Manage</div>
+            <a href="products.html" class="nav-item">
+              <span class="nav-item-icon">📦</span>
+              <span class="nav-item-text">Products</span>
+            </a>
+            <a href="customers.html" class="nav-item">
+              <span class="nav-item-icon">👥</span>
+              <span class="nav-item-text">Customers</span>
+            </a>
+            <a href="categories.html" class="nav-item">
+              <span class="nav-item-icon">🏷️</span>
+              <span class="nav-item-text">Categories</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <a href="settings.html" class="nav-item">
+              <span class="nav-item-icon">⚙️</span>
+              <span class="nav-item-text">Settings</span>
+            </a>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-profile" onclick="BillMaster.auth.logout()">
+            <div class="user-avatar">AD</div>
+            <div class="user-info">
+              <div class="user-name">Admin</div>
+              <div class="user-role">Logout</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-left">
+            <button class="sidebar-toggle" onclick="openSidebar()">☰</button>
+            <h2 class="page-title">🧾 New Bill</h2>
+          </div>
+          <div class="header-right">
+            <span
+              style="color: var(--text-muted); font-size: 0.8125rem"
+              id="dateTime"
+            ></span>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <div class="billing-container">
+            <!-- Products -->
+            <div class="product-section">
+              <div class="product-header">
+                <div class="product-search">
+                  <span class="product-search-icon">🔍</span>
+                  <input
+                    type="text"
+                    id="productSearch"
+                    placeholder="Search products..."
+                  />
+                </div>
+                <div class="category-filter" id="categoryFilters">
+                  <button class="category-btn active" data-id="">All</button>
+                </div>
+              </div>
+              <div class="product-grid" id="productGrid"></div>
+            </div>
+
+            <!-- Cart -->
+            <div class="cart-section">
+              <div class="cart-header">
+                <h3 class="cart-title">
+                  <span>🛒</span>
+                  <span>Cart</span>
+                  <span class="cart-count" id="cartCount">0</span>
+                </h3>
+                <button class="btn btn-sm btn-ghost" onclick="clearCart()">
+                  Clear
+                </button>
+              </div>
+
+              <div class="customer-select">
+                <input
+                  type="text"
+                  id="customerSearch"
+                  class="customer-select-input"
+                  placeholder="👤 Customer (optional)"
+                />
+                <div
+                  id="customerDropdown"
+                  class="customer-dropdown"
+                  style="display: none"
+                ></div>
+                <div id="selectedCustomer" style="display: none"></div>
+              </div>
+
+              <div class="cart-items" id="cartItems">
+                <div class="cart-empty">
+                  <div class="cart-empty-icon">🛒</div>
+                  <p>Cart is empty</p>
+                </div>
+              </div>
+
+              <!-- Cart Footer - Fixed at Bottom -->
+              <div class="cart-footer">
+                <div class="cart-summary" id="cartSummary">
+                  <div class="summary-row total">
+                    <span>Subtotal</span>
+                    <span class="amount" id="total">₹0.00</span>
+                  </div>
+                </div>
+
+                <div class="cart-actions">
+                  <button class="btn btn-secondary" onclick="clearCart()">
+                    Cancel
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    onclick="openCheckout()"
+                    id="checkoutBtn"
+                    disabled
+                  >
+                    <span>💳</span>
+                    <span>Checkout</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">💳 Complete Payment</h3>
+          <button
+            class="modal-close"
+            onclick="BillMaster.modal.close('checkoutModal')"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div
+            id="checkoutSummary"
+            style="
+              background: var(--bg-tertiary);
+              padding: var(--space-md);
+              border-radius: var(--radius-md);
+              margin-bottom: var(--space-lg);
+            "
+          ></div>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              gap: var(--space-md);
+            "
+          >
+            <div class="form-group">
+              <label class="form-label">Discount (%)</label>
+              <input
+                type="number"
+                id="discountPerc"
+                class="form-input"
+                value="0"
+                min="0"
+                max="100"
+                step="0.1"
+                oninput="updateCheckoutTotals()"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Payment Method</label>
+              <select id="paymentMethod" class="form-select">
+                <option value="cash">💵 Cash</option>
+                <option value="card">💳 Card</option>
+                <option value="upi">📱 UPI</option>
+                <option value="bank_transfer">🏦 Bank Transfer</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select id="paymentStatus" class="form-select">
+                <option value="paid">✅ Paid</option>
+                <option value="pending">⏳ Pending</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="BillMaster.modal.close('checkoutModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-success" onclick="processPayment()">
+            Complete Payment
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      let products = [],
+        categories = [],
+        cart = [],
+        customers = [],
+        selectedCustomer = null;
+
+      // Sidebar Functions
+      function openSidebar() {
+        document.querySelector(".sidebar").classList.add("open");
+        document.querySelector(".mobile-overlay").classList.add("active");
+      }
+
+      function closeSidebar() {
+        document.querySelector(".sidebar").classList.remove("open");
+        document.querySelector(".mobile-overlay").classList.remove("active");
+      }
+
+      // Close sidebar when clicking overlay
+      document
+        .querySelector(".mobile-overlay")
+        .addEventListener("click", closeSidebar);
+
+      // Update time
+      function updateTime() {
+        document.getElementById("dateTime").textContent =
+          new Date().toLocaleString("en-IN", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+      }
+      updateTime();
+      setInterval(updateTime, 60000);
+
+      // Init
+      document.addEventListener("DOMContentLoaded", async () => {
+        await BillMaster.auth.requireAuth();
+        await initUserInfo();
+        await loadData();
+        initSearch();
+        initCustomerSearch();
+      });
+
+      async function loadData() {
+        const [catRes, prodRes, custRes] = await Promise.all([
+          BillMaster.api.get("categories.php?action=list"),
+          BillMaster.api.get("products.php?action=list&active_only=true"),
+          BillMaster.api.get("customers.php?action=list"),
+        ]);
+
+        if (catRes.success) {
+          categories = catRes.data;
+          renderCategories();
+        }
+        if (prodRes.success) {
+          products = prodRes.data;
+          renderProducts();
+        }
+        if (custRes.success) customers = custRes.data;
+      }
+
+      function renderCategories() {
+        const container = document.getElementById("categoryFilters");
+        container.innerHTML =
+          '<button class="category-btn active" data-id="">All</button>' +
+          categories
+            .map(
+              (c) =>
+                `<button class="category-btn" data-id="${c.id}">${BillMaster.utils.escapeHtml(c.name)}</button>`,
+            )
+            .join("");
+
+        container.querySelectorAll(".category-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            container
+              .querySelectorAll(".category-btn")
+              .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            renderProducts(btn.dataset.id);
+          });
+        });
+      }
+
+      function renderProducts(categoryId = "") {
+        const search = document
+          .getElementById("productSearch")
+          .value.toLowerCase();
+        const filtered = products.filter((p) => {
+          const matchCat = !categoryId || p.category_id == categoryId;
+          const matchSearch = !search || p.name.toLowerCase().includes(search);
+          return matchCat && matchSearch;
+        });
+
+        const container = document.getElementById("productGrid");
+        if (!filtered.length) {
+          container.innerHTML =
+            '<div class="empty-state"><p>No products found</p></div>';
+          return;
+        }
+
+        container.innerHTML = filtered
+          .map(
+            (p) => `
+          <div class="product-card ${p.stock_quantity <= 0 ? "out-of-stock" : ""}" onclick="${p.stock_quantity > 0 ? `addToCart(${p.id})` : ""}">
+            <div class="product-card-icon">📦</div>
+            <div class="product-card-name">${BillMaster.utils.escapeHtml(p.name)}</div>
+            <div class="product-card-price">${BillMaster.utils.formatCurrency(p.price)}</div>
+            <div class="product-card-stock">${p.stock_quantity} ${p.unit}</div>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      function initSearch() {
+        document.getElementById("productSearch").addEventListener(
+          "input",
+          BillMaster.utils.debounce(() => {
+            const activeBtn = document.querySelector(".category-btn.active");
+            renderProducts(activeBtn?.dataset.id || "");
+          }, 200),
+        );
+      }
+
+      function initCustomerSearch() {
+        const input = document.getElementById("customerSearch");
+        const dropdown = document.getElementById("customerDropdown");
+
+        input.addEventListener("input", () => {
+          const val = input.value.toLowerCase();
+          if (!val) {
+            dropdown.style.display = "none";
+            return;
+          }
+
+          const matches = customers.filter(
+            (c) =>
+              c.name.toLowerCase().includes(val) ||
+              (c.phone && c.phone.includes(val)),
+          );
+          if (matches.length) {
+            dropdown.innerHTML = matches
+              .slice(0, 5)
+              .map(
+                (c) => `
+              <div class="customer-option" onclick="selectCustomer(${c.id})">${BillMaster.utils.escapeHtml(c.name)} ${c.phone ? "- " + c.phone : ""}</div>
+            `,
+              )
+              .join("");
+            dropdown.style.display = "block";
+          } else dropdown.style.display = "none";
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".customer-select"))
+            dropdown.style.display = "none";
+        });
+      }
+
+      function selectCustomer(id) {
+        selectedCustomer = customers.find((c) => c.id == id);
+        document.getElementById("customerSearch").style.display = "none";
+        document.getElementById("customerDropdown").style.display = "none";
+        document.getElementById("selectedCustomer").style.display = "block";
+        document.getElementById("selectedCustomer").innerHTML = `
+          <div class="selected-customer">
+            <span class="selected-customer-info">👤 ${BillMaster.utils.escapeHtml(selectedCustomer.name)}</span>
+            <button class="selected-customer-remove" onclick="removeCustomer()">×</button>
+          </div>`;
+      }
+
+      function removeCustomer() {
+        selectedCustomer = null;
+        document.getElementById("customerSearch").style.display = "block";
+        document.getElementById("customerSearch").value = "";
+        document.getElementById("selectedCustomer").style.display = "none";
+      }
+
+      function addToCart(productId) {
+        const product = products.find((p) => p.id == productId);
+        if (!product || product.stock_quantity <= 0) return;
+
+        const existing = cart.find((i) => i.product_id == productId);
+        if (existing) {
+          if (existing.quantity < product.stock_quantity) existing.quantity++;
+          else {
+            BillMaster.toast.warning("Maximum stock reached");
+            return;
+          }
+        } else {
+          cart.push({
+            product_id: productId,
+            name: product.name,
+            price: parseFloat(product.price),
+            quantity: 1,
+            unit: product.unit,
+            max: product.stock_quantity,
+            gst_rate: parseFloat(product.effective_gst || 0),
+          });
+        }
+        renderCart();
+      }
+
+      function updateQty(productId, delta) {
+        const item = cart.find((i) => i.product_id == productId);
+        if (!item) return;
+
+        item.quantity += delta;
+        if (item.quantity <= 0)
+          cart = cart.filter((i) => i.product_id != productId);
+        else if (item.quantity > item.max) {
+          item.quantity = item.max;
+          BillMaster.toast.warning("Maximum stock reached");
+        }
+        renderCart();
+      }
+
+      function removeFromCart(productId) {
+        cart = cart.filter((i) => i.product_id != productId);
+        renderCart();
+      }
+
+      function clearCart() {
+        cart = [];
+        removeCustomer();
+        renderCart();
+      }
+
+      function renderCart() {
+        const container = document.getElementById("cartItems");
+        const countEl = document.getElementById("cartCount");
+        const totalEl = document.getElementById("total");
+        const checkoutBtn = document.getElementById("checkoutBtn");
+
+        countEl.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
+
+        if (!cart.length) {
+          container.innerHTML =
+            '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Cart is empty</p></div>';
+          totalEl.textContent = "₹0.00";
+          checkoutBtn.disabled = true;
+          return;
+        }
+
+        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        totalEl.textContent = BillMaster.utils.formatCurrency(subtotal);
+        checkoutBtn.disabled = false;
+
+        container.innerHTML = cart
+          .map(
+            (i) => `
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <div class="cart-item-name">${BillMaster.utils.escapeHtml(i.name)}</div>
+              <div class="cart-item-price">${BillMaster.utils.formatCurrency(i.price)} × ${i.quantity}</div>
+            </div>
+            <div class="cart-item-qty">
+              <button class="qty-btn" onclick="updateQty(${i.product_id}, -1)">−</button>
+              <span class="qty-value">${i.quantity}</span>
+              <button class="qty-btn" onclick="updateQty(${i.product_id}, 1)">+</button>
+            </div>
+            <div class="cart-item-total">${BillMaster.utils.formatCurrency(i.price * i.quantity)}</div>
+            <button class="cart-item-remove" onclick="removeFromCart(${i.product_id})">×</button>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      function openCheckout() {
+        if (!cart.length) return;
+        document.getElementById("discountPerc").value = 0;
+        updateCheckoutTotals();
+        BillMaster.modal.open("checkoutModal");
+      }
+
+      function updateCheckoutTotals() {
+        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        const taxTotal = cart.reduce(
+          (sum, i) => sum + i.price * i.quantity * (i.gst_rate / 100),
+          0,
+        );
+        const discPerc =
+          parseFloat(document.getElementById("discountPerc").value) || 0;
+        const totalBeforeDisc = subtotal + taxTotal;
+        const discAmount = totalBeforeDisc * (discPerc / 100);
+        const finalTotal = totalBeforeDisc - discAmount;
+
+        document.getElementById("checkoutSummary").innerHTML = `
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-sm); text-align: center;">
+            <div style="padding: var(--space-xs); border-right: 1px solid var(--border-color);">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px;">Items</div>
+                <div style="font-weight: 600;">${BillMaster.utils.formatCurrency(subtotal)}</div>
+            </div>
+            <div style="padding: var(--space-xs); border-right: 1px solid var(--border-color);">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px;">GST</div>
+                <div style="font-weight: 600;">${BillMaster.utils.formatCurrency(taxTotal)}</div>
+            </div>
+            <div style="padding: var(--space-xs); border-right: 1px solid var(--border-color);">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px;">Disc.</div>
+                <div style="font-weight: 600; color: var(--danger);">${BillMaster.utils.formatCurrency(discAmount)}</div>
+            </div>
+            <div style="padding: var(--space-xs);">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px;">Grand Total</div>
+                <div style="font-weight: 700; color: var(--success); font-size: 1.125rem;">${BillMaster.utils.formatCurrency(finalTotal)}</div>
+            </div>
+          </div>
+          ${selectedCustomer ? `<div style="margin-top: var(--space-sm); font-size: 0.8125rem; color: var(--text-muted); text-align: center; border-top: 1px dashed var(--border-color); pt: 8px;">👤 ${BillMaster.utils.escapeHtml(selectedCustomer.name)}</div>` : ""}
+        `;
+      }
+
+      async function processPayment() {
+        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        const data = {
+          customer_id: selectedCustomer?.id || null,
+          items: cart.map((i) => ({
+            product_id: i.product_id,
+            quantity: i.quantity,
+            unit_price: i.price,
+          })),
+          discount_percentage:
+            parseFloat(document.getElementById("discountPerc").value) || 0,
+          payment_method: document.getElementById("paymentMethod").value,
+          payment_status: document.getElementById("paymentStatus").value,
+        };
+
+        const result = await BillMaster.api.post(
+          "invoices.php?action=create",
+          data,
+        );
+        if (result.success) {
+          BillMaster.toast.success("Invoice created successfully!");
+          BillMaster.modal.close("checkoutModal");
+          clearCart();
+          await loadData();
+
+          if (confirm("Invoice created! Do you want to print it?")) {
+            window.open(`invoices.html?print=${result.invoice_id}`, "_blank");
+          }
+        } else {
+          BillMaster.toast.error(result.message || "Failed to create invoice");
+        }
+      }
+    </script>
+  </body>
+</html>
