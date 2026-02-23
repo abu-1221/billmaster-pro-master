@@ -15,15 +15,66 @@
     <link rel="stylesheet" href="assets/css/layout.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      .stat-card .growth {
+      /* Horizontal Stat Bar Styles */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-md);
+        margin-bottom: var(--space-xl);
+      }
+      .stat-card-horizontal {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: var(--space-md);
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+        transition: all var(--transition-base);
+      }
+      .stat-card-horizontal:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-primary);
+      }
+      .stat-card-horizontal .icon-box {
+        width: 44px;
+        height: 44px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+      .stat-card-horizontal .info {
+        flex: 1;
+        min-width: 0;
+      }
+      .stat-card-horizontal .value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1.2;
+      }
+      .stat-card-horizontal .label {
         font-size: 0.75rem;
-        margin-top: var(--space-xs);
+        color: var(--text-muted);
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      .stat-card .growth.positive {
-        color: var(--success);
+      .stat-card-horizontal .growth {
+        font-size: 0.65rem;
+        margin-top: 2px;
       }
-      .stat-card .growth.negative {
-        color: var(--danger);
+      
+      @media (max-width: 1200px) {
+        .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 600px) {
+        .stats-bar { grid-template-columns: 1fr; }
       }
       .chart-container {
         height: 280px;
@@ -168,40 +219,40 @@
         </header>
 
         <div class="page-content">
-          <!-- Stats Grid -->
-          <div class="card-grid" style="margin-bottom: var(--space-xl)">
-            <div class="stat-card">
-              <div class="stat-card-header">
-                <div class="stat-card-icon primary">💰</div>
+          <!-- Stats Grid - Professional Single Line Format -->
+          <div class="stats-bar">
+            <div class="stat-card-horizontal">
+              <div class="icon-box primary">💰</div>
+              <div class="info">
+                <div class="value" id="todayRevenue">₹0</div>
+                <div class="label">Today's Revenue</div>
+                <div class="growth" id="revenueGrowth"></div>
               </div>
-              <div class="stat-card-value" id="todayRevenue">₹0</div>
-              <div class="stat-card-label">Today's Revenue</div>
-              <div class="growth" id="revenueGrowth"></div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-card-header">
-                <div class="stat-card-icon success">📄</div>
+            <div class="stat-card-horizontal">
+              <div class="icon-box success">📄</div>
+              <div class="info">
+                <div class="value" id="todayInvoices">0</div>
+                <div class="label">Today's Invoices</div>
+                <div class="growth" id="invoiceGrowth"></div>
               </div>
-              <div class="stat-card-value" id="todayInvoices">0</div>
-              <div class="stat-card-label">Today's Invoices</div>
-              <div class="growth" id="invoiceGrowth"></div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-card-header">
-                <div class="stat-card-icon warning">🛒</div>
+            <div class="stat-card-horizontal">
+              <div class="icon-box warning">🛒</div>
+              <div class="info">
+                <div class="value" id="itemsSold">0</div>
+                <div class="label">Items Sold Today</div>
               </div>
-              <div class="stat-card-value" id="itemsSold">0</div>
-              <div class="stat-card-label">Items Sold Today</div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-card-header">
-                <div class="stat-card-icon danger">📈</div>
+            <div class="stat-card-horizontal">
+              <div class="icon-box danger">📈</div>
+              <div class="info">
+                <div class="value" id="monthRevenue">₹0</div>
+                <div class="label">This Month Sales</div>
               </div>
-              <div class="stat-card-value" id="monthRevenue">₹0</div>
-              <div class="stat-card-label">This Month</div>
             </div>
           </div>
 

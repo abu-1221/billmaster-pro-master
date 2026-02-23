@@ -227,23 +227,87 @@
               />
             </div>
 
-            <div class="form-group">
-              <label class="form-label">Payment Method</label>
-              <select id="paymentMethod" class="form-select">
-                <option value="cash">💵 Cash</option>
-                <option value="card">💳 Card</option>
-                <option value="upi">📱 UPI</option>
-                <option value="bank_transfer">🏦 Bank Transfer</option>
-              </select>
+            <div class="form-group" style="grid-column: span 3;">
+              <label class="form-label">Select Payment Method</label>
+              <div class="payment-methods-grid">
+                <div class="pay-method-item active" data-value="cash">
+                  <span class="pay-icon">💵</span>
+                  <span class="pay-label">Cash</span>
+                </div>
+                <div class="pay-method-item" data-value="card">
+                  <span class="pay-icon">💳</span>
+                  <span class="pay-label">Card</span>
+                </div>
+                <div class="pay-method-item" data-value="upi">
+                  <span class="pay-icon">📱</span>
+                  <span class="pay-label">UPI / QR</span>
+                </div>
+              </div>
+              <input type="hidden" id="paymentMethod" value="cash" />
             </div>
 
-            <div class="form-group">
-              <label class="form-label">Status</label>
-              <select id="paymentStatus" class="form-select">
-                <option value="paid">✅ Paid</option>
-                <option value="pending">⏳ Pending</option>
-              </select>
+            <div class="form-group" style="grid-column: span 3;">
+              <label class="form-label">Payment Status</label>
+              <div class="status-grid">
+                <div class="status-item active paid" id="statusPaid" data-value="paid">
+                  <span>✅</span>
+                  <span>Paid Full</span>
+                </div>
+                <div class="status-item pending" id="statusPending" data-value="pending">
+                  <span>⏳</span>
+                  <span>Pending / Partial</span>
+                </div>
+              </div>
+              <input type="hidden" id="paymentStatus" value="paid" />
             </div>
+          </div>
+
+          <!-- Dynamic Payment Details -->
+          <div id="paymentDetailsSection" style="margin-top: var(--space-md); padding: var(--space-md); background: rgba(255,255,255,0.03); border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+            
+            <!-- Cash Details -->
+            <div id="cashDetails" class="payment-detail-box">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Amount Received (₹)</label>
+                  <input type="number" id="amountReceived" class="form-input" placeholder="0.00" oninput="calculateChange()" />
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Change to Return</label>
+                  <div id="changeReturn" style="font-size: 1.25rem; font-weight: 700; color: var(--warning); padding: 0.5rem 0;">₹0.00</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Details -->
+            <div id="cardDetails" class="payment-detail-box" style="display: none;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Last 4 Digits</label>
+                  <input type="text" id="cardLastDigits" class="form-input" placeholder="xxxx" maxlength="4" />
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Transaction ID</label>
+                  <input type="text" id="cardTxnId" class="form-input" placeholder="Ref No." />
+                </div>
+              </div>
+            </div>
+
+            <!-- UPI/Bank Details -->
+            <div id="upiDetails" class="payment-detail-box" style="display: none;">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-md);">
+                <div id="upiQRContainer" style="background: white; padding: 10px; border-radius: var(--radius-md); display: none;">
+                    <!-- QR Placeholder -->
+                    <img id="upiQRCode" src="" style="width: 150px; height: 150px; display: block;" alt="Scan to Pay" />
+                    <div style="color: #333; font-size: 0.7rem; font-weight: 700; text-align: center; margin-top: 5px;">Scan & Pay</div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0; width: 100%;">
+                  <label class="form-label">Transaction Reference (UPI/Bank)</label>
+                  <input type="text" id="upiRefId" class="form-input" placeholder="Enter Ref ID or UTR" />
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="modal-footer">
@@ -305,9 +369,57 @@
         await loadData();
         initSearch();
         initCustomerSearch();
+        initPaymentMethods();
       });
 
+      function initPaymentMethods() {
+        // Payment Method Selection
+        const methods = document.querySelectorAll('.pay-method-item[data-value]');
+        methods.forEach(method => {
+          method.addEventListener('click', () => {
+            methods.forEach(m => m.classList.remove('active'));
+            method.classList.add('active');
+            
+            const val = method.dataset.value;
+            document.getElementById('paymentMethod').value = val;
+            
+            // Toggle Detail Boxes
+            document.getElementById('paymentDetailsSection').style.display = 'block';
+            document.getElementById('cashDetails').style.display = val === 'cash' ? 'block' : 'none';
+            document.getElementById('cardDetails').style.display = val === 'card' ? 'block' : 'none';
+            document.getElementById('upiDetails').style.display = (val === 'upi' || val === 'bank_transfer') ? 'block' : 'none';
+            
+            if (val === 'upi') {
+                showUPIQR();
+            } else {
+                document.getElementById('upiQRContainer').style.display = 'none';
+            }
+            
+            if (val === 'cash') {
+                calculateChange();
+                document.getElementById('amountReceived').focus();
+            }
+          });
+        });
+
+        // Payment Status Selection
+        const statusItems = document.querySelectorAll('.status-item');
+        statusItems.forEach(item => {
+          item.addEventListener('click', () => {
+            statusItems.forEach(si => si.classList.remove('active'));
+            item.classList.add('active');
+            document.getElementById('paymentStatus').value = item.dataset.value;
+          });
+        });
+      }
+
       async function loadData() {
+        // Load Settings for QR
+        const settingsRes = await BillMaster.api.get("settings.php?action=get");
+        if (settingsRes.success) {
+            window.billmasterSettings = settingsRes.data;
+        }
+
         const [catRes, prodRes, custRes] = await Promise.all([
           BillMaster.api.get("categories.php?action=list"),
           BillMaster.api.get("products.php?action=list&active_only=true"),
@@ -431,6 +543,7 @@
         document.getElementById("selectedCustomer").innerHTML = `
           <div class="selected-customer">
             <span class="selected-customer-info">👤 ${BillMaster.utils.escapeHtml(selectedCustomer.name)}</span>
+            ${selectedCustomer.default_discount > 0 ? `<span class="badge badge-success" style="font-size: 0.7rem; margin-left: 8px;">🎁 ${selectedCustomer.default_discount}% Disc.</span>` : ""}
             <button class="selected-customer-remove" onclick="removeCustomer()">×</button>
           </div>`;
       }
@@ -535,7 +648,9 @@
 
       function openCheckout() {
         if (!cart.length) return;
-        document.getElementById("discountPerc").value = 0;
+        // Apply customer's default discount if available
+        document.getElementById("discountPerc").value =
+          selectedCustomer?.default_discount || 0;
         updateCheckoutTotals();
         BillMaster.modal.open("checkoutModal");
       }
@@ -551,6 +666,9 @@
         const totalBeforeDisc = subtotal + taxTotal;
         const discAmount = totalBeforeDisc * (discPerc / 100);
         const finalTotal = totalBeforeDisc - discAmount;
+        
+        // Store for change calculation
+        window.currentFinalTotal = finalTotal;
 
         document.getElementById("checkoutSummary").innerHTML = `
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-sm); text-align: center;">
@@ -575,8 +693,51 @@
         `;
       }
 
+      function calculateChange() {
+        const received = parseFloat(document.getElementById('amountReceived').value) || 0;
+        const total = window.currentFinalTotal || 0;
+        const change = Math.max(0, received - total);
+        document.getElementById('changeReturn').textContent = BillMaster.utils.formatCurrency(change);
+        
+        if (received < total && received > 0) {
+            document.getElementById('changeReturn').style.color = 'var(--danger)';
+        } else {
+            document.getElementById('changeReturn').style.color = 'var(--warning)';
+        }
+      }
+
+      function showUPIQR() {
+        const upiId = window.billmasterSettings?.upi_id;
+        const shopName = window.billmasterSettings?.shop_name || "BillMaster";
+        const total = window.currentFinalTotal || 0;
+        
+        if (upiId) {
+            // Generate standard UPI Google Pay/PhonePe QR URL
+            const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(shopName)}&am=${total}&cu=INR`;
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUrl)}`;
+            
+            document.getElementById('upiQRCode').src = qrApiUrl;
+            document.getElementById('upiQRContainer').style.display = 'block';
+        } else {
+            document.getElementById('upiQRContainer').style.display = 'none';
+        }
+      }
+
       async function processPayment() {
-        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        const paymentMethod = document.getElementById("paymentMethod").value;
+        const amountReceived = parseFloat(document.getElementById('amountReceived').value) || 0;
+        
+        // Basic Validation
+        if (paymentMethod === 'cash' && amountReceived < window.currentFinalTotal) {
+            if (!confirm("Received amount is less than the total. Register as debt/pending?")) {
+                return;
+            }
+        }
+        if (paymentMethod === 'card' && !document.getElementById('cardLastDigits').value) {
+            BillMaster.toast.warning("Please enter card digits for verification");
+            return;
+        }
+
         const data = {
           customer_id: selectedCustomer?.id || null,
           items: cart.map((i) => ({
@@ -586,8 +747,13 @@
           })),
           discount_percentage:
             parseFloat(document.getElementById("discountPerc").value) || 0,
-          payment_method: document.getElementById("paymentMethod").value,
+          payment_method: paymentMethod,
           payment_status: document.getElementById("paymentStatus").value,
+          payment_details: {
+            received: amountReceived,
+            card_digits: document.getElementById('cardLastDigits').value,
+            txn_id: document.getElementById('cardTxnId').value || document.getElementById('upiRefId').value
+          }
         };
 
         const result = await BillMaster.api.post(

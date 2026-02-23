@@ -126,6 +126,8 @@ def create_customer():
         phone = data.get('phone', '').strip()
         email = data.get('email', '').strip()
         address = data.get('address', '').strip()
+        status = data.get('status', 'new').strip()
+        default_discount = float(data.get('default_discount', 0))
         
         if not name:
             return jsonify({'success': False, 'message': 'Customer name is required'})
@@ -136,9 +138,9 @@ def create_customer():
         
         cursor = conn.cursor()
         cursor.execute("""
-            INSERT INTO customers (name, phone, email, address) 
-            VALUES (?, ?, ?, ?)
-        """, (name, phone, email, address))
+            INSERT INTO customers (name, phone, email, address, status, default_discount) 
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (name, phone, email, address, status, default_discount))
         conn.commit()
         new_id = cursor.lastrowid
         cursor.close()
@@ -181,6 +183,12 @@ def update_customer():
         if 'address' in data:
             updates.append("address = ?")
             params.append(data['address'])
+        if 'status' in data:
+            updates.append("status = ?")
+            params.append(data['status'])
+        if 'default_discount' in data:
+            updates.append("default_discount = ?")
+            params.append(data['default_discount'])
         
         if not updates:
             return jsonify({'success': False, 'message': 'No fields to update'})

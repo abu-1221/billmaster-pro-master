@@ -95,6 +95,8 @@ def create_tables(conn):
             address TEXT,
             city TEXT,
             customer_type TEXT DEFAULT 'individual' CHECK(customer_type IN ('individual', 'business', 'institute')),
+            status TEXT DEFAULT 'new' CHECK(status IN ('new', 'regular')),
+            default_discount REAL DEFAULT 0,
             notes TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
