@@ -8,6 +8,7 @@ from datetime import datetime
 import sqlite3
 import sys
 import os
+import json
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.database import get_connection, dict_from_row, dict_list_from_rows, generate_invoice_number
@@ -100,6 +101,15 @@ def get_invoice():
         invoice = dict_from_row(row) if row else None
         
         if invoice:
+            # Parse payment details
+            if invoice.get('payment_details'):
+                try:
+                    invoice['payment_details'] = json.loads(invoice['payment_details'])
+                except:
+                    invoice['payment_details'] = {}
+            else:
+                invoice['payment_details'] = {}
+
             # Get invoice items
             cursor.execute("""
                 SELECT ii.*, p.name as product_name, ii.tax_rate, ii.tax_amount
@@ -212,12 +222,13 @@ def create_invoice():
             for _ in range(5):
                 invoice_number = generate_invoice_number(conn)
                 try:
+                    payment_details = json.dumps(data.get('payment_details', {}))
                     cursor.execute("""
                         INSERT INTO invoices (invoice_number, customer_id, user_id, subtotal, tax_rate, tax_amount, 
-                                             discount_amount, discount_percentage, total_amount, payment_method, payment_status) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                             discount_amount, discount_percentage, total_amount, payment_method, payment_status, payment_details) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, (invoice_number, customer_id, user_id, subtotal, 0, total_tax_amount,
-                          discount_amount, discount_percentage, total_amount, payment_method, payment_status))
+                          discount_amount, discount_percentage, total_amount, payment_method, payment_status, payment_details))
                     invoice_id = cursor.lastrowid
                     break
                 except sqlite3.IntegrityError as e:

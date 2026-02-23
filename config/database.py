@@ -50,10 +50,19 @@ def create_tables(conn):
             full_name TEXT NOT NULL,
             email TEXT,
             role TEXT DEFAULT 'staff' CHECK(role IN ('admin', 'staff')),
+            last_login TIMESTAMP,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
+    
+    # Indexes for performance
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_invoices_number ON invoices(invoice_number)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_invoices_customer ON invoices(customer_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_invoices_date ON invoices(created_at)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_items_invoice ON invoice_items(invoice_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_products_barcode ON products(barcode)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_customers_phone ON customers(phone)")
     
     # Categories table
     cursor.execute("""
@@ -118,6 +127,7 @@ def create_tables(conn):
             total_amount REAL NOT NULL,
             payment_method TEXT DEFAULT 'cash' CHECK(payment_method IN ('cash', 'card', 'upi', 'bank_transfer', 'credit')),
             payment_status TEXT DEFAULT 'pending' CHECK(payment_status IN ('paid', 'pending', 'partial', 'cancelled')),
+            payment_details TEXT,
             notes TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -174,7 +184,8 @@ def create_tables(conn):
         ('business_email', 'contact@billmaster.com'),
         ('tax_rate', '18'),
         ('currency_symbol', '₹'),
-        ('invoice_prefix', 'INV')
+        ('invoice_prefix', 'INV'),
+        ('upi_id', '')
     ]
     
     for key, value in default_settings:
