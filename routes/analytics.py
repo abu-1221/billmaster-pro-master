@@ -9,7 +9,11 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+<<<<<<< HEAD
 from config.database import get_connection, dict_from_row, dict_list_from_rows
+=======
+from config.database import get_connection, dict_from_row, dict_list_from_rows, admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 analytics_bp = Blueprint('analytics', __name__)
 
@@ -44,6 +48,10 @@ def analytics_handler():
     else:
         return jsonify({'success': False, 'message': 'Invalid action'})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def dashboard_stats():
     """Get dashboard statistics"""
     try:
@@ -137,6 +145,10 @@ def dashboard_stats():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def sales_chart():
     """Get sales data for chart"""
     try:
@@ -175,6 +187,10 @@ def sales_chart():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def payment_methods():
     """Get payment methods breakdown"""
     try:
@@ -215,6 +231,10 @@ def payment_methods():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def top_products():
     """Get top selling products"""
     try:
@@ -258,6 +278,10 @@ def top_products():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def low_stock():
     """Get products with low stock"""
     try:
@@ -289,6 +313,10 @@ def low_stock():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def hourly_sales():
     """Get hourly sales breakdown for today"""
     try:
@@ -328,6 +356,10 @@ def hourly_sales():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def recent_invoices():
     """Get recent invoices"""
     try:
@@ -365,6 +397,10 @@ def recent_invoices():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def monthly_stats():
     """Get monthly statistics"""
     try:
@@ -405,6 +441,10 @@ def monthly_stats():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def customer_stats():
     """Get top customers by spending"""
     try:
@@ -444,6 +484,10 @@ def customer_stats():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@admin_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def summary():
     """Get complete summary for reports"""
     try:

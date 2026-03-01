@@ -5,3 +5,8 @@ bcrypt==4.1.2
 python-dotenv==1.0.0
 Werkzeug==3.0.1
 gunicorn==21.2.0
+<<<<<<< HEAD
+=======
+psycopg2-binary==2.9.9
+cryptography==42.0.2
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de

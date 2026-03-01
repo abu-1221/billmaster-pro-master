@@ -8,12 +8,19 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+<<<<<<< HEAD
 from config.database import get_connection, dict_from_row, dict_list_from_rows
 
 customers_bp = Blueprint('customers', __name__)
 
 def is_logged_in():
     return session.get('logged_in', False)
+=======
+from config.database import get_connection, dict_from_row, dict_list_from_rows, admin_required, login_required, generate_customer_number
+
+customers_bp = Blueprint('customers', __name__)
+
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 @customers_bp.route('/customers.php', methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
 def customers_handler():
@@ -36,6 +43,10 @@ def customers_handler():
     else:
         return jsonify({'success': False, 'message': 'Invalid action'})
 
+<<<<<<< HEAD
+=======
+@login_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def list_customers():
     """List all customers with order stats"""
     try:
@@ -79,6 +90,10 @@ def list_customers():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
+=======
+@login_required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def get_customer():
     """Get single customer with recent invoices"""
     try:
@@ -115,11 +130,17 @@ def get_customer():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
 def create_customer():
     """Create new customer"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
+=======
+@login_required
+def create_customer():
+    """Create new customer"""
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         name = data.get('name', '').strip()
@@ -127,7 +148,10 @@ def create_customer():
         email = data.get('email', '').strip()
         address = data.get('address', '').strip()
         status = data.get('status', 'new').strip()
+<<<<<<< HEAD
         default_discount = float(data.get('default_discount', 0))
+=======
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
         if not name:
             return jsonify({'success': False, 'message': 'Customer name is required'})
@@ -136,26 +160,47 @@ def create_customer():
         if not conn:
             return jsonify({'success': False, 'message': 'Database connection failed'})
         
+<<<<<<< HEAD
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO customers (name, phone, email, address, status, default_discount) 
             VALUES (?, ?, ?, ?, ?, ?)
         """, (name, phone, email, address, status, default_discount))
+=======
+        # Generate customer number
+        customer_number = generate_customer_number(conn)
+        
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO customers (customer_number, name, phone, email, address, status) 
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (customer_number, name, phone, email, address, status))
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         conn.commit()
         new_id = cursor.lastrowid
         cursor.close()
         conn.close()
         
+<<<<<<< HEAD
         return jsonify({'success': True, 'message': 'Customer created', 'id': new_id})
+=======
+        return jsonify({'success': True, 'message': 'Customer created', 'id': new_id, 'customer_number': customer_number})
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
 def update_customer():
     """Update existing customer"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
+=======
+@admin_required
+def update_customer():
+    """Update existing customer"""
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         cust_id = data.get('id', 0)
@@ -186,9 +231,12 @@ def update_customer():
         if 'status' in data:
             updates.append("status = ?")
             params.append(data['status'])
+<<<<<<< HEAD
         if 'default_discount' in data:
             updates.append("default_discount = ?")
             params.append(data['default_discount'])
+=======
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
         if not updates:
             return jsonify({'success': False, 'message': 'No fields to update'})
@@ -207,11 +255,17 @@ def update_customer():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+<<<<<<< HEAD
 def delete_customer():
     """Delete customer"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
+=======
+@admin_required
+def delete_customer():
+    """Delete customer"""
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         cust_id = request.args.get('id', 0, type=int)
         

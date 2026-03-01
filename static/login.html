@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<<<<< HEAD
     <meta
       name="description"
       content="BillMaster Pro - Professional Billing System Login"
@@ -10,11 +11,15 @@
     <title>Login | BillMaster Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+=======
+    <title>Login | BillMaster Pro</title>
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
+<<<<<<< HEAD
     <style>
       .login-page {
         min-height: 100vh;
@@ -63,10 +68,55 @@
           transform: scale(1.1);
           opacity: 0.8;
         }
+=======
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      :root {
+        --login-primary: #4f46e5;
+        --login-secondary: #06b6d4;
+        --login-bg: #0f172a;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: var(--login-bg);
+        color: #fff;
+        overflow: hidden;
+      }
+
+      .login-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .bg-gradient {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(79, 70, 229, 0.15) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(6, 182, 212, 0.1) 0%,
+            transparent 40%
+          );
+        z-index: 0;
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       .login-card {
         width: 100%;
+<<<<<<< HEAD
         max-width: 420px;
         padding: var(--space-2xl);
         position: relative;
@@ -125,6 +175,111 @@
         font-weight: 500;
         color: var(--text-secondary);
         margin-bottom: var(--space-sm);
+=======
+        max-width: 440px;
+        padding: 3rem;
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        animation: fadeIn 0.6s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .logo-section {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .logo-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(
+          135deg,
+          var(--login-primary),
+          var(--login-secondary)
+        );
+        border-radius: 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+      }
+
+      .brand-name {
+        font-size: 1.75rem;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        background: linear-gradient(to right, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+      }
+
+      .brand-subtitle {
+        color: #94a3b8;
+        font-size: 0.875rem;
+      }
+
+      /* Role Selector */
+      .role-selector {
+        display: flex;
+        background: rgba(15, 23, 42, 0.6);
+        padding: 0.375rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .role-option {
+        flex: 1;
+        padding: 0.75rem;
+        text-align: center;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: #94a3b8;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .role-option.active {
+        background: var(--login-primary);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: #94a3b8;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       .input-wrapper {
@@ -136,6 +291,7 @@
         left: 1rem;
         top: 50%;
         transform: translateY(-50%);
+<<<<<<< HEAD
         color: var(--text-muted);
         font-size: 1rem;
         pointer-events: none;
@@ -178,11 +334,34 @@
 
       .password-toggle:hover {
         color: var(--text-primary);
+=======
+        color: #64748b;
+      }
+
+      .form-input {
+        width: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.875rem;
+        padding: 0.875rem 1rem 0.875rem 2.75rem;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--login-primary);
+        background: rgba(15, 23, 42, 1);
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       .login-btn {
         width: 100%;
         padding: 1rem;
+<<<<<<< HEAD
         font-size: 1rem;
         font-weight: 600;
         margin-top: var(--space-md);
@@ -281,10 +460,62 @@
         .login-header h1 {
           font-size: 1.25rem;
         }
+=======
+        background: linear-gradient(135deg, var(--login-primary), #6366f1);
+        border: none;
+        border-radius: 0.875rem;
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+      }
+
+      .login-btn:active {
+        transform: translateY(0);
+      }
+
+      .error-msg {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #f87171;
+        padding: 0.75rem;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+        display: none;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .demo-info {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 0.8125rem;
+        color: #64748b;
+      }
+
+      .demo-info code {
+        color: #94a3b8;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
     </style>
   </head>
   <body>
+<<<<<<< HEAD
     <div class="login-page">
       <div class="login-card glass-card">
         <div class="login-header">
@@ -310,10 +541,63 @@
                 placeholder="Enter username"
                 required
                 autocomplete="username"
+=======
+    <div class="login-container">
+      <div class="bg-gradient"></div>
+
+      <div class="login-card">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <i
+              data-lucide="layout-dashboard"
+              style="color: white; width: 32px; height: 32px"
+            ></i>
+          </div>
+          <h1 class="brand-name">BillMaster Pro</h1>
+          <p class="brand-subtitle">Professional Enterprise Solutions</p>
+        </div>
+
+        <div id="errorBox" class="error-msg">
+          <i data-lucide="alert-circle" style="width: 16px"></i>
+          <span id="errorText">Invalid credentials</span>
+        </div>
+
+        <div class="role-selector">
+          <div
+            class="role-option active"
+            data-role="admin"
+            onclick="selectRole('admin')"
+          >
+            <i data-lucide="shield" style="width: 16px"></i>
+            Admin
+          </div>
+          <div
+            class="role-option"
+            data-role="staff"
+            onclick="selectRole('staff')"
+          >
+            <i data-lucide="user" style="width: 16px"></i>
+            Staff
+          </div>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <div class="input-wrapper">
+              <i data-lucide="user" class="input-icon" style="width: 18px"></i>
+              <input
+                type="text"
+                id="username"
+                class="form-input"
+                placeholder="e.g. admin"
+                required
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
               />
             </div>
           </div>
 
+<<<<<<< HEAD
           <div class="input-group">
             <label for="password">Password</label>
             <div class="input-wrapper">
@@ -346,12 +630,37 @@
           <h4>Demo Credentials</h4>
           <p>Username: <code>admin</code></p>
           <p>Password: <code>admin123</code></p>
+=======
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock" class="input-icon" style="width: 18px"></i>
+              <input
+                type="password"
+                id="password"
+                class="form-input"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="login-btn" id="loginBtn">
+            <span>Sign In</span>
+            <i data-lucide="arrow-right" style="width: 18px"></i>
+          </button>
+        </form>
+
+        <div class="demo-info">
+          Use <code>admin</code> / <code>admin123</code> for full access
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         </div>
       </div>
     </div>
 
     <script src="assets/js/app.js"></script>
     <script>
+<<<<<<< HEAD
       // Check if already logged in
       (async () => {
         const result = await BillMaster.auth.check();
@@ -374,6 +683,37 @@
       }
 
       // Handle login form
+=======
+      let selectedRole = "admin";
+
+      function selectRole(role) {
+        selectedRole = role;
+        document.querySelectorAll(".role-option").forEach((opt) => {
+          opt.classList.toggle("active", opt.dataset.role === role);
+        });
+
+        // Update demo info based on role
+        const demoInfo = document.querySelector(".demo-info");
+        if (role === "admin") {
+          demoInfo.innerHTML =
+            "Use <code>admin</code> / <code>admin123</code> for full access";
+        } else {
+          demoInfo.innerHTML = "Use a staff account to access POS terminal";
+        }
+      }
+
+      // Check if already logged in
+      (async () => {
+        lucide.createIcons();
+        const result = await BillMaster.auth.check();
+        if (result.success && result.user) {
+          window.location.href = BillMaster.getDashboardByRole(
+            result.user.role,
+          );
+        }
+      })();
+
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       document
         .getElementById("loginForm")
         .addEventListener("submit", async (e) => {
@@ -383,6 +723,7 @@
           const password = document.getElementById("password").value;
           const loginBtn = document.getElementById("loginBtn");
           const errorBox = document.getElementById("errorBox");
+<<<<<<< HEAD
           const errorMessage = document.getElementById("errorMessage");
 
           // Validate
@@ -411,6 +752,52 @@
             errorBox.classList.add("show");
             loginBtn.classList.remove("loading");
             loginBtn.disabled = false;
+=======
+          const errorText = document.getElementById("errorText");
+
+          loginBtn.disabled = true;
+          loginBtn.innerHTML =
+            '<span class="spinner spinner-sm"></span> Signing in...';
+          errorBox.style.display = "none";
+
+          try {
+            const result = await BillMaster.auth.login(username, password);
+
+            if (result.success && result.user) {
+              // Check if selected role matches user role
+              // If user wants mandatory selection, we can validate here
+              // But usually business rules say user role is fixed in DB
+              // If they selected 'Staff' but are 'Admin', what happens?
+              // I will route them based on THEIR ACTUAL DB ROLE to keep it secure,
+              // but I can show an error if it doesn't match the selection for strictness.
+
+              if (
+                result.user.role !== selectedRole &&
+                result.user.role !== "admin"
+              ) {
+                // If they say they are admin but are staff
+                throw new Error(
+                  `Account role is ${result.user.role}, not ${selectedRole}`,
+                );
+              }
+
+              BillMaster.toast.success("Access granted");
+              setTimeout(() => {
+                window.location.href = BillMaster.getDashboardByRole(
+                  result.user.role,
+                );
+              }, 500);
+            } else {
+              throw new Error(result.message || "Invalid credentials");
+            }
+          } catch (err) {
+            errorText.textContent = err.message;
+            errorBox.style.display = "flex";
+            loginBtn.disabled = false;
+            loginBtn.innerHTML =
+              '<span>Sign In</span><i data-lucide="arrow-right" style="width: 18px;"></i>';
+            lucide.createIcons();
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           }
         });
     </script>

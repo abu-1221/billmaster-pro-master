@@ -8,6 +8,7 @@ A complete billing and management system with a Python/Flask backend using SQLit
 
 ## 🚀 Features
 
+<<<<<<< HEAD
 - **User Authentication** - Secure login/logout with session management and last-login tracking
 - **Dynamic Dashboard** - Professional single-line analytics alignment with real-time tracking
 - **Advanced Pricing** - Customer-specific status (New/Regular) with automated loyalty discounts
@@ -28,6 +29,16 @@ A complete billing and management system with a Python/Flask backend using SQLit
 
 ### Smart Billing & Dynamic UPI QR
 ![Billing](screenshots/3.jpg)
+=======
+- **User Authentication** - Secure login/logout with session management
+- **Dashboard** - Real-time analytics and statistics
+- **Product Management** - CRUD operations for products with categories
+- **Customer Management** - Customer database with order history
+- **Invoice Generation** - Create and manage invoices
+- **Analytics** - Comprehensive reporting and charts
+- **Settings** - Configurable business settings and user management
+- **Zero Configuration** - Uses SQLite, no external database setup required!
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 ---
 
@@ -150,14 +161,21 @@ All API endpoints are under `/api/` prefix:
 
 ### Settings
 
+<<<<<<< HEAD
 - `GET /api/settings.php?action=get` - Get all settings (including UPI IDs)
+=======
+- `GET /api/settings.php?action=get` - Get all settings
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 - `POST /api/settings.php?action=update` - Update settings
 - `GET /api/settings.php?action=users` - List users (admin)
 - `GET /api/settings.php?action=delete_user&id=X` - Delete user (admin)
 
+<<<<<<< HEAD
 ### Performance Tools
 - `finalize_db.py` - Database migration and indexing utility script
 
+=======
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 ---
 
 ## 🔧 Technology Stack

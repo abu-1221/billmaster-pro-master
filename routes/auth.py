@@ -10,7 +10,11 @@ import os
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+<<<<<<< HEAD
 from config.database import get_connection, dict_from_row
+=======
+from config.database import get_connection, dict_from_row, log_activity
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -65,6 +69,11 @@ def login():
                 session['role'] = user['role']
                 session['logged_in'] = True
                 
+<<<<<<< HEAD
+=======
+                log_activity(conn, user['id'], 'LOGIN', 'AUTH', f"User logged in: {username}")
+                
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 return jsonify({
                     'success': True,
                     'message': 'Login successful',
@@ -139,6 +148,12 @@ def register():
         """, (username, hashed_password, full_name, email, role))
         
         conn.commit()
+<<<<<<< HEAD
+=======
+        
+        log_activity(conn, session.get('user_id', 1), 'REGISTER', 'AUTH', f"Created new user: {username}")
+        
+>>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         cursor.close()
         conn.close()
         
