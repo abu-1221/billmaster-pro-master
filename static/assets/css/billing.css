@@ -3,16 +3,11 @@
 .billing-container {
     display: grid;
     grid-template-columns: 1fr 400px;
-<<<<<<< HEAD
-    gap: var(--space-lg);
-    height: calc(100vh - 100px);
-=======
     gap: var(--space-xl);
     max-width: 1600px;
     margin: 0 auto;
     height: auto;
     min-height: calc(100vh - 120px);
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 }
 
 /* Product Section */
@@ -27,14 +22,6 @@
 }
 
 .product-header {
-<<<<<<< HEAD
-    padding: var(--space-md) var(--space-lg);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    flex-shrink: 0;
-=======
     padding: var(--space-lg);
     border-bottom: 1px solid var(--border-color);
     display: flex;
@@ -42,7 +29,6 @@
     gap: var(--space-md);
     flex-shrink: 0;
     background: var(--bg-hover);
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 }
 
 .product-search {
@@ -108,20 +94,6 @@
     color: white;
 }
 
-<<<<<<< HEAD
-/* Product Grid */
-.product-grid {
-    flex: 1;
-    padding: var(--space-md);
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: var(--space-sm);
-    align-content: start;
-}
-
-.product-card {
-=======
 /* Product Grid - Single Row Horizontal Scroll */
 .product-grid {
     flex: 1;
@@ -150,7 +122,6 @@
 
 .product-card {
     flex: 0 0 140px; /* Fixed width for consistent alignment */
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -158,13 +129,10 @@
     cursor: pointer;
     transition: all var(--transition-fast);
     text-align: center;
-<<<<<<< HEAD
-=======
     height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 }
 
 .product-card:hover {
@@ -233,11 +201,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-<<<<<<< HEAD
-    padding: var(--space-sm) var(--space-md);
-=======
     padding: var(--space-lg);
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     border-bottom: 1px solid var(--border-color);
     background: linear-gradient(135deg, var(--primary-pale), var(--bg-tertiary));
     flex-shrink: 0;
@@ -517,28 +481,16 @@
         height: auto;
         gap: var(--space-md);
     }
-<<<<<<< HEAD
-
-    .product-section {
-        height: 400px;
-    }
-
-=======
     
     .product-section {
         height: 400px;
     }
     
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     .cart-section {
         height: auto;
         min-height: 400px;
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     .cart-items {
         min-height: 150px;
         max-height: 250px;
@@ -550,162 +502,12 @@
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         padding: var(--space-sm);
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     .cart-actions {
         grid-template-columns: 1fr;
     }
 }
 
-<<<<<<< HEAD
-/* Payment Methods - Premium UI */
-.payment-methods-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-    margin-bottom: var(--space-lg);
-}
-
-.pay-method-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-md);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    cursor: pointer;
-    transition: all var(--transition-base);
-    position: relative;
-    overflow: hidden;
-}
-
-.pay-method-item::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), transparent);
-    opacity: 0;
-    transition: opacity var(--transition-base);
-}
-
-.pay-method-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--primary-light);
-    transform: translateY(-2px);
-}
-
-.pay-method-item.active {
-    background: var(--primary-pale);
-    border-color: var(--primary);
-    box-shadow: var(--shadow-primary);
-}
-
-.pay-method-item.active::after {
-    opacity: 1;
-}
-
-.pay-icon {
-    font-size: 1.75rem;
-    margin-bottom: var(--space-xs);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-.pay-label {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    z-index: 1;
-}
-
-.pay-method-item.active .pay-label {
-    color: var(--primary-light);
-}
-
-/* Payment Detail Boxes */
-.payment-detail-box {
-    background: var(--bg-primary);
-    border-radius: var(--radius-lg);
-    padding: var(--space-lg);
-    border: 1px solid var(--border-color);
-    animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Status Selectors */
-.status-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-md);
-}
-
-.status-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    padding: 0.75rem;
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 600;
-    transition: all var(--transition-fast);
-}
-
-.status-item.active.paid {
-    background: var(--success-pale);
-    border-color: var(--success);
-    color: var(--success);
-}
-
-.status-item.active.pending {
-    background: var(--warning-pale);
-    border-color: var(--warning);
-    color: var(--warning);
-}
-
-/* Checkout Summary Adjustments */
-#checkoutSummary {
-    border: 1px solid var(--border-color);
-    background: linear-gradient(180deg, var(--bg-tertiary), var(--bg-secondary));
-}
-
-/* Print Styles */
-@media print {
-
-    .sidebar,
-    .main-header,
-    .cart-actions {
-        display: none !important;
-    }
-
-    .main-content {
-        margin: 0;
-    }
-
-    body {
-        background: white;
-        color: black;
-    }
-}
-=======
 /* ============================================
    PROFESSIONAL PAYMENT UI
    ============================================ */
@@ -944,4 +746,3 @@
     font-size: 0.75rem;
     font-weight: 700;
 }
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de

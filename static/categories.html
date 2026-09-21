@@ -13,10 +13,7 @@
     />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/layout.css" />
-<<<<<<< HEAD
-=======
     <script src="https://unpkg.com/lucide@latest"></script>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
   </head>
   <body>
     <div class="app-layout">
@@ -24,12 +21,6 @@
 
       <aside class="sidebar">
         <div class="sidebar-header">
-<<<<<<< HEAD
-          <div class="sidebar-logo">💼</div>
-          <div class="sidebar-brand">
-            <h1>BillMaster</h1>
-            <span>Pro Billing</span>
-=======
           <div class="sidebar-logo">
             <i
               data-lucide="layout-dashboard"
@@ -39,51 +30,11 @@
           <div class="sidebar-brand">
             <h1>BillMaster</h1>
             <span>Pro Edition</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </div>
         </div>
         <nav class="sidebar-nav">
           <div class="nav-section">
             <div class="nav-section-title">Menu</div>
-<<<<<<< HEAD
-            <a href="dashboard.html" class="nav-item"
-              ><span class="nav-item-icon">📊</span><span>Dashboard</span></a
-            >
-            <a href="billing.html" class="nav-item"
-              ><span class="nav-item-icon">🧾</span><span>New Bill</span></a
-            >
-            <a href="invoices.html" class="nav-item"
-              ><span class="nav-item-icon">📋</span><span>Invoices</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">Manage</div>
-            <a href="products.html" class="nav-item"
-              ><span class="nav-item-icon">📦</span><span>Products</span></a
-            >
-            <a href="customers.html" class="nav-item"
-              ><span class="nav-item-icon">👥</span><span>Customers</span></a
-            >
-            <a href="categories.html" class="nav-item active"
-              ><span class="nav-item-icon">🏷️</span><span>Categories</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">System</div>
-            <a href="settings.html" class="nav-item"
-              ><span class="nav-item-icon">⚙️</span><span>Settings</span></a
-            >
-          </div>
-        </nav>
-        <div class="sidebar-footer">
-          <div class="user-profile" onclick="BillMaster.auth.logout()">
-            <div class="user-avatar">AD</div>
-            <div class="user-info">
-              <div class="user-name">Admin</div>
-              <div class="user-role">Logout</div>
-            </div>
-          </div>
-=======
             <a href="dashboard.html" class="nav-item">
               <span class="nav-item-icon"
                 ><i data-lucide="bar-chart-3"></i
@@ -134,28 +85,18 @@
             <i data-lucide="log-out"></i>
             <span>Logout</span>
           </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         </div>
       </aside>
 
       <main class="main-content">
         <header class="main-header">
           <div class="header-left">
-<<<<<<< HEAD
-            <button class="sidebar-toggle">☰</button>
-            <h2 class="page-title">🏷️ Categories</h2>
-          </div>
-          <div class="header-right">
-            <button class="btn btn-primary" onclick="openModal()">
-              <span>➕</span><span>Add Category</span>
-=======
             <button class="sidebar-toggle"><i data-lucide="menu"></i></button>
             <h2 class="page-title">Inventory Categories</h2>
           </div>
           <div class="header-right">
             <button class="btn btn-primary" onclick="openModal()">
               <i data-lucide="plus-circle"></i><span>Create New Category</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             </button>
           </div>
         </header>
@@ -170,20 +111,12 @@
     <div class="modal-overlay" id="categoryModal">
       <div class="modal" style="max-width: 450px">
         <div class="modal-header">
-<<<<<<< HEAD
-          <h3 class="modal-title" id="modalTitle">Add Category</h3>
-=======
           <h3 class="modal-title" id="modalTitle">Category Details</h3>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           <button
             class="modal-close"
             onclick="BillMaster.modal.close('categoryModal')"
           >
-<<<<<<< HEAD
-            ×
-=======
             <i data-lucide="x" style="width: 20px"></i>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </button>
         </div>
         <div class="modal-body">
@@ -198,20 +131,6 @@
             />
           </div>
           <div class="form-group">
-<<<<<<< HEAD
-            <label class="form-label">GST Percentage (%)</label>
-            <input
-              type="number"
-              id="categoryGst"
-              class="form-input"
-              placeholder="e.g. 5, 12, 18"
-              step="0.01"
-              min="0"
-            />
-          </div>
-          <div class="form-group">
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             <label class="form-label">Description</label>
             <textarea
               id="categoryDescription"
@@ -239,10 +158,7 @@
       let categories = [];
 
       document.addEventListener("DOMContentLoaded", async () => {
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         await BillMaster.auth.requireAuth();
         await initUserInfo();
         await loadCategories();
@@ -269,19 +185,6 @@
             (c) => `
                 <div class="glass-card" style="padding: var(--space-lg);">
                     <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: var(--space-md);">
-<<<<<<< HEAD
-                        <div style="width: 48px; height: 48px; background: var(--primary-pale); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🏷️</div>
-                        <div style="display: flex; gap: var(--space-xs);">
-                            <button class="btn btn-sm btn-ghost" onclick="editCategory(${c.id})">✏️</button>
-                            <button class="btn btn-sm btn-ghost" onclick="deleteCategory(${c.id})">🗑️</button>
-                        </div>
-                    </div>
-                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-xs);">${BillMaster.utils.escapeHtml(c.name)}</h3>
-                    <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: var(--space-md);">${c.description ? BillMaster.utils.escapeHtml(c.description) : "No description"}</p>
-                    <div style="display: flex; gap: var(--space-xs); flex-wrap: wrap;">
-                        <div class="badge badge-info">${c.product_count || 0} products</div>
-                        <div class="badge badge-warning">GST: ${c.gst_percentage || 0}%</div>
-=======
                         <div style="width: 48px; height: 48px; background: var(--primary-pale); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: var(--primary);">
                              <i data-lucide="tag" style="width: 24px; height: 24px;"></i>
                         </div>
@@ -299,16 +202,12 @@
                     <div style="display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-muted);">
                         <i data-lucide="box" style="width: 12px; height: 12px;"></i>
                         <span>${c.product_count || 0} products</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     </div>
                 </div>
             `,
           )
           .join("");
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       function openModal(category = null) {
@@ -319,11 +218,6 @@
         document.getElementById("categoryName").value = category?.name || "";
         document.getElementById("categoryDescription").value =
           category?.description || "";
-<<<<<<< HEAD
-        document.getElementById("categoryGst").value =
-          category?.gst_percentage || "0";
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         BillMaster.modal.open("categoryModal");
       }
 
@@ -339,10 +233,6 @@
           description: document
             .getElementById("categoryDescription")
             .value.trim(),
-<<<<<<< HEAD
-          gst_percentage: document.getElementById("categoryGst").value || 0,
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         };
 
         if (!data.name) {

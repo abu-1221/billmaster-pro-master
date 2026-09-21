@@ -3,17 +3,14 @@ BillMaster Pro - Main Flask Application
 Professional Production Version
 """
 
-from flask import Flask, redirect, session, send_from_directory, jsonify
+from flask import Flask, redirect, session, send_from_directory, jsonify, request
 from flask_cors import CORS
 import os
-from datetime import timedelta
-<<<<<<< HEAD
-=======
+from datetime import timedelta, datetime
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 # Import route blueprints
 from routes.auth import auth_bp
@@ -23,20 +20,12 @@ from routes.products import products_bp
 from routes.invoices import invoices_bp
 from routes.analytics import analytics_bp
 from routes.settings import settings_bp
-<<<<<<< HEAD
-
-# Initialize Flask app
-# We explicitly set static_folder to 'static'
-app = Flask(__name__, static_folder='static', static_url_path='')
-app.secret_key = os.environ.get('SECRET_KEY', 'billmaster_pro_prod_key_9988')
-=======
 from routes.expenses import expenses_bp
 from routes.system import system_bp
 
 # Initialize Flask app
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.secret_key = os.environ.get('SECRET_KEY', 'billmaster_pro_secure_production_key_2024_!@#')
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 # Session configuration
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -55,8 +44,6 @@ app.register_blueprint(products_bp, url_prefix='/api')
 app.register_blueprint(invoices_bp, url_prefix='/api')
 app.register_blueprint(analytics_bp, url_prefix='/api')
 app.register_blueprint(settings_bp, url_prefix='/api')
-<<<<<<< HEAD
-=======
 app.register_blueprint(expenses_bp, url_prefix='/api')
 app.register_blueprint(system_bp, url_prefix='/api')
 
@@ -69,29 +56,10 @@ def not_found(e):
 @app.errorhandler(500)
 def server_error(e):
     return jsonify({"success": False, "message": "Internal server error occurred", "error": str(e)}), 500
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 @app.route('/')
 def index():
     if session.get('logged_in'):
-<<<<<<< HEAD
-        return send_from_directory('static', 'dashboard.html')
-    return send_from_directory('static', 'login.html')
-
-# Catch-all for HTML pages
-@app.route('/<path:path>')
-def serve_pages(path):
-    if path.endswith('.html'):
-        return send_from_directory('static', path)
-    return send_from_directory('static', path)
-
-@app.route('/api/health')
-def health():
-    return jsonify({"status": "healthy", "service": "billmaster-pro"})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-=======
         role = session.get('role', 'staff')
         target = 'dashboard.html' if role == 'admin' else 'billing.html'
     else:
@@ -120,4 +88,3 @@ if __name__ == '__main__':
     # Use environment port if available (for Render/Heroku/Vercel)
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de

@@ -13,10 +13,7 @@
     />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/layout.css" />
-<<<<<<< HEAD
-=======
     <script src="https://unpkg.com/lucide@latest"></script>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
   </head>
   <body>
     <div class="app-layout">
@@ -24,12 +21,6 @@
 
       <aside class="sidebar">
         <div class="sidebar-header">
-<<<<<<< HEAD
-          <div class="sidebar-logo">💼</div>
-          <div class="sidebar-brand">
-            <h1>BillMaster</h1>
-            <span>Pro Billing</span>
-=======
           <div class="sidebar-logo">
             <i
               data-lucide="layout-dashboard"
@@ -39,51 +30,11 @@
           <div class="sidebar-brand">
             <h1>BillMaster</h1>
             <span>Pro Edition</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </div>
         </div>
         <nav class="sidebar-nav">
           <div class="nav-section">
             <div class="nav-section-title">Menu</div>
-<<<<<<< HEAD
-            <a href="dashboard.html" class="nav-item"
-              ><span class="nav-item-icon">📊</span><span>Dashboard</span></a
-            >
-            <a href="billing.html" class="nav-item"
-              ><span class="nav-item-icon">🧾</span><span>New Bill</span></a
-            >
-            <a href="invoices.html" class="nav-item"
-              ><span class="nav-item-icon">📋</span><span>Invoices</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">Manage</div>
-            <a href="products.html" class="nav-item"
-              ><span class="nav-item-icon">📦</span><span>Products</span></a
-            >
-            <a href="customers.html" class="nav-item active"
-              ><span class="nav-item-icon">👥</span><span>Customers</span></a
-            >
-            <a href="categories.html" class="nav-item"
-              ><span class="nav-item-icon">🏷️</span><span>Categories</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">System</div>
-            <a href="settings.html" class="nav-item"
-              ><span class="nav-item-icon">⚙️</span><span>Settings</span></a
-            >
-          </div>
-        </nav>
-        <div class="sidebar-footer">
-          <div class="user-profile" onclick="BillMaster.auth.logout()">
-            <div class="user-avatar">AD</div>
-            <div class="user-info">
-              <div class="user-name">Admin</div>
-              <div class="user-role">Logout</div>
-            </div>
-          </div>
-=======
             <a href="dashboard.html" class="nav-item">
               <span class="nav-item-icon"
                 ><i data-lucide="bar-chart-3"></i
@@ -134,28 +85,18 @@
             <i data-lucide="log-out"></i>
             <span>Logout</span>
           </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         </div>
       </aside>
 
       <main class="main-content">
         <header class="main-header">
           <div class="header-left">
-<<<<<<< HEAD
-            <button class="sidebar-toggle">☰</button>
-            <h2 class="page-title">👥 Customers</h2>
-          </div>
-          <div class="header-right">
-            <button class="btn btn-primary" onclick="openModal()">
-              <span>➕</span><span>Add Customer</span>
-=======
             <button class="sidebar-toggle"><i data-lucide="menu"></i></button>
             <h2 class="page-title">Customer Relations</h2>
           </div>
           <div class="header-right">
             <button class="btn btn-primary" onclick="openModal()">
               <i data-lucide="user-plus"></i><span>Add New Client</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             </button>
           </div>
         </header>
@@ -179,10 +120,7 @@
               <table class="data-table">
                 <thead>
                   <tr>
-<<<<<<< HEAD
-=======
                     <th>Customer ID</th>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     <th>Customer</th>
                     <th>Contact</th>
                     <th>Status</th>
@@ -203,20 +141,12 @@
     <div class="modal-overlay" id="customerModal">
       <div class="modal" style="max-width: 500px">
         <div class="modal-header">
-<<<<<<< HEAD
-          <h3 class="modal-title" id="modalTitle">Add Customer</h3>
-=======
           <h3 class="modal-title" id="modalTitle">Customer Profile</h3>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           <button
             class="modal-close"
             onclick="BillMaster.modal.close('customerModal')"
           >
-<<<<<<< HEAD
-            ×
-=======
             <i data-lucide="x" style="width: 20px"></i>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </button>
         </div>
         <div class="modal-body">
@@ -231,8 +161,6 @@
             />
           </div>
           <div class="form-group">
-<<<<<<< HEAD
-=======
             <label class="form-label">Status</label>
             <select id="customerStatus" class="form-select">
               <option value="new">New Customer</option>
@@ -240,7 +168,6 @@
             </select>
           </div>
           <div class="form-group">
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             <label class="form-label">Phone</label>
             <input
               type="tel"
@@ -266,30 +193,6 @@
               placeholder="Enter address"
             ></textarea>
           </div>
-<<<<<<< HEAD
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
-            <div class="form-group">
-              <label class="form-label">Status</label>
-              <select id="customerStatus" class="form-select">
-                <option value="new">🆕 New</option>
-                <option value="regular">⭐ Regular</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Default Discount (%)</label>
-              <input
-                type="number"
-                id="customerDiscount"
-                class="form-input"
-                placeholder="0"
-                min="0"
-                max="100"
-                step="0.1"
-              />
-            </div>
-          </div>
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         </div>
         <div class="modal-footer">
           <button
@@ -310,10 +213,7 @@
       let customers = [];
 
       document.addEventListener("DOMContentLoaded", async () => {
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         await BillMaster.auth.requireAuth();
         await initUserInfo();
         await loadCustomers();
@@ -341,23 +241,15 @@
           (c) =>
             c.name.toLowerCase().includes(search) ||
             (c.phone && c.phone.includes(search)) ||
-<<<<<<< HEAD
-            (c.email && c.email.toLowerCase().includes(search)),
-=======
             (c.email && c.email.toLowerCase().includes(search)) ||
             (c.customer_number &&
               c.customer_number.toLowerCase().includes(search)),
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         );
 
         const tbody = document.getElementById("customersTable");
         if (!filtered.length) {
           tbody.innerHTML =
-<<<<<<< HEAD
-            '<tr><td colspan="5" class="empty-state">No customers found</td></tr>';
-=======
             '<tr><td colspan="7" class="empty-state">No customers found</td></tr>';
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           return;
         }
 
@@ -365,28 +257,6 @@
           .map(
             (c) => `
                 <tr>
-<<<<<<< HEAD
-                    <td>
-                        <div style="display: flex; align-items: center; gap: var(--space-md);">
-                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
-                                ${BillMaster.utils.getInitials(c.name)}
-                            </div>
-                            <div>
-                                <div style="font-weight: 500;">${BillMaster.utils.escapeHtml(c.name)}</div>
-                                <div style="font-size: 0.75rem; color: var(--text-muted);">ID: ${c.id}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div>${c.phone || "—"}</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">${c.email || ""}</div>
-                    </td>
-                    <td>
-                        <span class="badge ${c.status === "regular" ? "badge-success" : "badge-info"}">
-                            ${c.status === "regular" ? "⭐ Regular" : "🆕 New"}
-                        </span>
-                        ${c.default_discount > 0 ? `<div style="font-size: 0.7rem; color: var(--success); margin-top: 4px;">🎁 ${c.default_discount}% Off</div>` : ""}
-=======
                     <td style="font-family: monospace; font-weight: 600; color: var(--primary);">${c.customer_number || "CUST-" + c.id.toString().padStart(5, "0")}</td>
                     <td>
                         <div style="display: flex; align-items: center; gap: var(--space-md);">
@@ -404,31 +274,22 @@
                         <span class="badge ${c.status === "regular" ? "badge-success" : "badge-info"}">
                             ${c.status === "regular" ? "Regular" : "New"}
                         </span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     </td>
                     <td><span class="badge badge-info">${c.total_orders || 0}</span></td>
                     <td style="font-weight: 600; color: var(--success);">${BillMaster.utils.formatCurrency(c.total_spent || 0)}</td>
                     <td>
-<<<<<<< HEAD
-                        <button class="btn btn-sm btn-ghost" onclick="editCustomer(${c.id})" title="Edit">✏️</button>
-                        <button class="btn btn-sm btn-ghost" onclick="deleteCustomer(${c.id})" title="Delete">🗑️</button>
-=======
                         <button class="btn btn-sm btn-ghost" onclick="editCustomer(${c.id})" title="Edit Profile">
                             <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
                         </button>
                         <button class="btn btn-sm btn-ghost" onclick="deleteCustomer(${c.id})" title="Delete Client">
                             <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
                         </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     </td>
                 </tr>
             `,
           )
           .join("");
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       function openModal(customer = null) {
@@ -437,22 +298,12 @@
           : "Add Customer";
         document.getElementById("customerId").value = customer?.id || "";
         document.getElementById("customerName").value = customer?.name || "";
-<<<<<<< HEAD
-=======
         document.getElementById("customerStatus").value =
           customer?.status || "new";
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         document.getElementById("customerPhone").value = customer?.phone || "";
         document.getElementById("customerEmail").value = customer?.email || "";
         document.getElementById("customerAddress").value =
           customer?.address || "";
-<<<<<<< HEAD
-        document.getElementById("customerStatus").value =
-          customer?.status || "new";
-        document.getElementById("customerDiscount").value =
-          customer?.default_discount || 0;
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         BillMaster.modal.open("customerModal");
       }
 
@@ -465,19 +316,10 @@
         const id = document.getElementById("customerId").value;
         const data = {
           name: document.getElementById("customerName").value.trim(),
-<<<<<<< HEAD
-          phone: document.getElementById("customerPhone").value.trim(),
-          email: document.getElementById("customerEmail").value.trim(),
-          address: document.getElementById("customerAddress").value.trim(),
-          status: document.getElementById("customerStatus").value,
-          default_discount:
-            parseFloat(document.getElementById("customerDiscount").value) || 0,
-=======
           status: document.getElementById("customerStatus").value,
           phone: document.getElementById("customerPhone").value.trim(),
           email: document.getElementById("customerEmail").value.trim(),
           address: document.getElementById("customerAddress").value.trim(),
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         };
 
         if (!data.name) {

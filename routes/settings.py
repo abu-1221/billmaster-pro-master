@@ -8,22 +8,10 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-<<<<<<< HEAD
-from config.database import get_connection, dict_from_row, dict_list_from_rows
-
-settings_bp = Blueprint('settings', __name__)
-
-def is_logged_in():
-    return session.get('logged_in', False)
-
-def is_admin():
-    return is_logged_in() and session.get('role') == 'admin'
-=======
 from config.database import get_connection, dict_from_row, dict_list_from_rows, admin_required, login_required
 
 settings_bp = Blueprint('settings', __name__)
 
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 @settings_bp.route('/settings.php', methods=['GET', 'POST', 'OPTIONS'])
 def settings_handler():
@@ -44,10 +32,7 @@ def settings_handler():
     else:
         return jsonify({'success': False, 'message': 'Invalid action'})
 
-<<<<<<< HEAD
-=======
 @login_required
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def get_settings():
     """Get all settings"""
     try:
@@ -68,17 +53,9 @@ def get_settings():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
-def update_settings():
-    """Update settings"""
-    if not is_logged_in():
-        return jsonify({'success': False, 'message': 'Please login first'})
-    
-=======
 @admin_required
 def update_settings():
     """Update settings"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json()
         
@@ -108,17 +85,9 @@ def update_settings():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
-def list_users():
-    """List all users (admin only)"""
-    if not is_admin():
-        return jsonify({'success': False, 'message': 'Admin access required'})
-    
-=======
 @admin_required
 def list_users():
     """List all users (admin only)"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         conn = get_connection()
         if not conn:
@@ -135,17 +104,9 @@ def list_users():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
-def delete_user():
-    """Delete user (admin only)"""
-    if not is_admin():
-        return jsonify({'success': False, 'message': 'Admin access required'})
-    
-=======
 @admin_required
 def delete_user():
     """Delete user (admin only)"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         user_id = request.args.get('id', 0, type=int)
         

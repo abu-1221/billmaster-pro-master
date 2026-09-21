@@ -14,69 +14,6 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/layout.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<<<<<<< HEAD
-    <style>
-      /* Horizontal Stat Bar Styles */
-      .stats-bar {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: var(--space-md);
-        margin-bottom: var(--space-xl);
-      }
-      .stat-card-horizontal {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        padding: var(--space-md);
-        display: flex;
-        align-items: center;
-        gap: var(--space-md);
-        transition: all var(--transition-base);
-      }
-      .stat-card-horizontal:hover {
-        border-color: var(--primary);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-primary);
-      }
-      .stat-card-horizontal .icon-box {
-        width: 44px;
-        height: 44px;
-        border-radius: var(--radius-md);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-        flex-shrink: 0;
-      }
-      .stat-card-horizontal .info {
-        flex: 1;
-        min-width: 0;
-      }
-      .stat-card-horizontal .value {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        line-height: 1.2;
-      }
-      .stat-card-horizontal .label {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        font-weight: 500;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .stat-card-horizontal .growth {
-        font-size: 0.65rem;
-        margin-top: 2px;
-      }
-      
-      @media (max-width: 1200px) {
-        .stats-bar { grid-template-columns: repeat(2, 1fr); }
-      }
-      @media (max-width: 600px) {
-        .stats-bar { grid-template-columns: 1fr; }
-=======
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
       .stat-card .growth {
@@ -88,7 +25,6 @@
       }
       .stat-card .growth.negative {
         color: var(--danger);
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
       .chart-container {
         height: 280px;
@@ -161,12 +97,6 @@
       <!-- Sidebar -->
       <aside class="sidebar">
         <div class="sidebar-header">
-<<<<<<< HEAD
-          <div class="sidebar-logo">💼</div>
-          <div class="sidebar-brand">
-            <h1>BillMaster</h1>
-            <span>Pro Billing</span>
-=======
           <div class="sidebar-logo">
             <i
               data-lucide="layout-dashboard"
@@ -176,58 +106,11 @@
           <div class="sidebar-brand">
             <h1>BillMaster</h1>
             <span>Pro Edition</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </div>
         </div>
         <nav class="sidebar-nav">
           <div class="nav-section">
             <div class="nav-section-title">Menu</div>
-<<<<<<< HEAD
-            <a href="dashboard.html" class="nav-item active"
-              ><span class="nav-item-icon">📊</span
-              ><span class="nav-item-text">Dashboard</span></a
-            >
-            <a href="billing.html" class="nav-item"
-              ><span class="nav-item-icon">🧾</span
-              ><span class="nav-item-text">New Bill</span></a
-            >
-            <a href="invoices.html" class="nav-item"
-              ><span class="nav-item-icon">📋</span
-              ><span class="nav-item-text">Invoices</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">Manage</div>
-            <a href="products.html" class="nav-item"
-              ><span class="nav-item-icon">📦</span
-              ><span class="nav-item-text">Products</span></a
-            >
-            <a href="customers.html" class="nav-item"
-              ><span class="nav-item-icon">👥</span
-              ><span class="nav-item-text">Customers</span></a
-            >
-            <a href="categories.html" class="nav-item"
-              ><span class="nav-item-icon">🏷️</span
-              ><span class="nav-item-text">Categories</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">System</div>
-            <a href="settings.html" class="nav-item"
-              ><span class="nav-item-icon">⚙️</span
-              ><span class="nav-item-text">Settings</span></a
-            >
-          </div>
-        </nav>
-        <div class="sidebar-footer">
-          <div class="user-profile" onclick="BillMaster.auth.logout()">
-            <div class="user-avatar">AD</div>
-            <div class="user-info">
-              <div class="user-name">Admin</div>
-              <div class="user-role">Logout</div>
-            </div>
-          </div>
-=======
             <a href="dashboard.html" class="nav-item active">
               <span class="nav-item-icon"
                 ><i data-lucide="bar-chart-3"></i
@@ -278,7 +161,6 @@
             <i data-lucide="log-out"></i>
             <span>Logout</span>
           </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         </div>
       </aside>
 
@@ -298,42 +180,6 @@
         </header>
 
         <div class="page-content">
-<<<<<<< HEAD
-          <!-- Stats Grid - Professional Single Line Format -->
-          <div class="stats-bar">
-            <div class="stat-card-horizontal">
-              <div class="icon-box primary">💰</div>
-              <div class="info">
-                <div class="value" id="todayRevenue">₹0</div>
-                <div class="label">Today's Revenue</div>
-                <div class="growth" id="revenueGrowth"></div>
-              </div>
-            </div>
-
-            <div class="stat-card-horizontal">
-              <div class="icon-box success">📄</div>
-              <div class="info">
-                <div class="value" id="todayInvoices">0</div>
-                <div class="label">Today's Invoices</div>
-                <div class="growth" id="invoiceGrowth"></div>
-              </div>
-            </div>
-
-            <div class="stat-card-horizontal">
-              <div class="icon-box warning">🛒</div>
-              <div class="info">
-                <div class="value" id="itemsSold">0</div>
-                <div class="label">Items Sold Today</div>
-              </div>
-            </div>
-
-            <div class="stat-card-horizontal">
-              <div class="icon-box danger">📈</div>
-              <div class="info">
-                <div class="value" id="monthRevenue">₹0</div>
-                <div class="label">This Month Sales</div>
-              </div>
-=======
           <!-- Stats Grid -->
           <div class="stats-grid" style="margin-bottom: var(--space-xl)">
             <div class="stat-card compact">
@@ -388,7 +234,6 @@
               </div>
               <div class="stat-card-value" id="monthRevenue">₹0</div>
               <div class="stat-card-label">This Month</div>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             </div>
           </div>
 
@@ -531,10 +376,7 @@
       );
 
       document.addEventListener("DOMContentLoaded", async () => {
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         try {
           const user = await BillMaster.auth.requireAuth();
           if (!user) return; // Will be redirected to login
@@ -601,11 +443,7 @@
             const isPositive = d.revenue_growth > 0;
             growthEl.className =
               "growth " + (isPositive ? "positive" : "negative");
-<<<<<<< HEAD
-            growthEl.textContent = `${isPositive ? "↑" : "↓"} ${Math.abs(d.revenue_growth)}% vs yesterday`;
-=======
             growthEl.innerHTML = `<i data-lucide="${isPositive ? "trending-up" : "trending-down"}" style="width: 14px; height: 14px; margin-right: 4px;"></i> ${Math.abs(d.revenue_growth)}% vs yesterday`;
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           } else {
             growthEl.textContent = "";
           }
@@ -615,24 +453,15 @@
           if (d.yesterday.invoices > 0) {
             const diff = d.today.invoices - d.yesterday.invoices;
             if (diff !== 0) {
-<<<<<<< HEAD
-              invGrowth.className =
-                "growth " + (diff > 0 ? "positive" : "negative");
-              invGrowth.textContent = `${diff > 0 ? "+" : ""}${diff} vs yesterday`;
-=======
               const dist = diff > 0;
               invGrowth.className =
                 "growth " + (dist ? "positive" : "negative");
               invGrowth.innerHTML = `<i data-lucide="${dist ? "plus" : "minus"}" style="width: 12px; height: 12px; margin-right: 2px;"></i>${Math.abs(diff)} vs yesterday`;
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             } else {
               invGrowth.textContent = "";
             }
           }
-<<<<<<< HEAD
-=======
           lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         }
       }
 
@@ -720,19 +549,11 @@
           credit: "#ef4444 ",
         };
         const labels = {
-<<<<<<< HEAD
-          cash: "💵 Cash",
-          card: "💳 Card",
-          upi: "📱 UPI",
-          bank_transfer: "🏦 Bank",
-          credit: "📝 Credit",
-=======
           cash: "Cash",
           card: "Card",
           upi: "UPI",
           bank_transfer: "Bank",
           credit: "Credit",
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         };
 
         paymentChart = new Chart(ctx, {
@@ -851,12 +672,8 @@
 
         if (!low.success || !low.data.length) {
           el.innerHTML =
-<<<<<<< HEAD
-            '<p style="color: var(--success); text-align: center; padding: var(--space-lg);">✓ All stock levels OK</p>';
-=======
             '<div style="color: var(--success); text-align: center; padding: var(--space-lg); display: flex; flex-direction: column; align-items: center; gap: 8px;"><i data-lucide="check-circle" style="width: 32px; height: 32px;"></i><span>Stock levels optimized</span></div>';
           lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           return;
         }
 
@@ -864,21 +681,14 @@
           .map(
             (p) => `
                 <div class="recent-item">
-<<<<<<< HEAD
-                    <span style="font-size: 1rem;">${p.stock_quantity <= 0 ? "❌" : "⚠️"}</span>
-=======
                     <i data-lucide="${p.stock_quantity <= 0 ? "alert-octagon" : "alert-triangle"}" style="width: 16px; height: 16px; color: ${p.stock_quantity <= 0 ? "var(--danger)" : "var(--warning)"};"></i>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     <div style="flex: 1; font-size: 0.875rem; font-weight: 500;">${BillMaster.utils.escapeHtml(p.name)}</div>
                     <span class="badge ${p.stock_quantity <= 0 ? "badge-danger" : "badge-warning"}">${p.stock_quantity} ${p.unit}</span>
                 </div>
             `,
           )
           .join("");
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       async function loadRecentInvoices() {

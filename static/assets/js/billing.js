@@ -427,15 +427,7 @@ async function printInvoice(invoiceId) {
     }
     
     const invoice = result.data;
-<<<<<<< HEAD
-    
-    // Get settings separately
-    const settingsResult = await BillMaster.api.get('settings.php?action=get');
-    const s = settingsResult.success && settingsResult.data ? settingsResult.data : {};
-    const shopName = s.shop_name || s.business_name || 'BillMaster Pro';
-=======
     const s = invoice.settings;
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     const currency = s.currency_symbol || '₹';
     
     const printWindow = window.open('', '_blank');
@@ -459,11 +451,7 @@ async function printInvoice(invoiceId) {
         </head>
         <body>
             <div class="header">
-<<<<<<< HEAD
-                <h2>${shopName}</h2>
-=======
                 <h2>${s.business_name || 'BillMaster Pro'}</h2>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 <p>${s.business_address || ''}</p>
                 <p>${s.business_phone || ''}</p>
             </div>
@@ -494,10 +482,6 @@ async function printInvoice(invoiceId) {
             <div class="footer">
                 <p>Payment: ${invoice.payment_method.toUpperCase()} - ${invoice.payment_status.toUpperCase()}</p>
                 <p>Thank you for your business!</p>
-<<<<<<< HEAD
-                <p>${shopName}</p>
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             </div>
             
             <script>window.print(); window.close();</script>

@@ -13,10 +13,7 @@
     />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/layout.css" />
-<<<<<<< HEAD
-=======
     <script src="https://unpkg.com/lucide@latest"></script>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     <style>
       @media print {
         body * {
@@ -78,12 +75,6 @@
 
       <aside class="sidebar">
         <div class="sidebar-header">
-<<<<<<< HEAD
-          <div class="sidebar-logo">💼</div>
-          <div class="sidebar-brand">
-            <h1>BillMaster</h1>
-            <span>Pro Billing</span>
-=======
           <div class="sidebar-logo">
             <i
               data-lucide="layout-dashboard"
@@ -93,51 +84,11 @@
           <div class="sidebar-brand">
             <h1>BillMaster</h1>
             <span>Pro Edition</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </div>
         </div>
         <nav class="sidebar-nav">
           <div class="nav-section">
             <div class="nav-section-title">Menu</div>
-<<<<<<< HEAD
-            <a href="dashboard.html" class="nav-item"
-              ><span class="nav-item-icon">📊</span><span>Dashboard</span></a
-            >
-            <a href="billing.html" class="nav-item"
-              ><span class="nav-item-icon">🧾</span><span>New Bill</span></a
-            >
-            <a href="invoices.html" class="nav-item active"
-              ><span class="nav-item-icon">📋</span><span>Invoices</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">Manage</div>
-            <a href="products.html" class="nav-item"
-              ><span class="nav-item-icon">📦</span><span>Products</span></a
-            >
-            <a href="customers.html" class="nav-item"
-              ><span class="nav-item-icon">👥</span><span>Customers</span></a
-            >
-            <a href="categories.html" class="nav-item"
-              ><span class="nav-item-icon">🏷️</span><span>Categories</span></a
-            >
-          </div>
-          <div class="nav-section">
-            <div class="nav-section-title">System</div>
-            <a href="settings.html" class="nav-item"
-              ><span class="nav-item-icon">⚙️</span><span>Settings</span></a
-            >
-          </div>
-        </nav>
-        <div class="sidebar-footer">
-          <div class="user-profile" onclick="BillMaster.auth.logout()">
-            <div class="user-avatar">AD</div>
-            <div class="user-info">
-              <div class="user-name">Admin</div>
-              <div class="user-role">Logout</div>
-            </div>
-          </div>
-=======
             <a href="dashboard.html" class="nav-item">
               <span class="nav-item-icon"
                 ><i data-lucide="bar-chart-3"></i
@@ -188,28 +139,18 @@
             <i data-lucide="log-out"></i>
             <span>Logout</span>
           </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         </div>
       </aside>
 
       <main class="main-content">
         <header class="main-header">
           <div class="header-left">
-<<<<<<< HEAD
-            <button class="sidebar-toggle">☰</button>
-            <h2 class="page-title">📋 Invoices</h2>
-          </div>
-          <div class="header-right">
-            <a href="billing.html" class="btn btn-primary">
-              <span>➕</span><span>New Invoice</span>
-=======
             <button class="sidebar-toggle"><i data-lucide="menu"></i></button>
             <h2 class="page-title">Invoice Management</h2>
           </div>
           <div class="header-right">
             <a href="billing.html" class="btn btn-primary">
               <i data-lucide="plus"></i><span>Create Invoice</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             </a>
           </div>
         </header>
@@ -282,11 +223,7 @@
             class="modal-close"
             onclick="BillMaster.modal.close('viewModal')"
           >
-<<<<<<< HEAD
-            ×
-=======
             <i data-lucide="x" style="width: 20px"></i>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </button>
         </div>
         <div class="modal-body" id="invoiceDetails"></div>
@@ -313,10 +250,7 @@
         currentInvoice = null;
 
       document.addEventListener("DOMContentLoaded", async () => {
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         await BillMaster.auth.requireAuth();
         await initUserInfo();
         await loadInvoices();
@@ -330,32 +264,6 @@
         }
       });
 
-<<<<<<< HEAD
-      // Initialize shop name in sidebar
-      async function initShopName() {
-        try {
-          const result = await BillMaster.api.get("settings.php?action=get");
-          if (result.success && result.data && result.data.shop_name) {
-            const sidebarBrands =
-              document.querySelectorAll(".sidebar-brand h1");
-            sidebarBrands.forEach((el) => {
-              el.textContent = result.data.shop_name;
-            });
-          }
-        } catch (error) {
-          console.error("Failed to load shop name:", error);
-        }
-      }
-
-      // Call initShopName after page loads
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initShopName);
-      } else {
-        initShopName();
-      }
-
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       async function loadInvoices() {
         const result = await BillMaster.api.get("invoices.php?action=list");
         if (result.success) {
@@ -415,16 +323,6 @@
             (inv) => `
                 <tr>
                     <td><code style="background: var(--bg-tertiary); padding: 0.125rem 0.5rem; border-radius: var(--radius-sm);">${inv.invoice_number}</code></td>
-<<<<<<< HEAD
-                    <td>${inv.customer_name ? BillMaster.utils.escapeHtml(inv.customer_name) : '<span style="color: var(--text-muted);">Walk-in</span>'}</td>
-                    <td>${BillMaster.utils.formatDateTime(inv.created_at)}</td>
-                    <td style="font-weight: 600; color: var(--success);">${BillMaster.utils.formatCurrency(inv.total_amount)}</td>
-                    <td><span class="badge badge-info">${(inv.payment_method || "cash").toUpperCase()}</span></td>
-                    <td><span class="badge ${inv.payment_status === "paid" ? "badge-success" : "badge-warning"}">${inv.payment_status === "paid" ? "✅ Paid" : "⏳ Pending"}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-ghost" onclick="viewInvoice(${inv.id})" title="View">👁️</button>
-                        <button class="btn btn-sm btn-ghost" onclick="viewInvoice(${inv.id}, true)" title="Print">🖨️</button>
-=======
                     <td>${inv.customer_name ? BillMaster.utils.escapeHtml(inv.customer_name) : '<span style="color: var(--text-muted);">Guest / Walk-in</span>'}</td>
                     <td>${BillMaster.utils.formatDateTime(inv.created_at)}</td>
                     <td style="font-weight: 600; color: var(--success);">${BillMaster.utils.formatCurrency(inv.total_amount)}</td>
@@ -437,16 +335,12 @@
                         <button class="btn btn-sm btn-ghost" onclick="viewInvoice(${inv.id}, true)" title="Print Invoice">
                             <i data-lucide="printer" style="width: 14px; height: 14px;"></i>
                         </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     </td>
                 </tr>
             `,
           )
           .join("");
-<<<<<<< HEAD
-=======
         lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       async function viewInvoice(id, autoPrint = false) {
@@ -461,26 +355,7 @@
         currentInvoice = result.data;
         const inv = currentInvoice;
 
-<<<<<<< HEAD
-        // Get shop name from settings
-        const settingsResult = await BillMaster.api.get(
-          "settings.php?action=get",
-        );
-        const shopName =
-          settingsResult.success &&
-          settingsResult.data &&
-          settingsResult.data.shop_name
-            ? settingsResult.data.shop_name
-            : "BillMaster Pro";
-
         document.getElementById("invoiceDetails").innerHTML = `
-                <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 2px solid var(--primary);">
-                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: var(--space-xs);">${BillMaster.utils.escapeHtml(shopName)}</div>
-                    <div style="font-size: 0.875rem; color: var(--text-muted);">Invoice Details</div>
-                </div>
-=======
-        document.getElementById("invoiceDetails").innerHTML = `
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-lg);">
                     <div>
                         <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Invoice</div>
@@ -501,10 +376,6 @@
                             <tr style="border-bottom: 1px solid var(--border-color);">
                                 <th style="text-align: left; padding: var(--space-sm) 0; color: var(--text-muted);">Item</th>
                                 <th style="text-align: center; padding: var(--space-sm); color: var(--text-muted);">Qty</th>
-<<<<<<< HEAD
-                                <th style="text-align: right; padding: var(--space-sm); color: var(--text-muted);">Tax</th>
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                                 <th style="text-align: right; padding: var(--space-sm) 0; color: var(--text-muted);">Total</th>
                             </tr>
                         </thead>
@@ -515,10 +386,6 @@
                                 <tr style="border-bottom: 1px solid var(--border-color);">
                                     <td style="padding: var(--space-sm) 0;">${BillMaster.utils.escapeHtml(item.product_name)}<br><span style="font-size: 0.75rem; color: var(--text-muted);">@ ${BillMaster.utils.formatCurrency(item.unit_price)}</span></td>
                                     <td style="text-align: center; padding: var(--space-sm);">${item.quantity}</td>
-<<<<<<< HEAD
-                                    <td style="text-align: right; padding: var(--space-sm); font-size: 0.75rem; color: var(--text-muted);">${BillMaster.utils.formatCurrency(item.tax_amount || 0)}<br>(${item.tax_rate || 0}%)</td>
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                                     <td style="text-align: right; padding: var(--space-sm) 0; font-weight: 500;">${BillMaster.utils.formatCurrency(item.total_price)}</td>
                                 </tr>
                             `,
@@ -527,32 +394,8 @@
                         </tbody>
                     </table>
                 </div>
-<<<<<<< HEAD
-                <div style="border-top: 1px solid var(--border-color); padding-top: var(--space-md); margin-bottom: var(--space-lg);">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs); font-size: 0.875rem;">
-                        <span style="color: var(--text-muted);">Subtotal</span>
-                        <span>${BillMaster.utils.formatCurrency(inv.subtotal)}</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs); font-size: 0.875rem;">
-                        <span style="color: var(--text-muted);">Total GST</span>
-                        <span>${BillMaster.utils.formatCurrency(inv.tax_amount)}</span>
-                    </div>
-                    ${
-                      inv.discount_percentage > 0
-                        ? `
-                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs); font-size: 0.875rem;">
-                        <span style="color: var(--text-muted);">Discount (${inv.discount_percentage}%)</span>
-                        <span style="color: var(--danger);">-${BillMaster.utils.formatCurrency(inv.discount_amount)}</span>
-                    </div>`
-                        : ""
-                    }
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; padding-top: var(--space-md); border-top: 2px solid var(--primary);">
-                    <span>Grand Total</span>
-=======
                 <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; padding-top: var(--space-md); border-top: 2px solid var(--primary);">
                     <span>Total</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     <span style="color: var(--success);">${BillMaster.utils.formatCurrency(inv.total_amount)}</span>
                 </div>
                 <div style="display: flex; gap: var(--space-md); margin-top: var(--space-md);">
@@ -566,47 +409,17 @@
         if (autoPrint) setTimeout(printInvoice, 300);
       }
 
-<<<<<<< HEAD
-      async function printInvoice() {
-        if (!currentInvoice) return;
-        const inv = currentInvoice;
-
-        // Get shop name from settings
-        const settingsResult = await BillMaster.api.get(
-          "settings.php?action=get",
-        );
-        const shopName =
-          settingsResult.success &&
-          settingsResult.data &&
-          settingsResult.data.shop_name
-            ? settingsResult.data.shop_name
-            : "BillMaster Pro";
-        const shopPhone =
-          settingsResult.success &&
-          settingsResult.data &&
-          settingsResult.data.business_phone
-            ? settingsResult.data.business_phone
-            : "";
-
-=======
       function printInvoice() {
         if (!currentInvoice) return;
         const inv = currentInvoice;
 
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         const printArea = document.getElementById("printArea");
         printArea.style.display = "block";
         printArea.innerHTML = `
                 <div class="receipt">
                     <div class="receipt-header">
-<<<<<<< HEAD
-                        <div style="font-size: 16px; font-weight: bold;">${BillMaster.utils.escapeHtml(shopName)}</div>
-                        ${shopPhone ? `<div style="font-size: 12px; margin-top: 4px;">${BillMaster.utils.escapeHtml(shopPhone)}</div>` : ""}
-                        <div style="margin-top: 8px;">Invoice: ${inv.invoice_number}</div>
-=======
                         <div style="font-size: 16px; font-weight: bold;">BILLMASTER PRO</div>
                         <div>Invoice: ${inv.invoice_number}</div>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                         <div>${new Date(inv.created_at).toLocaleString()}</div>
                     </div>
                     <div style="margin-bottom: 10px;">Customer: ${inv.customer_name || "Walk-in"}</div>
@@ -625,30 +438,8 @@
                           )
                           .join("")}
                     </div>
-<<<<<<< HEAD
-                    <div class="receipt-row">
-                        <span>Subtotal</span>
-                        <span>₹${parseFloat(inv.subtotal).toFixed(2)}</span>
-                    </div>
-                    <div class="receipt-row">
-                        <span>GST</span>
-                        <span>₹${parseFloat(inv.tax_amount).toFixed(2)}</span>
-                    </div>
-                    ${
-                      inv.discount_percentage > 0
-                        ? `
-                    <div class="receipt-row">
-                        <span>Discount (${inv.discount_percentage}%)</span>
-                        <span>-₹${parseFloat(inv.discount_amount).toFixed(2)}</span>
-                    </div>`
-                        : ""
-                    }
-                    <div class="receipt-row receipt-total">
-                        <span>GRAND TOTAL</span>
-=======
                     <div class="receipt-row receipt-total">
                         <span>TOTAL</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                         <span>₹${parseFloat(inv.total_amount).toFixed(2)}</span>
                     </div>
                     <div class="receipt-row">
@@ -660,13 +451,8 @@
                         <span>${inv.payment_status === "paid" ? "PAID" : "PENDING"}</span>
                     </div>
                     <div class="receipt-footer">
-<<<<<<< HEAD
-                        <div>Thank you for shopping</div>
-                        <div>${BillMaster.utils.escapeHtml(shopName)}</div>
-=======
                         <div>Thank you for your business!</div>
                         <div>BillMaster Pro</div>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     </div>
                 </div>
             `;
