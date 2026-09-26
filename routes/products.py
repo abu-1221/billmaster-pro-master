@@ -8,19 +8,12 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-<<<<<<< HEAD
 from config.database import get_connection, dict_from_row, dict_list_from_rows
 
 products_bp = Blueprint('products', __name__)
 
 def is_logged_in():
     return session.get('logged_in', False)
-=======
-from config.database import get_connection, dict_from_row, dict_list_from_rows, log_activity, admin_required, login_required
-
-products_bp = Blueprint('products', __name__)
-
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 @products_bp.route('/products.php', methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
 def products_handler():
@@ -45,10 +38,6 @@ def products_handler():
     else:
         return jsonify({'success': False, 'message': 'Invalid action'})
 
-<<<<<<< HEAD
-=======
-@login_required
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def list_products():
     """List all products with optional filters"""
     try:
@@ -62,7 +51,6 @@ def list_products():
         
         cursor = conn.cursor()
         
-<<<<<<< HEAD
         # Get global tax rate from settings
         global_tax = "0"
         try:
@@ -76,10 +64,6 @@ def list_products():
         sql = f"""
             SELECT p.*, c.name as category_name, c.gst_percentage as category_gst,
                    COALESCE(p.gst_percentage, c.gst_percentage, {global_tax}) as effective_gst
-=======
-        sql = """
-            SELECT p.*, c.name as category_name 
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             FROM products p 
             LEFT JOIN categories c ON p.category_id = c.id 
             WHERE 1=1
@@ -115,10 +99,6 @@ def list_products():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
-=======
-@login_required
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def get_product():
     """Get single product by ID"""
     try:
@@ -150,17 +130,11 @@ def get_product():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def create_product():
     """Create new product"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@admin_required
-def create_product():
-    """Create new product"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         
@@ -168,7 +142,6 @@ def create_product():
         description = data.get('description', '').strip()
         category_id = data.get('category_id')
         price = float(data.get('price', 0))
-<<<<<<< HEAD
         stock_quantity = int(data.get('stock_quantity', 0))
         unit = data.get('unit', 'pcs').strip()
         barcode = data.get('barcode', '').strip()
@@ -176,14 +149,6 @@ def create_product():
         gst_percentage = data.get('gst_percentage')
         if gst_percentage is not None:
             gst_percentage = float(gst_percentage)
-=======
-        cost_price = float(data.get('cost_price', 0))
-        stock_quantity = int(data.get('stock_quantity', 0))
-        min_stock_level = int(data.get('min_stock_level', 5))
-        unit = data.get('unit', 'pcs').strip()
-        barcode = data.get('barcode', '').strip()
-        is_active = 1 if data.get('is_active', True) else 0
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
         if not name or price <= 0:
             return jsonify({'success': False, 'message': 'Name and valid price are required'})
@@ -195,24 +160,12 @@ def create_product():
         cursor = conn.cursor()
         
         cursor.execute("""
-<<<<<<< HEAD
             INSERT INTO products (name, description, category_id, price, stock_quantity, unit, barcode, is_active, gst_percentage) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (name, description, int(category_id) if category_id else None, price, stock_quantity, unit, barcode, is_active, gst_percentage))
         
         conn.commit()
         new_id = cursor.lastrowid
-=======
-            INSERT INTO products (name, description, category_id, price, cost_price, stock_quantity, min_stock_level, unit, barcode, is_active) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (name, description, int(category_id) if category_id else None, price, cost_price, stock_quantity, min_stock_level, unit, barcode, is_active))
-        
-        conn.commit()
-        new_id = cursor.lastrowid
-        
-        log_activity(conn, session.get('user_id', 1), 'CREATE', 'PRODUCTS', f"Created product: {name} (ID: {new_id})")
-        
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         cursor.close()
         conn.close()
         
@@ -221,17 +174,11 @@ def create_product():
     except Exception as e:
         return jsonify({'success': False, 'message': f'Failed to create product: {str(e)}'})
 
-<<<<<<< HEAD
 def update_product():
     """Update existing product"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@admin_required
-def update_product():
-    """Update existing product"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         prod_id = data.get('id', 0)
@@ -259,21 +206,9 @@ def update_product():
         if 'price' in data:
             updates.append("price = ?")
             params.append(float(data['price']))
-<<<<<<< HEAD
         if 'stock_quantity' in data:
             updates.append("stock_quantity = ?")
             params.append(int(data['stock_quantity']))
-=======
-        if 'cost_price' in data:
-            updates.append("cost_price = ?")
-            params.append(float(data['cost_price']))
-        if 'stock_quantity' in data:
-            updates.append("stock_quantity = ?")
-            params.append(int(data['stock_quantity']))
-        if 'min_stock_level' in data:
-            updates.append("min_stock_level = ?")
-            params.append(int(data['min_stock_level']))
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         if 'unit' in data:
             updates.append("unit = ?")
             params.append(data['unit'])
@@ -283,13 +218,10 @@ def update_product():
         if 'is_active' in data:
             updates.append("is_active = ?")
             params.append(1 if data['is_active'] else 0)
-<<<<<<< HEAD
         if 'gst_percentage' in data:
             updates.append("gst_percentage = ?")
             val = data['gst_percentage']
             params.append(float(val) if val is not None and val != "" else None)
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
         if not updates:
             return jsonify({'success': False, 'message': 'No fields to update'})
@@ -300,12 +232,6 @@ def update_product():
         cursor = conn.cursor()
         cursor.execute(sql, params)
         conn.commit()
-<<<<<<< HEAD
-=======
-        
-        log_activity(conn, session.get('user_id', 1), 'UPDATE', 'PRODUCTS', f"Updated product ID: {prod_id}")
-        
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         cursor.close()
         conn.close()
         
@@ -314,17 +240,11 @@ def update_product():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def delete_product():
     """Soft delete product (mark as inactive)"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@admin_required
-def delete_product():
-    """Soft delete product (mark as inactive)"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         prod_id = request.args.get('id', 0, type=int)
         
@@ -338,12 +258,6 @@ def delete_product():
         cursor = conn.cursor()
         cursor.execute("UPDATE products SET is_active = 0 WHERE id = ?", (prod_id,))
         conn.commit()
-<<<<<<< HEAD
-=======
-        
-        log_activity(conn, session.get('user_id', 1), 'DELETE', 'PRODUCTS', f"Soft-deleted product ID: {prod_id}")
-        
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         cursor.close()
         conn.close()
         
@@ -352,17 +266,11 @@ def delete_product():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def update_stock():
     """Update product stock quantity"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@admin_required
-def update_stock():
-    """Update product stock quantity"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         prod_id = data.get('id', 0)
@@ -389,12 +297,6 @@ def update_stock():
                           (quantity, prod_id))
         
         conn.commit()
-<<<<<<< HEAD
-=======
-        
-        log_activity(conn, session.get('user_id', 1), 'STOCK_UPDATE', 'PRODUCTS', f"Updated stock for ID: {prod_id} (Op: {operation}, Qty: {quantity})")
-        
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         cursor.close()
         conn.close()
         
