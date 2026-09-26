@@ -5,7 +5,6 @@ BillMaster Pro - Python/Flask Backend (SQLite)
 
 from flask import Blueprint, request, jsonify, session
 from datetime import datetime
-<<<<<<< HEAD
 import sqlite3
 import sys
 import os
@@ -19,16 +18,6 @@ invoices_bp = Blueprint('invoices', __name__)
 def is_logged_in():
     return session.get('logged_in', False)
 
-=======
-import sys
-import os
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config.database import get_connection, dict_from_row, dict_list_from_rows, generate_invoice_number, admin_required, login_required, get_settings
-
-invoices_bp = Blueprint('invoices', __name__)
-
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def get_current_user_id():
     return session.get('user_id', 1)
 
@@ -53,10 +42,6 @@ def invoices_handler():
     else:
         return jsonify({'success': False, 'message': 'Invalid action'})
 
-<<<<<<< HEAD
-=======
-@admin_required
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def list_invoices():
     """List all invoices with optional status filter"""
     try:
@@ -95,10 +80,6 @@ def list_invoices():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
-=======
-@login_required
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def get_invoice():
     """Get single invoice with items"""
     try:
@@ -120,7 +101,6 @@ def get_invoice():
         invoice = dict_from_row(row) if row else None
         
         if invoice:
-<<<<<<< HEAD
             # Parse payment details
             if invoice.get('payment_details'):
                 try:
@@ -133,21 +113,13 @@ def get_invoice():
             # Get invoice items
             cursor.execute("""
                 SELECT ii.*, p.name as product_name, ii.tax_rate, ii.tax_amount
-=======
-            # Get invoice items
-            cursor.execute("""
-                SELECT ii.*, p.name as product_name 
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 FROM invoice_items ii 
                 LEFT JOIN products p ON ii.product_id = p.id 
                 WHERE ii.invoice_id = ?
             """, (inv_id,))
             items = dict_list_from_rows(cursor.fetchall())
             invoice['items'] = items
-<<<<<<< HEAD
             invoice['discount_percentage'] = invoice.get('discount_percentage', 0)
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             
             cursor.close()
             conn.close()
@@ -160,17 +132,11 @@ def get_invoice():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def create_invoice():
     """Create new invoice with items"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@login_required
-def create_invoice():
-    """Create new invoice with items"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json()
         
@@ -188,13 +154,9 @@ def create_invoice():
             return jsonify({'success': False, 'message': 'No items in cart'})
         
         # Calculate totals
-<<<<<<< HEAD
         subtotal = 0
         total_tax_amount = 0
         processed_items = []
-=======
-        subtotal = sum(float(item['quantity']) * float(item['unit_price']) for item in items)
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
         conn = get_connection()
         if not conn:
@@ -202,7 +164,6 @@ def create_invoice():
         
         cursor = conn.cursor()
         
-<<<<<<< HEAD
         # Get global tax rate
         cursor.execute("SELECT setting_value FROM settings WHERE setting_key = 'tax_rate'")
         tax_row = cursor.fetchone()
@@ -294,52 +255,6 @@ def create_invoice():
                     INSERT INTO invoice_items (invoice_id, product_id, product_name, quantity, unit_price, tax_rate, tax_amount, total_price)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """, (invoice_id, product_id, product_name, quantity, unit_price, tax_rate, tax_amount, total_price))
-=======
-        # Check automatic discount for regular customers
-        if customer_id and discount_amount == 0:
-            cursor.execute("SELECT status FROM customers WHERE id = ?", (customer_id,))
-            cust = cursor.fetchone()
-            if cust and cust['status'] == 'regular':
-                settings = get_settings(conn)
-                discount_percent = float(settings.get('regular_customer_discount', 10))
-                discount_amount = subtotal * (discount_percent / 100)
-                
-        tax_amount = subtotal * (tax_rate / 100)
-        total_amount = subtotal + tax_amount - discount_amount
-        
-        # Generate invoice number
-        invoice_number = generate_invoice_number(conn)
-        user_id = get_current_user_id()
-        
-        try:
-            # Insert invoice
-            cursor.execute("""
-                INSERT INTO invoices (invoice_number, customer_id, user_id, subtotal, tax_rate, tax_amount, 
-                                     discount_amount, total_amount, payment_method, payment_status) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (invoice_number, customer_id, user_id, subtotal, tax_rate, tax_amount,
-                  discount_amount, total_amount, payment_method, payment_status))
-            
-            invoice_id = cursor.lastrowid
-            
-            # Insert items and update stock
-            for item in items:
-                product_id = int(item['product_id'])
-                quantity = int(item['quantity'])
-                unit_price = float(item['unit_price'])
-                total_price = quantity * unit_price
-                
-                # Get product name
-                cursor.execute("SELECT name FROM products WHERE id = ?", (product_id,))
-                prod = cursor.fetchone()
-                product_name = prod['name'] if prod else 'Unknown'
-                
-                # Insert invoice item
-                cursor.execute("""
-                    INSERT INTO invoice_items (invoice_id, product_id, product_name, quantity, unit_price, total_price)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                """, (invoice_id, product_id, product_name, quantity, unit_price, total_price))
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 
                 # Update stock
                 cursor.execute("""
@@ -365,17 +280,11 @@ def create_invoice():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def update_status():
     """Update invoice payment status"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Unauthorized'})
     
-=======
-@admin_required
-def update_status():
-    """Update invoice payment status"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         inv_id = data.get('id', 0)
@@ -396,10 +305,6 @@ def update_status():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
-=======
-@admin_required
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def today_summary():
     """Get today's invoice summary"""
     try:
