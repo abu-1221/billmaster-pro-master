@@ -4,10 +4,12 @@
  * BillMaster Pro - Billing & Institute Management System
  */
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'billmaster_db');
+// Database credentials come from environment variables.
+// The defaults below are for local development only.
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'billmaster_db');
 
 // Create database connection
 function getConnection() {
@@ -120,12 +122,23 @@ function createTables($conn) {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )");
     
-    // Insert default admin user if not exists
-    $result = $conn->query("SELECT id FROM users WHERE username = 'admin'");
+    // Insert initial admin user if no admin exists yet.
+    // Password comes from ADMIN_PASSWORD env var; otherwise a strong random
+    // password is generated and written to the server error log once.
+    // There is no public default password.
+    $adminUsername = getenv('ADMIN_USERNAME') ?: 'admin';
+    $result = $conn->query("SELECT id FROM users WHERE role = 'admin' LIMIT 1");
     if ($result->num_rows == 0) {
-        $hashedPassword = password_hash('admin123', PASSWORD_DEFAULT);
-        $conn->query("INSERT INTO users (username, password, full_name, email, role) 
-                      VALUES ('admin', '$hashedPassword', 'Administrator', 'admin@billmaster.com', 'admin')");
+        $adminPassword = getenv('ADMIN_PASSWORD');
+        if (!$adminPassword) {
+            $adminPassword = bin2hex(random_bytes(9));
+            error_log("INITIAL ADMIN ACCOUNT CREATED - username: $adminUsername, password: $adminPassword (shown once; set ADMIN_PASSWORD to choose your own)");
+        }
+        $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("INSERT INTO users (username, password, full_name, email, role) VALUES (?, ?, 'Administrator', '', 'admin')");
+        $stmt->bind_param('ss', $adminUsername, $hashedPassword);
+        $stmt->execute();
+        $stmt->close();
     }
     
     // Insert default settings if not exists
