@@ -14,10 +14,6 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/layout.css" />
     <link rel="stylesheet" href="assets/css/billing.css" />
-<<<<<<< HEAD
-=======
-    <script src="https://unpkg.com/lucide@latest"></script>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
   </head>
   <body>
     <div class="app-layout">
@@ -27,22 +23,10 @@
       <aside class="sidebar">
         <button class="sidebar-close" onclick="closeSidebar()">×</button>
         <div class="sidebar-header">
-<<<<<<< HEAD
           <div class="sidebar-logo">💼</div>
           <div class="sidebar-brand">
             <h1>BillMaster</h1>
             <span>Pro Billing</span>
-=======
-          <div class="sidebar-logo">
-            <i
-              data-lucide="layout-dashboard"
-              style="color: white; width: 20px; height: 20px"
-            ></i>
-          </div>
-          <div class="sidebar-brand">
-            <h1>BillMaster</h1>
-            <span>Pro Edition</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </div>
         </div>
 
@@ -50,7 +34,6 @@
           <div class="nav-section">
             <div class="nav-section-title">Menu</div>
             <a href="dashboard.html" class="nav-item">
-<<<<<<< HEAD
               <span class="nav-item-icon">📊</span>
               <span class="nav-item-text">Dashboard</span>
             </a>
@@ -60,19 +43,6 @@
             </a>
             <a href="invoices.html" class="nav-item">
               <span class="nav-item-icon">📋</span>
-=======
-              <span class="nav-item-icon"
-                ><i data-lucide="bar-chart-3"></i
-              ></span>
-              <span class="nav-item-text">Overview</span>
-            </a>
-            <a href="billing.html" class="nav-item active">
-              <span class="nav-item-icon"><i data-lucide="receipt"></i></span>
-              <span class="nav-item-text">Create Invoice</span>
-            </a>
-            <a href="invoices.html" class="nav-item">
-              <span class="nav-item-icon"><i data-lucide="file-text"></i></span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
               <span class="nav-item-text">Invoices</span>
             </a>
           </div>
@@ -80,7 +50,6 @@
           <div class="nav-section">
             <div class="nav-section-title">Manage</div>
             <a href="products.html" class="nav-item">
-<<<<<<< HEAD
               <span class="nav-item-icon">📦</span>
               <span class="nav-item-text">Products</span>
             </a>
@@ -90,17 +59,6 @@
             </a>
             <a href="categories.html" class="nav-item">
               <span class="nav-item-icon">🏷️</span>
-=======
-              <span class="nav-item-icon"><i data-lucide="package"></i></span>
-              <span class="nav-item-text">Inventory</span>
-            </a>
-            <a href="customers.html" class="nav-item">
-              <span class="nav-item-icon"><i data-lucide="users"></i></span>
-              <span class="nav-item-text">Customers</span>
-            </a>
-            <a href="categories.html" class="nav-item">
-              <span class="nav-item-icon"><i data-lucide="tag"></i></span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
               <span class="nav-item-text">Categories</span>
             </a>
           </div>
@@ -108,19 +66,13 @@
           <div class="nav-section">
             <div class="nav-section-title">System</div>
             <a href="settings.html" class="nav-item">
-<<<<<<< HEAD
               <span class="nav-item-icon">⚙️</span>
               <span class="nav-item-text">Settings</span>
-=======
-              <span class="nav-item-icon"><i data-lucide="settings"></i></span>
-              <span class="nav-item-text">Configuration</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
             </a>
           </div>
         </nav>
 
         <div class="sidebar-footer">
-<<<<<<< HEAD
           <div class="user-profile" onclick="BillMaster.auth.logout()">
             <div class="user-avatar">AD</div>
             <div class="user-info">
@@ -128,19 +80,6 @@
               <div class="user-role">Logout</div>
             </div>
           </div>
-=======
-          <div class="user-profile">
-            <div class="user-avatar">AD</div>
-            <div class="user-info">
-              <div class="user-name">Admin</div>
-              <div class="user-role">admin</div>
-            </div>
-          </div>
-          <button class="logout-btn" onclick="BillMaster.auth.logout()">
-            <i data-lucide="log-out"></i>
-            <span>Logout</span>
-          </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         </div>
       </aside>
 
@@ -148,15 +87,8 @@
       <main class="main-content">
         <header class="main-header">
           <div class="header-left">
-<<<<<<< HEAD
             <button class="sidebar-toggle" onclick="openSidebar()">☰</button>
             <h2 class="page-title">🧾 New Bill</h2>
-=======
-            <button class="sidebar-toggle" onclick="openSidebar()">
-              <i data-lucide="menu"></i>
-            </button>
-            <h2 class="page-title">Create New Invoice</h2>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </div>
           <div class="header-right">
             <span
@@ -172,7 +104,6 @@
             <div class="product-section">
               <div class="product-header">
                 <div class="product-search">
-<<<<<<< HEAD
                   <span class="product-search-icon">🔍</span>
                   <input
                     type="text"
@@ -182,21 +113,6 @@
                 </div>
                 <div class="category-filter" id="categoryFilters">
                   <button class="category-btn active" data-id="">All</button>
-=======
-                  <span class="product-search-icon"
-                    ><i data-lucide="search" style="width: 16px"></i
-                  ></span>
-                  <input
-                    type="text"
-                    id="productSearch"
-                    placeholder="Search inventory..."
-                  />
-                </div>
-                <div class="category-filter" id="categoryFilters">
-                  <button class="category-btn active" data-id="">
-                    All Categories
-                  </button>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 </div>
               </div>
               <div class="product-grid" id="productGrid"></div>
@@ -206,54 +122,22 @@
             <div class="cart-section">
               <div class="cart-header">
                 <h3 class="cart-title">
-<<<<<<< HEAD
                   <span>🛒</span>
-=======
-                  <i data-lucide="shopping-cart"></i>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                   <span>Cart</span>
                   <span class="cart-count" id="cartCount">0</span>
                 </h3>
                 <button class="btn btn-sm btn-ghost" onclick="clearCart()">
-<<<<<<< HEAD
                   Clear
-=======
-                  Reset
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 </button>
               </div>
 
               <div class="customer-select">
-<<<<<<< HEAD
                 <input
                   type="text"
                   id="customerSearch"
                   class="customer-select-input"
                   placeholder="👤 Customer (optional)"
                 />
-=======
-                <div
-                  class="customer-search-wrapper"
-                  style="position: relative; display: flex; align-items: center"
-                >
-                  <i
-                    data-lucide="user"
-                    style="
-                      position: absolute;
-                      left: 12px;
-                      width: 16px;
-                      color: var(--text-muted);
-                    "
-                  ></i>
-                  <input
-                    type="text"
-                    id="customerSearch"
-                    class="customer-select-input"
-                    style="padding-left: 40px"
-                    placeholder="Select Customer (Optional)"
-                  />
-                </div>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 <div
                   id="customerDropdown"
                   class="customer-dropdown"
@@ -264,16 +148,7 @@
 
               <div class="cart-items" id="cartItems">
                 <div class="cart-empty">
-<<<<<<< HEAD
                   <div class="cart-empty-icon">🛒</div>
-=======
-                  <div class="cart-empty-icon">
-                    <i
-                      data-lucide="shopping-basket"
-                      style="width: 48px; height: 48px"
-                    ></i>
-                  </div>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                   <p>Cart is empty</p>
                 </div>
               </div>
@@ -281,17 +156,8 @@
               <!-- Cart Footer - Fixed at Bottom -->
               <div class="cart-footer">
                 <div class="cart-summary" id="cartSummary">
-<<<<<<< HEAD
                   <div class="summary-row total">
                     <span>Subtotal</span>
-=======
-                  <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span id="subtotal">₹0.00</span>
-                  </div>
-                  <div class="summary-row total">
-                    <span>Grand Total</span>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     <span class="amount" id="total">₹0.00</span>
                   </div>
                 </div>
@@ -306,11 +172,7 @@
                     id="checkoutBtn"
                     disabled
                   >
-<<<<<<< HEAD
                     <span>💳</span>
-=======
-                    <i data-lucide="credit-card"></i>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                     <span>Checkout</span>
                   </button>
                 </div>
@@ -323,20 +185,13 @@
 
     <!-- Checkout Modal -->
     <div class="modal-overlay" id="checkoutModal">
-<<<<<<< HEAD
       <div class="modal">
         <div class="modal-header">
           <h3 class="modal-title">💳 Complete Payment</h3>
-=======
-      <div class="modal" id="checkoutModalContent">
-        <div class="modal-header">
-          <h3 class="modal-title">Secure Checkout</h3>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           <button
             class="modal-close"
             onclick="BillMaster.modal.close('checkoutModal')"
           >
-<<<<<<< HEAD
             ×
           </button>
         </div>
@@ -420,130 +275,10 @@
                 <div class="form-group" style="margin-bottom: 0;">
                   <label class="form-label">Change to Return</label>
                   <div id="changeReturn" style="font-size: 1.25rem; font-weight: 700; color: var(--warning); padding: 0.5rem 0;">₹0.00</div>
-=======
-            <i data-lucide="x" style="width: 20px"></i>
-          </button>
-        </div>
-        <div class="modal-body" id="checkoutBody">
-          <!-- Step 1: Summary -->
-          <div id="paymentStep1">
-            <div class="order-receipt" id="checkoutSummary">
-              <!-- Rendered via JS -->
-            </div>
-
-            <label class="form-label" style="margin-bottom: var(--space-md)"
-              >Payment Method</label
-            >
-            <div class="payment-grid">
-              <div
-                class="payment-method-card active"
-                data-method="cash"
-                onclick="setPaymentMethod('cash')"
-              >
-                <span class="payment-method-icon"
-                  ><i data-lucide="banknote"></i
-                ></span>
-                <span class="payment-method-name">Cash</span>
-              </div>
-              <div
-                class="payment-method-card"
-                data-method="card"
-                onclick="setPaymentMethod('card')"
-              >
-                <span class="payment-method-icon"
-                  ><i data-lucide="credit-card"></i
-                ></span>
-                <span class="payment-method-name">Card</span>
-              </div>
-              <div
-                class="payment-method-card"
-                data-method="upi"
-                onclick="setPaymentMethod('upi')"
-              >
-                <span class="payment-method-icon"
-                  ><i data-lucide="smartphone"></i
-                ></span>
-                <span class="payment-method-name">UPI</span>
-              </div>
-            </div>
-            <!-- Payment Details Sections -->
-            <div id="cashDetails" class="payment-method-details active">
-              <div class="cash-calc" style="margin-top: var(--space-md)">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: var(--space-sm);
-                    padding: var(--space-sm);
-                    background: var(--bg-hover);
-                    border-radius: var(--radius-sm);
-                    border-left: 4px solid var(--primary);
-                  "
-                >
-                  <span
-                    style="
-                      font-size: 0.75rem;
-                      font-weight: 600;
-                      color: var(--text-secondary);
-                    "
-                    >Exact Amount to Collect:</span
-                  >
-                  <span
-                    id="cashTotalDue"
-                    style="font-weight: 700; color: var(--primary)"
-                    >₹0.00</span
-                  >
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Cash Received</label>
-                  <input
-                    type="number"
-                    id="cashReceived"
-                    class="form-input"
-                    placeholder="0.00"
-                    oninput="calculateChange()"
-                  />
-                </div>
-                <div
-                  class="cash-change-box"
-                  id="cashChangeContainer"
-                  style="
-                    margin-top: var(--space-md);
-                    text-align: center;
-                    padding: var(--space-md);
-                    background: var(--bg-hover);
-                    border: 1px dashed var(--border-color);
-                    border-radius: var(--radius-md);
-                  "
-                >
-                  <div
-                    style="
-                      font-size: 0.65rem;
-                      color: var(--text-muted);
-                      text-transform: uppercase;
-                      margin-bottom: 4px;
-                    "
-                  >
-                    Change to Return
-                  </div>
-                  <div
-                    class="cash-change-amount"
-                    id="cashChange"
-                    style="
-                      font-size: 1.5rem;
-                      font-weight: 800;
-                      color: var(--text-primary);
-                    "
-                  >
-                    ₹0.00
-                  </div>
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 </div>
               </div>
             </div>
 
-<<<<<<< HEAD
             <!-- Card Details -->
             <div id="cardDetails" class="payment-detail-box" style="display: none;">
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
@@ -554,58 +289,10 @@
                 <div class="form-group" style="margin-bottom: 0;">
                   <label class="form-label">Transaction ID</label>
                   <input type="text" id="cardTxnId" class="form-input" placeholder="Ref No." />
-=======
-            <div
-              id="cardDetails"
-              class="payment-method-details"
-              style="display: none"
-            >
-              <div
-                class="card-form"
-                style="
-                  display: grid;
-                  grid-template-columns: 1fr 1fr 1fr;
-                  gap: var(--space-sm);
-                  margin-top: var(--space-md);
-                "
-              >
-                <div class="form-group" style="grid-column: span 3">
-                  <label class="form-label">Card Number</label>
-                  <input
-                    type="text"
-                    id="cardNumber"
-                    class="form-input"
-                    placeholder="XXXX XXXX XXXX XXXX"
-                    maxlength="19"
-                    oninput="formatCardNumber(this)"
-                  />
-                </div>
-                <div class="form-group" style="grid-column: span 2">
-                  <label class="form-label">Expiry</label>
-                  <input
-                    type="text"
-                    id="cardExpiry"
-                    class="form-input"
-                    placeholder="MM/YY"
-                    maxlength="5"
-                    oninput="formatExpiry(this)"
-                  />
-                </div>
-                <div class="form-group">
-                  <label class="form-label">CVV</label>
-                  <input
-                    type="password"
-                    id="cardCVV"
-                    class="form-input"
-                    placeholder="***"
-                    maxlength="3"
-                  />
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
                 </div>
               </div>
             </div>
 
-<<<<<<< HEAD
             <!-- UPI/Bank Details -->
             <div id="upiDetails" class="payment-detail-box" style="display: none;">
               <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-md);">
@@ -624,92 +311,14 @@
           </div>
         </div>
         <div class="modal-footer">
-=======
-            <div
-              id="upiDetails"
-              class="payment-method-details"
-              style="display: none"
-            >
-              <div
-                class="upi-qr-container"
-                style="text-align: center; padding: var(--space-md)"
-              >
-                <div
-                  class="qr-placeholder"
-                  style="
-                    width: 150px;
-                    height: 150px;
-                    background: white;
-                    margin: 0 auto var(--space-md);
-                    padding: 10px;
-                    border-radius: var(--radius-md);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: 1px solid var(--border-color);
-                  "
-                >
-                  <img
-                    id="upiQR"
-                    src=""
-                    alt="UPI QR Code"
-                    style="max-width: 100%"
-                  />
-                </div>
-                <div style="font-weight: 600; font-size: 0.875rem">
-                  Scan & Pay with any UPI App
-                </div>
-                <div
-                  style="
-                    font-size: 0.75rem;
-                    color: var(--text-muted);
-                    margin-bottom: var(--space-md);
-                  "
-                >
-                  Recipient: 892548367@upi
-                </div>
-
-                <button
-                  id="upiVerifyBtn"
-                  class="btn btn-secondary btn-sm"
-                  style="width: 100%"
-                  onclick="verifyUPIPayment()"
-                >
-                  <i data-lucide="refresh-cw"></i>
-                  <span>Verify Payment Status</span>
-                </button>
-                <div
-                  id="upiStatus"
-                  style="
-                    display: none;
-                    margin-top: var(--space-sm);
-                    font-size: 0.75rem;
-                    font-weight: 600;
-                  "
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer" id="checkoutFooter">
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           <button
             class="btn btn-secondary"
             onclick="BillMaster.modal.close('checkoutModal')"
           >
             Cancel
           </button>
-<<<<<<< HEAD
           <button class="btn btn-success" onclick="processPayment()">
             Complete Payment
-=======
-          <button
-            class="btn btn-success"
-            onclick="processPayment()"
-            id="confirmPaymentBtn"
-          >
-            <span>✓</span> Confirm & Pay
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           </button>
         </div>
       </div>
@@ -721,14 +330,7 @@
         categories = [],
         cart = [],
         customers = [],
-<<<<<<< HEAD
         selectedCustomer = null;
-=======
-        settings = {},
-        selectedCustomer = null,
-        currentPaymentMethod = "cash",
-        upiVerified = false;
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
       // Sidebar Functions
       function openSidebar() {
@@ -762,16 +364,11 @@
 
       // Init
       document.addEventListener("DOMContentLoaded", async () => {
-<<<<<<< HEAD
-=======
-        lucide.createIcons();
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         await BillMaster.auth.requireAuth();
         await initUserInfo();
         await loadData();
         initSearch();
         initCustomerSearch();
-<<<<<<< HEAD
         initPaymentMethods();
       });
 
@@ -827,16 +424,6 @@
           BillMaster.api.get("categories.php?action=list"),
           BillMaster.api.get("products.php?action=list&active_only=true"),
           BillMaster.api.get("customers.php?action=list"),
-=======
-      });
-
-      async function loadData() {
-        const [catRes, prodRes, custRes, setRes] = await Promise.all([
-          BillMaster.api.get("categories.php?action=list"),
-          BillMaster.api.get("products.php?action=list&active_only=true"),
-          BillMaster.api.get("customers.php?action=list"),
-          BillMaster.api.get("settings.php?action=get"),
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         ]);
 
         if (catRes.success) {
@@ -848,10 +435,6 @@
           renderProducts();
         }
         if (custRes.success) customers = custRes.data;
-<<<<<<< HEAD
-=======
-        if (setRes.success) settings = setRes.data;
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       function renderCategories() {
@@ -931,13 +514,7 @@
           const matches = customers.filter(
             (c) =>
               c.name.toLowerCase().includes(val) ||
-<<<<<<< HEAD
               (c.phone && c.phone.includes(val)),
-=======
-              (c.phone && c.phone.includes(val)) ||
-              (c.customer_number &&
-                c.customer_number.toLowerCase().includes(val)),
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           );
           if (matches.length) {
             dropdown.innerHTML = matches
@@ -963,28 +540,12 @@
         document.getElementById("customerSearch").style.display = "none";
         document.getElementById("customerDropdown").style.display = "none";
         document.getElementById("selectedCustomer").style.display = "block";
-<<<<<<< HEAD
         document.getElementById("selectedCustomer").innerHTML = `
           <div class="selected-customer">
             <span class="selected-customer-info">👤 ${BillMaster.utils.escapeHtml(selectedCustomer.name)}</span>
             ${selectedCustomer.default_discount > 0 ? `<span class="badge badge-success" style="font-size: 0.7rem; margin-left: 8px;">🎁 ${selectedCustomer.default_discount}% Disc.</span>` : ""}
             <button class="selected-customer-remove" onclick="removeCustomer()">×</button>
           </div>`;
-=======
-
-        let badge = "";
-        if (selectedCustomer.status === "regular") {
-          badge = `<span class="badge badge-success" style="margin-left: 8px; font-size: 0.7rem; padding: 2px 6px;">Regular (10% Off)</span>`;
-        }
-
-        document.getElementById("selectedCustomer").innerHTML = `
-          <div class="selected-customer">
-            <span class="selected-customer-info">👤 ${BillMaster.utils.escapeHtml(selectedCustomer.name)}${badge}</span>
-            <button class="selected-customer-remove" onclick="removeCustomer()">×</button>
-          </div>`;
-
-        renderCart(); // Re-render to apply discount
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       function removeCustomer() {
@@ -992,10 +553,6 @@
         document.getElementById("customerSearch").style.display = "block";
         document.getElementById("customerSearch").value = "";
         document.getElementById("selectedCustomer").style.display = "none";
-<<<<<<< HEAD
-=======
-        renderCart(); // Re-render to remove discount
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
       }
 
       function addToCart(productId) {
@@ -1017,10 +574,7 @@
             quantity: 1,
             unit: product.unit,
             max: product.stock_quantity,
-<<<<<<< HEAD
             gst_rate: parseFloat(product.effective_gst || 0),
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           });
         }
         renderCart();
@@ -1054,11 +608,7 @@
       function renderCart() {
         const container = document.getElementById("cartItems");
         const countEl = document.getElementById("cartCount");
-<<<<<<< HEAD
         const totalEl = document.getElementById("total");
-=======
-        const summaryEl = document.getElementById("cartSummary");
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         const checkoutBtn = document.getElementById("checkoutBtn");
 
         countEl.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
@@ -1066,56 +616,13 @@
         if (!cart.length) {
           container.innerHTML =
             '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Cart is empty</p></div>';
-<<<<<<< HEAD
           totalEl.textContent = "₹0.00";
-=======
-          summaryEl.innerHTML = `
-                  <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span id="subtotal">₹0.00</span>
-                  </div>
-                  <div class="summary-row total">
-                    <span>Grand Total</span>
-                    <span class="amount" id="total">₹0.00</span>
-                  </div>`;
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
           checkoutBtn.disabled = true;
           return;
         }
 
         const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-<<<<<<< HEAD
         totalEl.textContent = BillMaster.utils.formatCurrency(subtotal);
-=======
-        let discount = 0;
-        let discountHtml = "";
-
-        if (selectedCustomer && selectedCustomer.status === "regular") {
-          const discountPercent = parseFloat(
-            settings.regular_customer_discount || 10,
-          );
-          discount = subtotal * (discountPercent / 100);
-          discountHtml = `
-                <div class="summary-row" style="color: var(--success);">
-                    <span>Regular Discount (${discountPercent}%)</span>
-                    <span>- ${BillMaster.utils.formatCurrency(discount)}</span>
-                </div>`;
-        }
-
-        const total = subtotal - discount;
-
-        summaryEl.innerHTML = `
-              <div class="summary-row">
-                <span>Subtotal</span>
-                <span>${BillMaster.utils.formatCurrency(subtotal)}</span>
-              </div>
-              ${discountHtml}
-              <div class="summary-row total">
-                <span>Grand Total</span>
-                <span class="amount">${BillMaster.utils.formatCurrency(total)}</span>
-              </div>`;
-
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         checkoutBtn.disabled = false;
 
         container.innerHTML = cart
@@ -1139,7 +646,6 @@
           .join("");
       }
 
-<<<<<<< HEAD
       function openCheckout() {
         if (!cart.length) return;
         // Apply customer's default discount if available
@@ -1232,248 +738,6 @@
             return;
         }
 
-=======
-      function setPaymentMethod(method) {
-        currentPaymentMethod = method;
-        document.querySelectorAll(".payment-method-card").forEach((card) => {
-          card.classList.remove("active");
-          card.style.borderColor = "var(--border-color)";
-          card.style.background = "transparent";
-          if (card.dataset.method === method) {
-            card.classList.add("active");
-            card.style.borderColor = "var(--primary)";
-            card.style.background = "var(--primary-pale)";
-          }
-        });
-
-        // Toggle detail sections
-        const details = ["cashDetails", "cardDetails", "upiDetails"];
-        details.forEach((id) => {
-          const el = document.getElementById(id);
-          if (el) el.style.display = "none";
-        });
-
-        const activeId = method + "Details";
-        const activeEl = document.getElementById(activeId);
-        if (activeEl) {
-          activeEl.style.display = "block";
-          activeEl.classList.add("active");
-        }
-
-        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        let discount = 0;
-        if (selectedCustomer && selectedCustomer.status === "regular") {
-          const discountPercent = parseFloat(
-            settings.regular_customer_discount || 10,
-          );
-          discount = subtotal * (discountPercent / 100);
-        }
-        const total = subtotal - discount;
-
-        if (method === "upi") {
-          document.getElementById("upiQR").src =
-            `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=892548367@upi%26pn=BillMasterPro%26am=${total}%26cu=INR`;
-          upiVerified = false;
-          const uS = document.getElementById("upiStatus");
-          if (uS) uS.style.display = "none";
-          const uB = document.getElementById("upiVerifyBtn");
-          if (uB) {
-            uB.disabled = false;
-            uB.innerHTML =
-              '<i data-lucide="refresh-cw"></i> <span>Verify Payment Status</span>';
-            lucide.createIcons();
-          }
-        }
-
-        calculateChange();
-      }
-
-      function formatCardNumber(input) {
-        let v = input.value.replace(/\D/g, "");
-        let formatted = "";
-        for (let i = 0; i < v.length; i++) {
-          if (i > 0 && i % 4 === 0) formatted += " ";
-          formatted += v[i];
-        }
-        input.value = formatted;
-      }
-
-      function formatExpiry(input) {
-        let v = input.value.replace(/\D/g, "");
-        if (v.length > 2) {
-          input.value = v.substring(0, 2) + "/" + v.substring(2, 4);
-        } else {
-          input.value = v;
-        }
-      }
-
-      async function verifyUPIPayment() {
-        const btn = document.getElementById("upiVerifyBtn");
-        const status = document.getElementById("upiStatus");
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner spinner-sm"></span> Verifying...';
-
-        // Simulate network delay for verification
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        upiVerified = true;
-        status.style.display = "block";
-        status.style.color = "var(--success)";
-        status.textContent = "Payment Verified Successfully";
-        btn.innerHTML = '<i data-lucide="check"></i> Verified';
-        lucide.createIcons();
-      }
-
-      function calculateChange() {
-        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        let discount = 0;
-        if (selectedCustomer && selectedCustomer.status === "regular") {
-          const discountPercent = parseFloat(
-            settings.regular_customer_discount || 10,
-          );
-          discount = subtotal * (discountPercent / 100);
-        }
-        const total = subtotal - discount;
-
-        const receivedInput = document.getElementById("cashReceived");
-        if (!receivedInput) return;
-
-        const received = parseFloat(receivedInput.value) || 0;
-        const change = received - total;
-        const changeEl = document.getElementById("cashChange");
-        const container = document.getElementById("cashChangeContainer");
-
-        if (changeEl) {
-          changeEl.textContent = BillMaster.utils.formatCurrency(
-            Math.max(0, change),
-          );
-          if (received === 0) {
-            container.style.background = "var(--bg-hover)";
-            container.style.borderColor = "var(--border-color)";
-            changeEl.style.color = "var(--text-primary)";
-          } else if (change >= 0) {
-            container.style.background = "var(--success-pale)";
-            container.style.borderColor = "var(--success)";
-            changeEl.style.color = "var(--success)";
-          } else {
-            container.style.background = "var(--danger-pale)";
-            container.style.borderColor = "var(--danger)";
-            changeEl.style.color = "var(--danger)";
-          }
-        }
-      }
-
-      function openCheckout() {
-        if (!cart.length) return;
-
-        BillMaster.modal.open("checkoutModal");
-        setPaymentMethod("cash");
-        if (document.getElementById("cashReceived")) {
-          document.getElementById("cashReceived").value = "";
-        }
-
-        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        let discount = 0;
-        let discountHtml = "";
-
-        if (selectedCustomer && selectedCustomer.status === "regular") {
-          const discountPercent = parseFloat(
-            settings.regular_customer_discount || 10,
-          );
-          discount = subtotal * (discountPercent / 100);
-          discountHtml = `
-              <div class="receipt-item" style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 4px; color: var(--success);">
-                <span>Regular Discount (${discountPercent}%)</span>
-                <span>- ${BillMaster.utils.formatCurrency(discount)}</span>
-              </div>`;
-        }
-        const total = subtotal - discount;
-
-        const cashTotalDue = document.getElementById("cashTotalDue");
-        if (cashTotalDue) {
-          cashTotalDue.textContent = BillMaster.utils.formatCurrency(total);
-        }
-
-        const receiptHtml = `
-          <div class="receipt-header" style="text-align: center; border-bottom: 1px dashed var(--border-color); padding-bottom: var(--space-md); margin-bottom: var(--space-md)">
-            <div style="font-weight: 800; font-size: 1.25rem;">BillMaster Pro</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted);">Secure Checkout</div>
-          </div>
-          <div style="margin-bottom: var(--space-md);">
-            ${cart
-              .map(
-                (i) => `
-              <div class="receipt-item" style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 4px">
-                <span>${BillMaster.utils.escapeHtml(i.name)} (x${i.quantity})</span>
-                <span>${BillMaster.utils.formatCurrency(i.price * i.quantity)}</span>
-              </div>
-            `,
-              )
-              .join("")}
-            ${discountHtml}
-          </div>
-          <div class="receipt-total" style="border-top: 2px solid var(--text-primary); margin-top: var(--space-md); padding-top: var(--space-sm); display: flex; justify-content: space-between; font-weight: 800; font-size: 1.125rem">
-            <span>TOTAL DUE</span>
-            <span style="color: var(--success)">${BillMaster.utils.formatCurrency(total)}</span>
-          </div>
-        `;
-        const summaryEl = document.getElementById("checkoutSummary");
-        if (summaryEl) summaryEl.innerHTML = receiptHtml;
-      }
-
-      async function processPayment() {
-        const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        let discount = 0;
-        if (selectedCustomer && selectedCustomer.status === "regular") {
-          const discountPercent = parseFloat(
-            settings.regular_customer_discount || 10,
-          );
-          discount = subtotal * (discountPercent / 100);
-        }
-        const total = subtotal - discount;
-
-        // Validation based on method
-        if (currentPaymentMethod === "cash") {
-          const received =
-            parseFloat(document.getElementById("cashReceived").value) || 0;
-          if (received < total) {
-            BillMaster.toast.error(
-              "Incomplete Amount: Total received is less than total due",
-            );
-            return;
-          }
-        } else if (currentPaymentMethod === "card") {
-          const num = document
-            .getElementById("cardNumber")
-            .value.replace(/\s/g, "");
-          const exp = document.getElementById("cardExpiry").value;
-          const cvv = document.getElementById("cardCVV").value;
-
-          if (num.length < 13 || num.length > 19) {
-            BillMaster.toast.error("Invalid Card Number");
-            return;
-          }
-          if (!/^\d{2}\/\d{2}$/.test(exp)) {
-            BillMaster.toast.error("Invalid Expiry (MM/YY)");
-            return;
-          }
-          if (cvv.length < 3) {
-            BillMaster.toast.error("Invalid CVV");
-            return;
-          }
-        } else if (currentPaymentMethod === "upi") {
-          if (!upiVerified) {
-            BillMaster.toast.error("Please verify UPI payment status first");
-            return;
-          }
-        }
-
-        const btn = document.getElementById("confirmPaymentBtn");
-        btn.disabled = true;
-        btn.innerHTML =
-          '<span class="spinner spinner-sm"></span> Finalizing Transaction...';
-
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         const data = {
           customer_id: selectedCustomer?.id || null,
           items: cart.map((i) => ({
@@ -1481,7 +745,6 @@
             quantity: i.quantity,
             unit_price: i.price,
           })),
-<<<<<<< HEAD
           discount_percentage:
             parseFloat(document.getElementById("discountPerc").value) || 0,
           payment_method: paymentMethod,
@@ -1491,20 +754,12 @@
             card_digits: document.getElementById('cardLastDigits').value,
             txn_id: document.getElementById('cardTxnId').value || document.getElementById('upiRefId').value
           }
-=======
-          subtotal: subtotal,
-          discount_amount: discount,
-          total_amount: total,
-          payment_method: currentPaymentMethod,
-          payment_status: "paid",
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         };
 
         const result = await BillMaster.api.post(
           "invoices.php?action=create",
           data,
         );
-<<<<<<< HEAD
         if (result.success) {
           BillMaster.toast.success("Invoice created successfully!");
           BillMaster.modal.close("checkoutModal");
@@ -1518,55 +773,6 @@
           BillMaster.toast.error(result.message || "Failed to create invoice");
         }
       }
-=======
-
-        if (result.success) {
-          showSuccessScreen(result.invoice_id);
-          clearCart();
-          await loadData();
-        } else {
-          BillMaster.toast.error(
-            result.message || "Payment verification failed",
-          );
-          btn.disabled = false;
-          btn.innerHTML = "<span>✓</span> Confirm & Pay";
-        }
-      }
-
-      function showSuccessScreen(invoiceId) {
-        const body = document.getElementById("checkoutBody");
-        const footer = document.getElementById("checkoutFooter");
-
-        footer.style.display = "none";
-        body.innerHTML = `
-            <div class="success-state">
-                <div class="success-icon" style="width: 80px; height: 80px; background: var(--success-pale); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto var(--space-lg); animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">✓</div>
-                <h2 class="success-title" style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-sm);">Payment Successful!</h2>
-                <p class="success-message" style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-xl);">Transaction confirmed. Invoice #${invoiceId} has been generated.</p>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
-                    <button class="btn btn-primary" style="grid-column: span 2" onclick="window.open('invoices.html?print=${invoiceId}', '_blank')">
-                        <span>🖨️</span> Print Invoice
-                    </button>
-                    <button class="btn btn-success" onclick="startNewSale()">
-                        🔄 New Sale
-                    </button>
-                    <button class="btn btn-secondary" onclick="BillMaster.modal.close('checkoutModal')">
-                        Close
-                    </button>
-                </div>
-            </div>
-        `;
-      }
-
-      function startNewSale() {
-        clearCart();
-        BillMaster.modal.close("checkoutModal");
-        // We reload if the DOM was too heavily modified, but for now just close
-        // The next 'openCheckout' will rebuild the summary anyway
-        setTimeout(() => window.location.reload(), 100);
-      }
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     </script>
   </body>
 </html>
