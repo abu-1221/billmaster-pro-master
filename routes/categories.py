@@ -8,19 +8,12 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-<<<<<<< HEAD
 from config.database import get_connection, dict_from_row, dict_list_from_rows
 
 categories_bp = Blueprint('categories', __name__)
 
 def is_logged_in():
     return session.get('logged_in', False)
-=======
-from config.database import get_connection, dict_from_row, dict_list_from_rows, admin_required, login_required
-
-categories_bp = Blueprint('categories', __name__)
-
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 
 @categories_bp.route('/categories.php', methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
 def categories_handler():
@@ -43,10 +36,6 @@ def categories_handler():
     else:
         return jsonify({'success': False, 'message': 'Invalid action'})
 
-<<<<<<< HEAD
-=======
-@login_required
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
 def list_categories():
     """List all categories with product count"""
     try:
@@ -95,25 +84,16 @@ def get_category():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def create_category():
     """Create new category"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@admin_required
-def create_category():
-    """Create new category"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         name = data.get('name', '').strip()
         description = data.get('description', '').strip()
-<<<<<<< HEAD
         gst_percentage = float(data.get('gst_percentage', 0))
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
         if not name:
             return jsonify({'success': False, 'message': 'Category name is required'})
@@ -123,12 +103,8 @@ def create_category():
             return jsonify({'success': False, 'message': 'Database connection failed'})
         
         cursor = conn.cursor()
-<<<<<<< HEAD
         cursor.execute("INSERT INTO categories (name, description, gst_percentage) VALUES (?, ?, ?)", 
                       (name, description, gst_percentage))
-=======
-        cursor.execute("INSERT INTO categories (name, description) VALUES (?, ?)", (name, description))
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         conn.commit()
         new_id = cursor.lastrowid
         cursor.close()
@@ -139,26 +115,17 @@ def create_category():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def update_category():
     """Update existing category"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@admin_required
-def update_category():
-    """Update existing category"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         data = request.get_json() or {}
         cat_id = data.get('id', 0)
         name = data.get('name', '').strip()
         description = data.get('description', '').strip()
-<<<<<<< HEAD
         gst_percentage = float(data.get('gst_percentage', 0))
-=======
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         
         if not cat_id or not name:
             return jsonify({'success': False, 'message': 'Valid ID and name required'})
@@ -168,13 +135,8 @@ def update_category():
             return jsonify({'success': False, 'message': 'Database connection failed'})
         
         cursor = conn.cursor()
-<<<<<<< HEAD
         cursor.execute("UPDATE categories SET name = ?, description = ?, gst_percentage = ? WHERE id = ?", 
                       (name, description, gst_percentage, cat_id))
-=======
-        cursor.execute("UPDATE categories SET name = ?, description = ? WHERE id = ?", 
-                      (name, description, cat_id))
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
         conn.commit()
         cursor.close()
         conn.close()
@@ -184,17 +146,11 @@ def update_category():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
-<<<<<<< HEAD
 def delete_category():
     """Delete category"""
     if not is_logged_in():
         return jsonify({'success': False, 'message': 'Please login first'})
     
-=======
-@admin_required
-def delete_category():
-    """Delete category"""
->>>>>>> 4f151ba889a92f5cfc2a6138a048400af67ad5de
     try:
         cat_id = request.args.get('id', 0, type=int)
         
